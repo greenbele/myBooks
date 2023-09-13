@@ -1,0 +1,382 @@
+import * as React from 'react';
+import axios from 'axios';
+import { sortBy } from 'lodash';
+
+/* eslint-disable react/prop-types */
+
+const useStorageState = (key, initialState) => {
+  const [value, setValue] = React.useState(
+    localStorage.getItem(key) ?? initialState
+  );
+
+  React.useEffect(() => {
+    console.log('localStorage useEffect'); // SCAFF
+    localStorage.setItem(key, value);
+  }, [value, key]);
+
+  return [value, setValue];
+};
+
+/*
+const initialStories = [
+  {
+    title: 'React',
+    url: 'https://reactjs.org/',
+    author: 'Jordan Walke',
+    num_comments: 3,
+    points: 4,
+    objectID: 0,
+  },
+  {
+    title: 'Redux',
+    url: 'https://redux.js.org/',
+    author: 'Dan Abramov, Andrew Clark',
+    num_comments: 2,
+    points: 5,
+    objectID: 1,
+  },
+  {
+    title: 'Python',
+    url: 'https://python.org/',
+    author: 'Guido Van Rossum',
+    num_comments: 12,
+    points: 50,
+    objectID: 2,
+  },
+];
+
+const getAsyncStories = () =>
+  // new Promise((resolve, reject) => setTimeout(reject, 5000));
+  new Promise((resolve) =>
+    setTimeout(
+      () => resolve({ data: { stories: initialStories } }),
+      5000
+    )
+  );
+*/
+
+const storiesReducer = (state, action) => {
+  switch (action.type) {
+    case 'STORIES_FETCH_INIT':
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case 'STORIES_FETCH_SUCCESS':
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        data: action.payload,
+      };
+    case 'STORIES_FETCH_FAILURE':
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+    case 'REMOVE_STORY':
+      return {
+        ...state,
+        data: state.data.filter(
+          (story) => action.payload.objectID !== story.objectID
+        ),
+      };
+    default:
+      throw new Error();
+  }
+};
+
+// const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
+const API_ENDPOINT = 'http://localhost:5000/json?unused=';
+
+const App = () => {
+  const [searchTerm, setSearchTerm] = useStorageState(
+    'search',
+    'React',
+  );
+
+  const [url, setUrl] = React.useState(
+    `${API_ENDPOINT}${searchTerm}`
+  );
+
+  const [stories, dispatchStories] = React.useReducer(
+    storiesReducer,
+    { data: [], isLoading: false, isError: false },
+  );
+  /*
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isError, setIsError] = React.useState(false);
+  */
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+  const handleFetchStories = React.useCallback(async () => {
+    if (!searchTerm) return;
+
+    dispatchStories({ type: 'STORIES_FETCH_INIT' });
+
+    try {
+      const result = await axios.get(url);
+      dispatchStories({
+        type: 'STORIES_FETCH_SUCCESS',
+        payload: result.data.hits,
+      });
+    } catch (e) {
+      dispatchStories({ type: 'STORIES_FETCH_FAILURE' });
+    }
+  }, [url]);
+
+  React.useEffect(() => {
+    handleFetchStories();
+  }, [handleFetchStories]);
+
+  const handleRemoveStory = React.useCallback((item) => {
+    dispatchStories({
+      type: 'REMOVE_STORY',
+      payload: item,
+    });
+  }, []);
+
+  const handleSearchInput = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    setUrl(`${API_ENDPOINT}${searchTerm}`);
+
+    event.preventDefault();
+  };
+
+  /* Client-side search
+  const searchedStories = stories.data.filter((story) =>
+    story.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  */
+
+  console.log('Rendering: App'); // SCAFF
+  return (
+    <div>
+      <h1>My Hacker Stories</h1>
+
+      <SearchForm
+        searchTerm={searchTerm}
+        onSearchInput={handleSearchInput}
+        onSearchSubmit={handleSearchSubmit}
+      />
+
+      <hr />
+
+      {stories.isError && <p>Something went wrong ...</p>}
+
+      {stories.isLoading ? (
+        <p
+          style={{ textAlign: 'center' /* custom */ }}
+        >
+          Loading
+          <Dots />{/* custom replacement for static `...` */}
+        </p>) : (
+        <List
+          list={stories.data}
+          onRemoveItem={handleRemoveStory}
+        />
+        )
+      }
+    </div>
+  );
+};
+
+/* Start custom components */
+const Dots = () => {
+  const [dots, setDots] = React.useState(0);
+
+  React.useEffect(() => {
+    const LIMIT = 4 * 1000;
+    let numDots = 0;
+
+    const func = setInterval(() => {
+      if (numDots === LIMIT) {
+        numDots = 1;
+      } else {
+        numDots += 1;
+        setDots(numDots % 4);
+      }
+    }, 200);
+
+    return () => clearInterval(func);
+  }, []);
+
+  return <>{'.'.repeat(dots)}</>
+}
+/* End custom components */
+
+const SearchForm = ({
+  searchTerm,
+  onSearchInput,
+  onSearchSubmit,
+}) => (
+  <form onSubmit={onSearchSubmit}>
+    <InputWithLabel
+      id="search"
+      value={searchTerm}
+      isFocused
+      onInputChange={onSearchInput}
+    >
+      <strong>Search:</strong>
+    </InputWithLabel>
+
+    <button type="submit" disabled={!searchTerm}>
+      Submit
+    </button>
+  </form>
+);
+
+const InputWithLabel = ({
+  id,
+  value,
+  type = 'text',
+  onInputChange,
+  isFocused,
+  children,
+}) => {
+  const inputRef = React.useRef();
+
+  React.useEffect(() => {
+    if (isFocused && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isFocused]);
+
+  return (
+    <>
+      <label htmlFor={id}>{children}</label>
+
+      &nbsp;
+
+      <input
+        ref={inputRef}
+        id={id}
+        type={type}
+        value={value}
+        onChange={onInputChange}
+      />
+    </>
+  );
+};
+
+const SORTS = {
+  NONE: (list) => list,
+  TITLE: (list) => sortBy(list, 'title'),
+  AUTHOR: (list) => sortBy(list, 'author'),
+  COMMENT: (list) => sortBy(list, 'num_comments').reverse(),
+  POINT: (list) => sortBy(list, 'points').reverse(),
+};
+const DEFAULT = {
+  backgroundColor: 'rgba(127,127,127,0.3)',
+  color: 'black',
+};
+const ACTIVE = {
+  backgroundColor: 'black',
+  color: 'white',
+};
+let activeTitleStyle = DEFAULT;
+let activeAuthorStyle = DEFAULT;
+let activeCommentStyle = DEFAULT;
+let activePointStyle = DEFAULT;
+
+/* eslint-disable react/display-name */
+const List = React.memo(({ list, onRemoveItem }) => {
+  const [sort, setSort] = React.useState('NONE');
+
+  const handleSort = (sortKey) => {
+    switch (sortKey) {
+      case 'TITLE':
+        activeTitleStyle = ACTIVE;
+        activeAuthorStyle = DEFAULT;
+        activeCommentStyle = DEFAULT;
+        activePointStyle = DEFAULT;
+        break;
+      case 'AUTHOR':
+        activeTitleStyle = DEFAULT;
+        activeAuthorStyle = ACTIVE;
+        activeCommentStyle = DEFAULT;
+        activePointStyle = DEFAULT;
+        break;
+      case 'COMMENT':
+        activeTitleStyle = DEFAULT;
+        activeAuthorStyle = DEFAULT;
+        activeCommentStyle = ACTIVE;
+        activePointStyle = DEFAULT;
+        break;
+      case 'POINT':
+        activeTitleStyle = DEFAULT;
+        activeAuthorStyle = DEFAULT;
+        activeCommentStyle = DEFAULT;
+        activePointStyle = ACTIVE;
+    }
+
+    setSort(sortKey);
+  };
+
+  const sortFunction = SORTS[sort];
+  const sortedList = sortFunction(list);
+
+  return (
+    <ul>
+      <li style={{ display: 'flex' }}>
+        <span style={{ width: '20%' }}>
+          <button type="button" style={{...activeTitleStyle}} onClick={() => handleSort('TITLE')}>
+            Title
+          </button>
+        </span>
+        <span style={{ width: '25%' }}>
+          <button type="button" style={{...activeAuthorStyle}} onClick={() => handleSort('AUTHOR')}>
+            Author
+          </button>
+        </span>
+        <span style={{ width: '25%' }}>
+          <button type="button" style={{...activeCommentStyle}} onClick={() => handleSort('COMMENT')}>
+            Comments
+          </button>
+        </span>
+        <span style={{ width: '20%' }}>
+          <button type="button" style={{...activePointStyle}} onClick={() => handleSort('POINT')}>
+            Points
+          </button>
+        </span>
+        <span style={{ width: '10%' }}>
+          Actions
+        </span>
+      </li>
+
+      {sortedList.map((item) => (
+        <Item
+          key={item.objectID}
+          item={item}
+          onRemoveItem={onRemoveItem}
+        />
+      ))}
+    </ul>
+  )
+});
+
+const Item = ({ item, onRemoveItem }) => {
+  return (
+    <li style={{ display: 'flex' }}>
+      <span style={{ width: '20%' }}>
+        <a href={item.url} style={{ color: 'black' }}>{item.title}</a>
+      </span>
+      <span style={{ width: '25%' }}>{item.author}</span>
+      <span style={{ width: '25%' }}>{item.num_comments}</span>
+      <span style={{ width: '20%' }}>{item.points}</span>
+      <span style={{ width: '10%' }}>
+        <button type="button" onClick={() => onRemoveItem(item)}>
+          Dismiss
+        </button>
+      </span>
+    </li>
+  );
+};
+
+export default App;
+export { /* storiesReducer, */ SearchForm, InputWithLabel, List, Item };
