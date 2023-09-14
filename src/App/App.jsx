@@ -64,8 +64,10 @@ const App = () => {
   const handleAsideClick = () => {
     if (asideVisibility === 'hide') {
       setAsideVisibility('show');
+      handleMaskEvent();
     } else {
       setAsideVisibility('hide');
+      handleMaskEvent();
     }
   };
 
@@ -89,9 +91,51 @@ const App = () => {
     console.log('handling book creation...'); // SCAFF
   };
 
+  // test feature
+
+  const [isMaskDisplay, setIsMaskDisplay] = useState(false);
+
+  const display = {
+    width: '100vw',
+    height: '100vh',
+    display: 'block',
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    zIndex: '999',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  };
+
+  const noDisplay = {
+    display: 'none',
+  };
+
+  /*
+  const buttonDisplay = {
+    display: 'block',
+    zIndex: '1000',
+  };
+  */
+
+  const maskStyle = isMaskDisplay ? display : noDisplay;
+
+  const handleMaskEvent = () => {
+    setIsMaskDisplay(!isMaskDisplay);
+  };
+
+  // end test feature
+
   return (
     <div className="App">
-      <Header loggedIn={isLoggedIn} onAsideClick={handleAsideClick} />
+      {
+      /*<button style={buttonDisplay} onClick={testFunction}>××××</button>*/
+      }
+      <div style={maskStyle}>
+      </div>
+      <Header
+        isLoggedIn={isLoggedIn}
+        onAsideClick={handleAsideClick}
+      />
 
       <main>
         {

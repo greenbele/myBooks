@@ -7,7 +7,7 @@ import './Header.css';
 
 // TODO: navigate/link home based on login status
 const Header = ({
-  loggedIn,
+  isLoggedIn,
   onAsideClick,
 }) => {
   const loggedInHeader = (
@@ -57,7 +57,7 @@ const Header = ({
     <header>
       <nav>
         {
-          loggedIn ?
+          isLoggedIn ?
           loggedInHeader :
           loggedOutHeader
         }
