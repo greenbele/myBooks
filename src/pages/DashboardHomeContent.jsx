@@ -7,14 +7,14 @@ import { useEffect } from 'react';
 
 /* eslint-disable react/prop-types */
 
-let n = 0; // SCAFF
+// let n = 0; // SCAFF
 
 const DashboardHomeContent = ({
   BooksManager,
   isLoading,
   isLoggedIn,
 }) => {
-  console.log(n++); // SCAFF
+  // console.log(n++); // SCAFF
 
   // redirect a logged-out user on component [re-]render
   const navigate = useNavigate();

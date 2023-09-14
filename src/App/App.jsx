@@ -12,12 +12,14 @@ import SignUpContent from '../pages/SignUpContent';
 import LoginContent from '../pages/LoginContent';
 import DashboardHomeContent from '../pages/DashboardHomeContent';
 import LandingContent from '../pages/LandingContent';
+import BookContent from '../pages/BookContent';
 
 import {
   signUpURI,
   loginURI,
   realDataFullURI,
   BooksManager,
+  booksURI,
 } from '../constants';
 
 import BooksService from '../services/backend';
@@ -74,6 +76,19 @@ const App = () => {
     setIsLoggedIn(loggedIn);
   };
 
+  /**
+   * perform actions on successfull book creation.
+   *
+   * Logic:
+   *
+   * 1 - BooksManager should have been updated from BookContent component, so use it to setBooks
+   */
+  const handleBookCreation = () => {
+    // 1
+
+    console.log('handling book creation...'); // SCAFF
+  };
+
   return (
     <div className="App">
       <Header loggedIn={isLoggedIn} onAsideClick={handleAsideClick} />
@@ -105,6 +120,19 @@ const App = () => {
                 />
               }
             />
+
+            <Route path={booksURI}>
+              <Route
+                index
+                element={
+                  <BookContent
+                    isLoading={isLoading}
+                    isLoggedIn={isLoggedIn}
+                    onBookCreation={handleBookCreation}
+                  />
+                }
+              />
+            </Route>
 
             <Route
               path={signUpURI}
