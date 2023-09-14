@@ -4,6 +4,8 @@ import hamburger from '../../assets/hamburger.png';
 import './Header.css';
 
 /* eslint-disable react/prop-types */
+
+// TODO: navigate/link home based on login status
 const Header = ({
   loggedIn,
   onAsideClick,

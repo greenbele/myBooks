@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// import { initBooks } from '../constants';
+import { dashboardURI } from '../constants';
 
 import SignUpForm from '../components/SignUp/SignUp';
 import Notification from '../components/Notification/Notification';
@@ -17,10 +17,12 @@ const SignUpContent = ({
   const [err, setErr] = React.useState([]);
 
   const navigate = useNavigate();
-  if (isLoggedIn) {
-    // navigate home instead
-    navigate('/');
-  }
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      // navigate home instead
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   /**
    * handles sign up form submission
@@ -59,6 +61,7 @@ const SignUpContent = ({
 
     // perform actions on sign up success
     onSignUpSuccess(true);
+    navigate(dashboardURI);
 
     console.log('Collect all form controls\' values, do requisite validation, and submit to backend.'); // SCAFF
     // console.log(Object.entries(e.target[1].name)); // SCAFF
@@ -70,7 +73,7 @@ const SignUpContent = ({
   // note: on first App (which is ancestor of this component)...
   // ...render, isLoggedIn will be false, and isLoading true!
   return (
-    isLoading
+    isLoading || isLoggedIn
     ?
     null
     :

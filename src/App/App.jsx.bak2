@@ -85,26 +85,31 @@ const App = () => {
           <p>Loading...</p>
           :
           <Routes>
-            <Route
-              path='/home'
-              element={
-                <DashboardHomeContent
-                  BooksManager={BooksManager}
-                  isLoading={isLoading}
-                  isLoggedIn={isLoggedIn}
+            <Route path='/'>
+              {
+                isLoggedIn
+                ?
+                <Route
+                  path='home'
+                  element={
+                    <DashboardHomeContent
+                      BooksManager={BooksManager}
+                      isLoading={isLoading}
+                      isLoggedIn={isLoggedIn}
+                    />
+                  }
+                />
+                :
+                <Route
+                  index
+                  element={
+                    <LandingContent
+                      isLoading={isLoading}
+                    />
+                  }
                 />
               }
-            />
-
-            <Route
-              path='/'
-              element={
-                <LandingContent
-                  isLoading={isLoading}
-                  isLoggedIn={isLoggedIn}
-                />
-              }
-            />
+            </Route>
 
             <Route
               path={signUpURI}

@@ -1,8 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import LoginForm from '../components/Login/Login';
 
-//import { initBooks } from '../constants';
+import { dashboardURI } from '../constants';
+import { useEffect } from 'react';
 
 /* eslint-disable react/prop-types */
 
@@ -15,10 +16,14 @@ const LoginContent = ({
   isLoading,
 }) => {
   const navigate = useNavigate();
-  if (isLoggedIn) {
-    // user already logged in; navigate home
-    navigate('/');
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      // user already logged in; navigate home
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
+
+  const location = useLocation();
 
   /**
    * perform requisite actions on login success
@@ -38,6 +43,13 @@ const LoginContent = ({
 
     // perform action on login success
     onLoginSuccess(true);
+    if (location.state?.next) {
+      // go to URI before login redirect
+      navigate(location.state.next);
+    } else {
+      // go home
+      navigate(dashboardURI);
+    }
 
     console.log(loginData); // SCAFF
   };
@@ -46,7 +58,7 @@ const LoginContent = ({
   // note: on first App (which is ancestor of this component)...
   // ...render, isLoggedIn will be false, and isLoading true!
   return (
-    isLoading
+    isLoading || isLoggedIn
     ?
     null
     :
