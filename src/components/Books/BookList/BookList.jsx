@@ -4,7 +4,7 @@ import Book from '../Book/Book';
 
 const BookList = ({
   BooksManager,
-  handleMaskEvent,
+  handleBookEditFormSubmit,
 }) => {
   return (
     BooksManager.books
@@ -20,7 +20,7 @@ const BookList = ({
                 key={book.bookTitle}
                 book={book}
                 BooksManager={BooksManager}
-                handleMaskEvent={handleMaskEvent}
+                handleBookEditFormSubmit={handleBookEditFormSubmit}
               />
             );
           })

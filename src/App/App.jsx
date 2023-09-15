@@ -79,16 +79,78 @@ const App = () => {
   };
 
   /**
-   * perform actions on successfull book creation.
+   * perform requisite actions when user submits book form.
    *
    * Logic:
    *
-   * 1 - BooksManager should have been updated from BookContent component, so use it to setBooks
+   * 1 - collect bookTitle (0) and searchTags (1) field values
+   *
+   * 2 - send to backend service for validation and storage
+   *
+   * 3 -
+   *   a - on success status (201), update BooksManager and call App's onBookCreation.
+   *   Also update bookFormData in-memory to allow easy of update during a client session.
+   *
+   *   b - on failure, set error messages for [re-]rendering
+   *
+   * 4 - there might be need to reset form fields on success
    */
-  const handleBookCreation = () => {
-    // 1
+  const handleBookCreateFormSubmit = (e) => {
+    e.preventDefault();
 
-    console.log('handling book creation...'); // SCAFF
+    // 1
+    // TODO: notify user on success?
+    const bookTitle = e.target[1].value;
+    const searchTags = e.target[3].value;
+    // clear input fields
+    e.target[1].value = '';
+    e.target[3].value = '';
+
+    // 2
+    const data = {
+      bookTitle,
+      searchTags,
+    };
+
+    // 3
+    // bookFormData.inputOneValue = bookTitle;
+    // bookFormData.inputTwoValue = searchTags;
+
+    console.log(data); // SCAFF
+  };
+
+  /**
+   * perform actions on form submission.
+   *
+   * Logic:
+   *
+   * 1 - collect bookTitle and searchTags field values
+   *
+   * 2 - send data to backend for validation and update
+   *
+   * 3 -
+   *   a - on success response, update BooksManager, App state, and [probably] bookFormData
+   *   b - on failure, notify user
+   *
+   * 4 - remove mask (by calling App's handleMaskEvent)
+   */
+  const handleBookEditFormSubmit = (e) => {
+    // 1
+    const bookTitle = e.target[1].value;
+    const searchTags = e.target[3].value;
+
+    // 2
+    const data = {
+      bookTitle,
+      searchTags,
+    };
+
+    // 3
+
+    // 4
+    handleMaskEvent();
+
+    console.log(data); // SCAFF
   };
 
   // test feature
@@ -172,9 +234,9 @@ const App = () => {
                   <BookContent
                     isLoading={isLoading}
                     isLoggedIn={isLoggedIn}
-                    onBookCreation={handleBookCreation}
+                    handleBookCreateFormSubmit={handleBookCreateFormSubmit}
+                    handleBookEditFormSubmit={handleBookEditFormSubmit}
                     BooksManager={BooksManager}
-                    handleMaskEvent={handleMaskEvent}
                   />
                 }
               />

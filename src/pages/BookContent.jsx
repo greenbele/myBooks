@@ -16,9 +16,9 @@ const bookFormData = new BookFormData();
 const BookContent = ({
   isLoading,
   isLoggedIn,
-  onBookCreation,
   BooksManager,
-  handleMaskEvent,
+  handleBookCreateFormSubmit,
+  handleBookEditFormSubmit,
 }) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -30,45 +30,16 @@ const BookContent = ({
   const introPara = 'Here you can see all your current books, and have the opportunity of creating new ones.';
 
   /**
-   * perform requisite actions when user submits book form.
+   * perform local actions when user submits book form.
    *
    * Logic:
    *
-   * 1 - collect bookTitle (0) and searchTags (1) field values
-   *
-   * 2 - send to backend service for validation and storage
-   *
-   * 3 -
-   *   a - on success status (201), update BooksManager and call App's onBookCreation.
-   *   Also update bookFormData in-memory to allow easy of update during a client session.
-   *
-   *   b - on failure, set error messages for [re-]rendering
-   *
-   * 4 - there might be need to reset form fields on success
+   * 1 - perform local actions and dispatch to App
    */
-  const handleBookFormSubmit = (e) => {
+  const handleBookCreateFormSubmitLocal = (e) => {
     e.preventDefault();
 
-    // 1
-    // TODO: notify user on success?
-    const bookTitle = e.target[1].value;
-    const searchTags = e.target[3].value;
-    // clear input fields
-    e.target[1].value = '';
-    e.target[3].value = '';
-
-    // 2
-    const bookData = {
-      bookTitle,
-      searchTags,
-    };
-
-    // 3
-    onBookCreation();
-    bookFormData.inputOneValue = bookTitle;
-    bookFormData.inputTwoValue = searchTags;
-
-    console.log(bookData); // SCAFF
+    handleBookCreateFormSubmit(e, bookFormData);
   };
 
   if (!bookFormData.inputOneID) {
@@ -97,14 +68,14 @@ const BookContent = ({
         <h2>Create new book</h2>
 
         <BookForm
-          onBookFormSubmit={handleBookFormSubmit}
+          onBookFormSubmit={handleBookCreateFormSubmitLocal}
           bookFormData={bookFormData}
         />
       </div>
 
       <BookList
         BooksManager={BooksManager}
-        handleMaskEvent={handleMaskEvent}
+        handleBookEditFormSubmit={handleBookEditFormSubmit}
       />
     </>
   );

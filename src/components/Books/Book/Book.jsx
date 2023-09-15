@@ -4,6 +4,7 @@ import BookForm from '../BookForm/BookForm';
 import { BookFormData } from '../../../constants';
 
 const bookFormData = new BookFormData();
+Object.seal(bookFormData);
 
 /* eslint-disable react/prop-types */
 
@@ -12,7 +13,7 @@ const bookFormData = new BookFormData();
 const Book = ({
   book,
   BooksManager,
-  handleMaskEvent,
+  handleBookEditFormSubmit,
 }) => {
   if (!bookFormData.inputOneID) {
     // new form data object; customize
@@ -34,37 +35,10 @@ const Book = ({
   }
 
   /**
-   * perform actions on form submission.
-   *
-   * Logic:
-   *
-   * 1 - collect bookTitle and searchTags field values
-   *
-   * 2 - send data to backend for validation and update
-   *
-   * 3 -
-   *   a - on success response, update BooksManager, App state, and [probably] bookFormData
-   *   b - on failure, notify user
-   *
-   * 4 - remove mask (by calling App's handleMaskEvent)
+   * perform local actions on form submission before dispatching to App.
    */
-  const handleBookEditFormSubmit = (e) => {
-    // 1
-    const bookTitle = e.target[1].value;
-    const searchTags = e.target[3].value;
-
-    // 2
-    const data = {
-      bookTitle,
-      searchTags,
-    };
-
-    // 3
-
-    // 4
-    handleMaskEvent();
-
-    console.log(data); // SCAFF
+  const handleBookEditFormSubmitLocal = (e) => {
+    handleBookEditFormSubmit(e, bookFormData);
   };
 
   return (
@@ -81,7 +55,7 @@ const Book = ({
       {/* book edit form */}
       <BookForm
         bookFormData={bookFormData}
-        onBookFormSubmit={handleBookEditFormSubmit}
+        onBookFormSubmit={handleBookEditFormSubmitLocal}
       />
     </li>
   );
