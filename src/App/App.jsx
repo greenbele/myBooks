@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import _ from 'lodash';
 // import { initBooks } from '../constants';
 
 import './App.css';
@@ -20,6 +21,7 @@ import {
   realDataFullURI,
   BooksManager,
   booksURI,
+  BookModel,
 } from '../constants';
 
 import BooksService from '../services/backend';
@@ -95,7 +97,7 @@ const App = () => {
    *
    * 4 - there might be need to reset form fields on success
    */
-  const handleBookCreateFormSubmit = (e) => {
+  const handleBookCreateFormSubmit = (e, bookFormData) => {
     e.preventDefault();
 
     // 1
@@ -113,8 +115,24 @@ const App = () => {
     };
 
     // 3
-    // bookFormData.inputOneValue = bookTitle;
-    // bookFormData.inputTwoValue = searchTags;
+    /* on success... */
+    // update form data object
+    bookFormData.inputOneValue = bookTitle;
+    bookFormData.inputTwoValue = searchTags;
+
+    // update BooksManager
+    const newBook = new BookModel();
+    Object.seal(newBook);
+    const bookObj = {
+      bookTitle,
+      searchTags,
+    };
+    Object.assign(newBook, bookObj);
+    BooksManager.addBook(newBook);
+
+    // update state
+    setBooks(_.cloneDeep(BooksManager.books));
+    /* on failure... */
 
     console.log(data); // SCAFF
   };
@@ -135,6 +153,8 @@ const App = () => {
    * 4 - remove mask (by calling App's handleMaskEvent)
    */
   const handleBookEditFormSubmit = (e) => {
+    e.preventDefault();
+
     // 1
     const bookTitle = e.target[1].value;
     const searchTags = e.target[3].value;

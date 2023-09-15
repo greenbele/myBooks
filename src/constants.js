@@ -6,7 +6,7 @@ import _ from 'lodash';
 /**
  * Emulates node's path.resolve for the client.
  *
- * @params {String[]} otherPaths - an array of paths to join
+ * @param {String[]} otherPaths - an array of paths to join
  * @returns {String} - a joining of all supplied paths
  */
 function resolve(...paths) {
@@ -66,7 +66,7 @@ class BooksManager {
 
   /**
    * Set the last edited book object from a list of those.
-   * @params {Object[]} books - list of book objects.
+   * @param {Object[]} books - list of book objects.
    * @returns {undefined} - nothing
    */
   static setLastEditedBook(books) {
@@ -96,7 +96,7 @@ class BooksManager {
 
   /**
    * Set the last edited chapter object from a list of those.
-   * @params {Object[]} chapters - list of chapter objects.
+   * @param {Object[]} chapters - list of chapter objects.
    * @returns {undefined} - nothing
    */
   static setLastEditedChapter(chapters) {
@@ -126,7 +126,7 @@ class BooksManager {
 
   /**
    * Sets the books list to be used for a client tab/session.
-   * @params {Object[]} books - list of books to save.
+   * @param {Object[]} books - list of books to save.
    * @returns {undefined} - nothing
    */
   static setBooks(books) {
@@ -154,7 +154,7 @@ class BooksManager {
   /**
    * Returns the URI for viewing the provided book object.
    *
-   * @params {Object} book - a book object
+   * @param {Object} book - a book object
    * @returns {String} - the URI of the supplied book.
    */
   static getBookViewURI(book) {
@@ -163,6 +163,17 @@ class BooksManager {
     }
 
     return '';
+  }
+
+  /**
+   * Adds a new book to the books list.
+   *
+   * @param {Object} newBook - book to add to the list.
+   * @returns {undefined} - nothing.
+   */
+  static addBook(newBook) {
+    // TODO: do uniqueness validation here, perhaps?
+    this.books.push(newBook);
   }
 }
 // end Books manager
