@@ -174,6 +174,7 @@ const App = () => {
                     isLoggedIn={isLoggedIn}
                     onBookCreation={handleBookCreation}
                     BooksManager={BooksManager}
+                    handleMaskEvent={handleMaskEvent}
                   />
                 }
               />

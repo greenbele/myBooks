@@ -18,6 +18,7 @@ const BookContent = ({
   isLoggedIn,
   onBookCreation,
   BooksManager,
+  handleMaskEvent,
 }) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -103,6 +104,7 @@ const BookContent = ({
 
       <BookList
         BooksManager={BooksManager}
+        handleMaskEvent={handleMaskEvent}
       />
     </>
   );

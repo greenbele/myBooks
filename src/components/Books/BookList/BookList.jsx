@@ -4,6 +4,7 @@ import Book from '../Book/Book';
 
 const BookList = ({
   BooksManager,
+  handleMaskEvent,
 }) => {
   return (
     BooksManager.books
@@ -19,6 +20,7 @@ const BookList = ({
                 key={book.bookTitle}
                 book={book}
                 BooksManager={BooksManager}
+                handleMaskEvent={handleMaskEvent}
               />
             );
           })
