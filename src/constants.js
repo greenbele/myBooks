@@ -167,6 +167,38 @@ class BooksManager {
 }
 // end Books manager
 
+// book and chapter object classes
+
+class BookModel {
+  constructor() {
+    this.bookTitle = '';
+    this.searchTags = '';
+    this.lastEdited = _.now();
+
+    this.chapters = [];
+  }
+}
+
+class ChapterModel {
+  constructor() {
+    this.chapterTitle = '';
+    this.searchTags = '';
+    this.lastEdited = _.now();
+
+    this.page = [];
+  }
+}
+
+class PageModel {
+  constructor() {
+    this.orderNum = 0;
+    this.tag = '';
+    this.content = '';
+  }
+}
+
+// end book and chapter object classes
+
 // book-related form-data class
 
 /**
@@ -244,4 +276,7 @@ export {
   BooksManager,
   BookFormData,
   resolve,
+  BookModel,
+  ChapterModel,
+  PageModel,
 };
