@@ -7,7 +7,7 @@ import { booksURI } from '../../constants';
 const DashboardHome = ({
   BooksManager,
 }) => {
-  // console.log(Object.entries(BooksManager)); // SCAFF
+  console.log(Object.entries(BooksManager)); // SCAFF
 
   const lastEditedBookDisplay = (
     BooksManager.lastEditedBook.uri

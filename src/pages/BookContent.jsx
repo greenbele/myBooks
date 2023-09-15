@@ -92,10 +92,14 @@ const BookContent = ({
       <h1>My Books Home</h1>
       <p>{introPara}</p>
 
-      <BookForm
-        onBookFormSubmit={handleBookFormSubmit}
-        bookFormData={bookFormData}
-      />
+      <div>
+        <h2>Create new book</h2>
+
+        <BookForm
+          onBookFormSubmit={handleBookFormSubmit}
+          bookFormData={bookFormData}
+        />
+      </div>
 
       <BookList
         BooksManager={BooksManager}

@@ -9,8 +9,6 @@ const BookForm = ({
 }) => {
   return (
     <div>
-      <h2>Create new book</h2>
-
       <form onSubmit={onBookFormSubmit}>
         <fieldset>
           <legend>
@@ -26,7 +24,11 @@ const BookForm = ({
           <input type={bookFormData.inputTwoType} id={bookFormData.inputTwoID} name={bookFormData.inputTwoName} />
         </fieldset>
 
-        <button type="submit">{bookFormData.buttonValue}</button>
+        <input
+          type="submit"
+          value={bookFormData.buttonValue}
+          disabled={bookFormData.submitDisabled}
+        />
       </form>
     </div>
   );

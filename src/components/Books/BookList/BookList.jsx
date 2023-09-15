@@ -1,13 +1,32 @@
+import Book from '../Book/Book';
+
+/* eslint-disable react/prop-types */
+
 const BookList = ({
+  BooksManager,
 }) => {
   return (
+    BooksManager.books
+    ?
     <div>
       <h2>All Books</h2>
 
-      {
-        <p>Books Loading...</p>
-      }
+      <ol>
+        {
+          BooksManager.books.map((book) => {
+            return (
+              <Book
+                key={book.bookTitle}
+                book={book}
+                BooksManager={BooksManager}
+              />
+            );
+          })
+        }
+      </ol>
     </div>
+    :
+    <p>No books yet</p>
   );
 };
 

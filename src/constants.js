@@ -1,10 +1,47 @@
 import path from 'path';
 import _ from 'lodash';
 
-const dashboardURI = '/home/';
+// utility functions
 
-const booksURI = `${dashboardURI}books/`;
-const chaptersURI = `${booksURI}chapters/`; // not valid
+/**
+ * Emulates node's path.resolve for the client.
+ *
+ * @params {String[]} otherPaths - an array of paths to join
+ * @returns {String} - a joining of all supplied paths
+ */
+function resolve(...paths) {
+  let resolvedPath = '';
+
+  if (paths && paths instanceof Array) {
+    for (let pth of paths) {
+      if (pth.startsWith('http://') || pth.startsWith('https://')) {
+        resolvedPath = `${resolvedPath}${pth}`;
+        continue;
+      }
+
+      if (!pth.startsWith('/')) {
+        pth = `/${pth}`;
+      }
+      if (pth.endsWith('/')) {
+        pth = pth.slice(0, -1);
+      }
+      resolvedPath = `${resolvedPath}${pth}`;
+    }
+  }
+
+  // console.log('########->', resolvedPath); // SCAFF
+
+  return resolvedPath;
+}
+
+// end utility functions
+
+
+const dashboardURI = '/home';
+
+const booksURI = resolve(dashboardURI, 'books');
+
+const chaptersURI = resolve(booksURI, 'chapters'); // not valid
 
 const signUpURI = `/signup`;
 
@@ -13,11 +50,11 @@ const loginURI = `/login`;
 const logoutURI = `/logout`;
 
 // backend URIs
-const backendBaseURI = 'http://localhost:5000/';
+const backendBaseURI = 'http://localhost:5000';
 
-const fakeDataURI = `${backendBaseURI}data/fake`;
-const realDataEmptyURI = `${backendBaseURI}data/real-empty`;
-const realDataFullURI = `${backendBaseURI}data/real-full`;
+const fakeDataURI = resolve(backendBaseURI, 'data', 'fake');
+const realDataEmptyURI = resolve(backendBaseURI, 'data', 'real-empty');
+const realDataFullURI = resolve(backendBaseURI, 'data', 'real-full');
 // end backend URIs
 
 // Books manager
@@ -115,14 +152,14 @@ class BooksManager {
   }
 
   /**
-   * Returns the URI for the provided book object.
+   * Returns the URI for viewing the provided book object.
    *
    * @params {Object} book - a book object
    * @returns {String} - the URI of the supplied book.
    */
-  static getBookURI(book) {
+  static getBookViewURI(book) {
     if (book.bookTitle) {
-      return path.resolve(booksURI, book.bookTitle);
+      return resolve(booksURI, book.bookTitle);
     }
 
     return '';
@@ -152,6 +189,7 @@ class BookFormData {
     this.inputTwoName = '';
 
     this.buttonValue = '';
+    this.submitDisabled = false;
   }
 }
 
@@ -205,4 +243,5 @@ export {
   realDataFullURI,
   BooksManager,
   BookFormData,
+  resolve,
 };
