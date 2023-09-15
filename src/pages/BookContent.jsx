@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { BookFormData, loginURI } from '../constants';
 
 import BookForm from '../components/Books/BookForm/BookForm';
+import BookList from '../components/Books/BookList/BookList';
 
 /* eslint-disable react/prop-types */
 
@@ -16,6 +17,7 @@ const BookContent = ({
   isLoading,
   isLoggedIn,
   onBookCreation,
+  BooksManager,
 }) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -93,6 +95,10 @@ const BookContent = ({
       <BookForm
         onBookFormSubmit={handleBookFormSubmit}
         bookFormData={bookFormData}
+      />
+
+      <BookList
+        BooksManager={BooksManager}
       />
     </>
   );

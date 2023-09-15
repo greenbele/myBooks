@@ -173,6 +173,7 @@ const App = () => {
                     isLoading={isLoading}
                     isLoggedIn={isLoggedIn}
                     onBookCreation={handleBookCreation}
+                    BooksManager={BooksManager}
                   />
                 }
               />
