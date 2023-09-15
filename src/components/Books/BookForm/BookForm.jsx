@@ -5,6 +5,7 @@
  */
 const BookForm = ({
   onBookFormSubmit,
+  bookFormData,
 }) => {
   return (
     <div>
@@ -13,19 +14,19 @@ const BookForm = ({
       <form onSubmit={onBookFormSubmit}>
         <fieldset>
           <legend>
-            <label htmlFor="bookTitle">Book title</label>
+            <label htmlFor={bookFormData.inputOneID}>{bookFormData.inputOneLabel}</label>
           </legend>
-          <input type="text" id="bookTitle" name="bookTitle" required />
+          <input type={bookFormData.inputOneType} id={bookFormData.inputOneID} name={bookFormData.inputOneName} required />
         </fieldset>
 
         <fieldset>
           <legend>
-            <label htmlFor="searchTags">Search tags</label>
+            <label htmlFor={bookFormData.inputTwoID}>{bookFormData.inputTwoLabel}</label>
           </legend>
-          <input type="text" id="searchTags" name="searchTags" />
+          <input type={bookFormData.inputTwoType} id={bookFormData.inputTwoID} name={bookFormData.inputTwoName} />
         </fieldset>
 
-        <button type="submit">Create</button>
+        <button type="submit">{bookFormData.buttonValue}</button>
       </form>
     </div>
   );

@@ -4,7 +4,7 @@ import _ from 'lodash';
 const dashboardURI = '/home/';
 
 const booksURI = `${dashboardURI}books/`;
-const chaptersURI = `${booksURI}chapters/`;
+const chaptersURI = `${booksURI}chapters/`; // not valid
 
 const signUpURI = `/signup`;
 
@@ -113,8 +113,49 @@ class BooksManager {
       this.setLastEditedChapter(this.lastEditedBook.chapters);
     }
   }
+
+  /**
+   * Returns the URI for the provided book object.
+   *
+   * @params {Object} book - a book object
+   * @returns {String} - the URI of the supplied book.
+   */
+  static getBookURI(book) {
+    if (book.bookTitle) {
+      return path.resolve(booksURI, book.bookTitle);
+    }
+
+    return '';
+  }
 }
 // end Books manager
+
+// book-related form-data class
+
+/**
+ * Class for managing book creation, book edit and chapter creation form data.
+ */
+class BookFormData {
+  constructor() {
+    // first input field
+    this.inputOneLabel = '';
+    this.inputOneID = '';
+    this.inputOneType ='text';
+    this.inputOneValue = '';
+    this.inputOneName = '';
+
+    // second input field
+    this.inputTwoLabel = '';
+    this.inputTwoID = '';
+    this.inputTwoType ='text';
+    this.inputTwoValue = '';
+    this.inputTwoName = '';
+
+    this.buttonValue = '';
+  }
+}
+
+// end book-related form-data class
 
 const initBooks = [
   {
@@ -163,4 +204,5 @@ export {
   realDataEmptyURI,
   realDataFullURI,
   BooksManager,
+  BookFormData,
 };
