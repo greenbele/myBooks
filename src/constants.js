@@ -1,7 +1,7 @@
 import path from 'path';
 import _ from 'lodash';
 
-// utility functions
+// utility classes and functions
 
 /**
  * Emulates node's path.resolve for the client.
@@ -34,7 +34,49 @@ function resolve(...paths) {
   return resolvedPath;
 }
 
-// end utility functions
+/**
+ * Handle major input onChange event handler logic.
+ */
+class InputChangeManager {
+  constructor() {
+    this.inputOneValueInit = '';
+    this.inputTwoValueInit = '';
+
+    this.isInputOneChanged = false;
+    this.isInputTwoChanged = false;
+  }
+
+  /**
+   * sets if input one value is different from the initial.
+   *
+   * @param {String} inputOneValueCurrent - current input value.
+   * @returns {undefined} - nothing.
+   */
+  setIsInputOneChanged(inputOneValueCurrent) {
+    this.isInputOneChanged = inputOneValueCurrent !== this.inputOneValueInit;
+  }
+
+  /**
+   * sets if input two value is different from the initial.
+   *
+   * @param {String} inputTwoValueCurrent - current input value.
+   * @returns {undefined} - nothing.
+   */
+  setIsInputTwoChanged(inputTwoValueCurrent) {
+    this.isInputTwoChanged = inputTwoValueCurrent !== this.inputTwoValueInit;
+  }
+
+  /**
+   * checks if submit button should be disabled.
+   *
+   * @returns {Boolean} - true if disabled, false otherwise.
+   */
+  isDisabled() {
+    return !(this.isInputOneChanged || this.isInputTwoChanged);
+  }
+}
+
+// end utility classes and functions
 
 
 const dashboardURI = '/home';
@@ -290,4 +332,5 @@ export {
   BookModel,
   ChapterModel,
   PageModel,
+  InputChangeManager,
 };

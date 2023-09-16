@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import BookForm from '../BookForm/BookForm';
 import { BookFormData } from '../../../constants';
 
-const bookFormData = new BookFormData();
-Object.seal(bookFormData);
-
 /* eslint-disable react/prop-types */
 
 // TODO: add button click callbacks
@@ -15,26 +12,10 @@ const Book = ({
   BooksManager,
   handleBookEditFormSubmit,
 }) => {
-  /*
-  if (!bookFormData.inputOneID) {
-    // new form data object; customize
-    bookFormData.inputOneID = 'bookTitle';
-    bookFormData.inputOneLabel = 'Book title';
-    bookFormData.inputOneName = 'bookTitle';
-    bookFormData.inputOneValue = book.bookTitle;
+  const bookFormData = new BookFormData();
+  Object.seal(bookFormData);
 
-    // console.log('#######->', book.bookTitle); // SCAFF
-
-    bookFormData.inputTwoID = 'searchTags';
-    bookFormData.inputTwoLabel = 'Search Tags';
-    bookFormData.inputTwoName = 'searchTags';
-    bookFormData.inputTwoValue = book.searchTags;
-
-    bookFormData.buttonValue = 'Update';
-
-    bookFormData.submitDisabled = true;
-  }
-  */
+  // console.log('book in Book component:', book); // SCAFF
 
   const formData = {
     inputOneID: 'bookTitle',
@@ -46,10 +27,12 @@ const Book = ({
     inputTwoName: 'searchTags',
     inputTwoValue: book.searchTags,
     buttonValue: 'Update',
-    submitDisabled: true,
+    submitDisabled: true, // deprecated
   };
 
   Object.assign(bookFormData, formData);
+
+  // console.log('bookFormData in Book component:', bookFormData); // SCAFF
 
   /**
    * perform local actions on form submission before dispatching to App.
@@ -73,6 +56,7 @@ const Book = ({
       <BookForm
         bookFormData={bookFormData}
         onBookFormSubmit={handleBookEditFormSubmitLocal}
+        isEditing={true}
       />
     </li>
   );

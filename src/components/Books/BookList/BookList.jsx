@@ -14,10 +14,10 @@ const BookList = ({
 
       <ol>
         {
-          BooksManager.books.map((book) => {
+          BooksManager.books.map((book, idx) => {
             return (
               <Book
-                key={book.bookTitle}
+                key={idx}
                 book={book}
                 BooksManager={BooksManager}
                 handleBookEditFormSubmit={handleBookEditFormSubmit}
