@@ -151,7 +151,7 @@ const App = () => {
    *
    * Note - it's ensured that at least one field is changed.
    */
-  const handleBookEditFormSubmit = (e, oldBookTitle/*, bookFormData */) => {
+  const handleBookEditFormSubmit = (e, oldBookTitle, setDisable/*, bookFormData */) => {
     e.preventDefault();
 
     // 1
@@ -167,6 +167,8 @@ const App = () => {
     BooksManager.updateBook(updateData, oldBookTitle);
     // update state
     setBooks(_.cloneDeep(BooksManager.books));
+    // disable submit button manually on book update
+    setDisable(true);
 
     // 3
     // update form data object

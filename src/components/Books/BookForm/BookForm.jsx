@@ -17,6 +17,8 @@ const BookForm = ({
 }) => {
   const [disabled, setDisabled] = useState(isEditing || false);
 
+  // console.log(bookFormData); // SCAFF
+
   // get initial input values
   const inputOneValueInit = bookFormData.inputOneValue;
   const inputTwoValueInit = bookFormData.inputTwoValue;
@@ -64,8 +66,15 @@ const BookForm = ({
     }
   };
 
+  /**
+   * perform local actions on form submission.
+   */
+  const handleBookFormSubmitLocal = (e) => {
+    onBookFormSubmit(e, setDisabled);
+  };
+
   return (
-    <form onSubmit={onBookFormSubmit}>
+    <form onSubmit={handleBookFormSubmitLocal}>
       <fieldset>
         <legend>
           <label htmlFor={bookFormData.inputOneID}>{bookFormData.inputOneLabel}</label>
