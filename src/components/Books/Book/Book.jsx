@@ -38,7 +38,7 @@ const Book = ({
    * perform local actions on form submission before dispatching to App.
    */
   const handleBookEditFormSubmitLocal = (e) => {
-    handleBookEditFormSubmit(e, bookFormData);
+    handleBookEditFormSubmit(e, book.bookTitle, bookFormData);
   };
 
   return (

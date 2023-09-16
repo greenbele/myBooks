@@ -148,29 +148,35 @@ const App = () => {
    *   b - on failure, notify user
    *
    * 4 - remove mask (by calling App's handleMaskEvent)
+   *
+   * Note - it's ensured that at least one field is changed.
    */
-  const handleBookEditFormSubmit = (e, bookFormData) => {
+  const handleBookEditFormSubmit = (e, oldBookTitle/*, bookFormData */) => {
     e.preventDefault();
 
     // 1
-    const bookTitle = e.target[1].value;
-    const searchTags = e.target[3].value;
+    const newBookTitle = e.target[1].value;
+    const newSearchTags = e.target[3].value;
 
-    // 2
-    const data = {
-      bookTitle,
-      searchTags,
+    // 2 - validate client side?
+    //  update BooksManager
+    const updateData = {
+      bookTitle: newBookTitle,
+      searchTags: newSearchTags,
     };
+    BooksManager.updateBook(updateData, oldBookTitle);
+    // update state
+    setBooks(_.cloneDeep(BooksManager.books));
 
     // 3
     // update form data object
-    bookFormData.inputOneValue = bookTitle;
-    bookFormData.inputTwoValue = searchTags;
+    // bookFormData.inputOneValue = bookTitle;
+    // bookFormData.inputTwoValue = searchTags;
 
     // 4
-    handleMaskEvent();
+    // handleMaskEvent();
 
-    console.log(data); // SCAFF
+    console.log(updateData); // SCAFF
   };
 
   // test feature

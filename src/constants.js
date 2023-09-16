@@ -217,7 +217,31 @@ class BooksManager {
     // TODO: do uniqueness validation here, perhaps?
     this.books.push(newBook);
   }
+
+  /**
+   * Updates an existing book obj.
+   *
+   * @param {Object} updateData - the update data object.
+   * @param {String} oldBookTitle - title of the book to update.
+   * @returns {Array} - array containing possible error messages
+   */
+  static updateBook(updateData, oldBookTitle) {
+    // client-side validation
+    const err = [];
+
+    if (_.find(this.books, ['bookTitle', updateData.newBookTitle])) {
+      // a book with that title already exists
+      err.push(`${updateData.newBookTitle}: book title already in use`);
+    } else {
+      // valid update data; update BooksManager
+      const bookObj = _.find(this.books, ['bookTitle', oldBookTitle]);
+      Object.assign(bookObj, updateData);
+    }
+
+    return err;
+  }
 }
+
 // end Books manager
 
 // book and chapter object classes
