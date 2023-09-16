@@ -9,6 +9,7 @@ import BookList from '../components/Books/BookList/BookList';
 /* eslint-disable react/prop-types */
 
 const bookFormData = new BookFormData();
+Object.seal(bookFormData);
 
 /**
  * Puts all books components into a page.
@@ -42,6 +43,7 @@ const BookContent = ({
     handleBookCreateFormSubmit(e, bookFormData);
   };
 
+  /*
   if (!bookFormData.inputOneID) {
     // new form data object; customize
     bookFormData.inputOneID = 'bookTitle';
@@ -54,6 +56,19 @@ const BookContent = ({
 
     bookFormData.buttonValue = 'Create';
   }
+  */
+
+  const formData = {
+    inputOneID: 'bookTitle',
+    inputOneLabel: 'Book title',
+    inputOneName: 'bookTitle',
+    inputTwoID: 'searchTags',
+    inputTwoLabel: 'Search Tags',
+    inputTwoName: 'searchTags',
+    buttonValue: 'Create',
+  };
+
+  Object.assign(bookFormData, formData);
 
   return (
     isLoading || !isLoggedIn

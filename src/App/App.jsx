@@ -97,7 +97,7 @@ const App = () => {
    *
    * 4 - there might be need to reset form fields on success
    */
-  const handleBookCreateFormSubmit = (e, bookFormData) => {
+  const handleBookCreateFormSubmit = (e) => {
     e.preventDefault();
 
     // 1
@@ -116,9 +116,6 @@ const App = () => {
 
     // 3
     /* on success... */
-    // update form data object
-    bookFormData.inputOneValue = bookTitle;
-    bookFormData.inputTwoValue = searchTags;
 
     // update BooksManager
     const newBook = new BookModel();
@@ -152,7 +149,7 @@ const App = () => {
    *
    * 4 - remove mask (by calling App's handleMaskEvent)
    */
-  const handleBookEditFormSubmit = (e) => {
+  const handleBookEditFormSubmit = (e, bookFormData) => {
     e.preventDefault();
 
     // 1
@@ -166,6 +163,9 @@ const App = () => {
     };
 
     // 3
+    // update form data object
+    bookFormData.inputOneValue = bookTitle;
+    bookFormData.inputTwoValue = searchTags;
 
     // 4
     handleMaskEvent();

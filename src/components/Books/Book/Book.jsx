@@ -15,6 +15,7 @@ const Book = ({
   BooksManager,
   handleBookEditFormSubmit,
 }) => {
+  /*
   if (!bookFormData.inputOneID) {
     // new form data object; customize
     bookFormData.inputOneID = 'bookTitle';
@@ -33,6 +34,22 @@ const Book = ({
 
     bookFormData.submitDisabled = true;
   }
+  */
+
+  const formData = {
+    inputOneID: 'bookTitle',
+    inputOneLabel: 'Book title',
+    inputOneName: 'bookTitle',
+    inputOneValue: book.bookTitle,
+    inputTwoID: 'searchTags',
+    inputTwoLabel: 'Search Tags',
+    inputTwoName: 'searchTags',
+    inputTwoValue: book.searchTags,
+    buttonValue: 'Update',
+    submitDisabled: true,
+  };
+
+  Object.assign(bookFormData, formData);
 
   /**
    * perform local actions on form submission before dispatching to App.

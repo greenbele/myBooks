@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 /**
- * Renders the form for creating a new book.
+ * Renders the form for creating and updating books and chapters.
  */
 const BookForm = ({
   onBookFormSubmit,
