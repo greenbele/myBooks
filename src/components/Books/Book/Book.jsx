@@ -11,6 +11,7 @@ const Book = ({
   book,
   BooksManager,
   handleBookEditFormSubmit,
+  handleBookDeleteButtonClick,
 }) => {
   const bookFormData = new BookFormData();
   Object.seal(bookFormData);
@@ -41,6 +42,13 @@ const Book = ({
     return handleBookEditFormSubmit(e, book.bookTitle, setDisable, bookFormData);
   };
 
+  /**
+   * perform local actions on book delete button click.
+   */
+  const handleBookDeleteButtonClickLocal = () => {
+    handleBookDeleteButtonClick(book.bookTitle);
+  };
+
   return (
     <li>
       <h3>{book.bookTitle}</h3>
@@ -49,7 +57,7 @@ const Book = ({
       <div>
         <Link to={BooksManager.getBookViewURI(book)}>Open</Link>
         <button>Edit</button>
-        <button>Delete</button>
+        <button onClick={handleBookDeleteButtonClickLocal}>Delete</button>
       </div>
 
       {/* book edit form */}

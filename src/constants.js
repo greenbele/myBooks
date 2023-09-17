@@ -346,6 +346,23 @@ class BooksManager {
     return err;
     // return err.length || ['fake error message'];
   }
+
+  /**
+   * Removes a book object from book manager.
+   *
+   * @param {String} bookTitle - the title of the book to remove
+   * @returns {undefined} - nothing.
+   */
+  static deleteBook(bookTitle) {
+    try {
+      const updatedBooks = this.books.filter((book) => {
+        return book.bookTitle !== bookTitle;
+      });
+      this.books = updatedBooks;
+    } catch (err) {
+      console.log('ERROR - BooksManager.deleteBook:', err.toString()); // SCAFF
+    }
+  }
 }
 
 // end Books manager

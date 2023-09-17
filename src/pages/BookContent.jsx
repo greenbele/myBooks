@@ -20,6 +20,7 @@ const BookContent = ({
   BooksManager,
   handleBookCreateFormSubmit,
   handleBookEditFormSubmit,
+  handleBookDeleteButtonClick,
 }) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -41,21 +42,7 @@ const BookContent = ({
     return handleBookCreateFormSubmit(e, bookFormData);
   };
 
-  /*
-  if (!bookFormData.inputOneID) {
-    // new form data object; customize
-    bookFormData.inputOneID = 'bookTitle';
-    bookFormData.inputOneLabel = 'Book title';
-    bookFormData.inputOneName = 'bookTitle';
-
-    bookFormData.inputTwoID = 'searchTags';
-    bookFormData.inputTwoLabel = 'Search Tags';
-    bookFormData.inputTwoName = 'searchTags';
-
-    bookFormData.buttonValue = 'Create';
-  }
-  */
-
+  // prepare form data for book creation
   const formData = {
     inputOneID: 'bookTitle',
     inputOneLabel: 'Book title',
@@ -89,6 +76,7 @@ const BookContent = ({
       <BookList
         BooksManager={BooksManager}
         handleBookEditFormSubmit={handleBookEditFormSubmit}
+        handleBookDeleteButtonClick={handleBookDeleteButtonClick}
       />
     </>
   );

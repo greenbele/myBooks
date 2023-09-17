@@ -1,0 +1,1 @@
+Each book you own is made up of zero or more chapters. On this page, you can see all current chapters of ${book}, create new, and update existing ones. Happy writing

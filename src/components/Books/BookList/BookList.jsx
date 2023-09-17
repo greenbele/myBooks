@@ -5,6 +5,7 @@ import Book from '../Book/Book';
 const BookList = ({
   BooksManager,
   handleBookEditFormSubmit,
+  handleBookDeleteButtonClick,
 }) => {
   return (
     BooksManager.books
@@ -12,20 +13,27 @@ const BookList = ({
     <div>
       <h2>All Books</h2>
 
-      <ol>
-        {
-          BooksManager.books.map((book, idx) => {
-            return (
-              <Book
-                key={idx}
-                book={book}
-                BooksManager={BooksManager}
-                handleBookEditFormSubmit={handleBookEditFormSubmit}
-              />
-            );
-          })
-        }
-      </ol>
+      {
+        BooksManager.books.length
+        ?
+        <ol>
+          {
+            BooksManager.books.map((book, idx) => {
+              return (
+                <Book
+                  key={idx}
+                  book={book}
+                  BooksManager={BooksManager}
+                  handleBookEditFormSubmit={handleBookEditFormSubmit}
+                  handleBookDeleteButtonClick={handleBookDeleteButtonClick}
+                />
+              );
+            })
+          }
+        </ol>
+        :
+        'No chapter in book. Create chapters with the form above.'
+      }
     </div>
     :
     <p>No books yet</p>

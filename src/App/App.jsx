@@ -130,7 +130,7 @@ const App = () => {
     setBooks(_.cloneDeep(BooksManager.books));
     /* on failure... */
 
-    console.log(bookCreateObj); // SCAFF
+    // console.log(bookCreateObj); // SCAFF
 
     // no creation error (title duplicate)
     return [];
@@ -184,10 +184,27 @@ const App = () => {
     // 4
     // handleMaskEvent();
 
-    console.log(updateData); // SCAFF
+    // console.log(updateData); // SCAFF
 
     // no title duplicate error
     return [];
+  };
+
+  /**
+   * perform actions on book delete button click.
+   */
+  const handleBookDeleteButtonClick = (bookTitle) => {
+    try {
+      // update manager
+      BooksManager.deleteBook(bookTitle);
+
+      // update state
+      setBooks(_.cloneDeep(BooksManager.books));
+
+      // TODO: send to backend for update
+    } catch (err) {
+      console.log('ERROR - handleBookDeleteButtonClick:', err.toString()); // SCAFF
+    }
   };
 
   // test feature
@@ -273,6 +290,7 @@ const App = () => {
                     isLoggedIn={isLoggedIn}
                     handleBookCreateFormSubmit={handleBookCreateFormSubmit}
                     handleBookEditFormSubmit={handleBookEditFormSubmit}
+                    handleBookDeleteButtonClick={handleBookDeleteButtonClick}
                     BooksManager={BooksManager}
                   />
                 }
