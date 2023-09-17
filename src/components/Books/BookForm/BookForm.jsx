@@ -7,6 +7,8 @@ import { useState } from "react";
 
 import { InputChangeManager } from '../../../constants';
 
+import Notification from '../../Notification/Notification';
+
 /**
  * Renders the form for creating and updating books and chapters.
  */
@@ -16,6 +18,7 @@ const BookForm = ({
   isEditing,
 }) => {
   const [disabled, setDisabled] = useState(isEditing || false);
+  const [err, setErr] = useState([]);
 
   // console.log(bookFormData); // SCAFF
 
@@ -70,10 +73,21 @@ const BookForm = ({
    * perform local actions on form submission.
    */
   const handleBookFormSubmitLocal = (e) => {
-    onBookFormSubmit(e, setDisabled);
+    const err = onBookFormSubmit(e, setDisabled);
+    setErr(err);
   };
 
   return (
+    <>
+    {/* err notifications */}
+    {
+      err?.length
+      ?
+      <Notification messages={err} />
+      :
+      null
+    }
+
     <form onSubmit={handleBookFormSubmitLocal}>
       <fieldset>
         <legend>
@@ -118,6 +132,7 @@ const BookForm = ({
         disabled={disabled}
       />
     </form>
+    </>
   );
 };
 

@@ -164,7 +164,11 @@ const App = () => {
       bookTitle: newBookTitle,
       searchTags: newSearchTags,
     };
-    BooksManager.updateBook(updateData, oldBookTitle);
+    const err = BooksManager.updateBook(updateData, oldBookTitle);
+    if (err.length) {
+      // error messages present; likely duplicate book titles
+      return err;
+    }
     // update state
     setBooks(_.cloneDeep(BooksManager.books));
     // disable submit button manually on book update
@@ -179,6 +183,9 @@ const App = () => {
     // handleMaskEvent();
 
     console.log(updateData); // SCAFF
+
+    // no title duplicate error
+    return [];
   };
 
   // test feature

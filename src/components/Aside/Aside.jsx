@@ -35,8 +35,13 @@ const Aside = ({
       <p className="aside-section-title flyout-content">BOOKS</p>
       <div className="aside-books flyout-content">
         {
-          asideContent.map((bookObj) => {
-            return <AsideBook key={bookObj.bookTitle} {...bookObj} />
+          asideContent.map((bookObj, idx) => {
+            return (
+              <AsideBook
+                key={idx}
+                {...bookObj}
+              />
+            );
           })
         }
       </div>

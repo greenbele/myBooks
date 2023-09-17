@@ -229,9 +229,12 @@ class BooksManager {
     // client-side validation
     const err = [];
 
-    if (_.find(this.books, ['bookTitle', updateData.newBookTitle])) {
+    // console.log(updateData, oldBookTitle); // SCAFF
+
+    if (_.find(this.books, ['bookTitle', updateData.bookTitle])) {
       // a book with that title already exists
-      err.push(`${updateData.newBookTitle}: book title already in use`);
+      // console.log('book title already exists!'); // SCAFF
+      err.push(`${updateData.bookTitle}: book title already in use`);
     } else {
       // valid update data; update BooksManager
       const bookObj = _.find(this.books, ['bookTitle', oldBookTitle]);
@@ -239,6 +242,7 @@ class BooksManager {
     }
 
     return err;
+    // return err.length || ['fake error message'];
   }
 }
 

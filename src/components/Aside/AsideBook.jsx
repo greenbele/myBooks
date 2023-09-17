@@ -19,9 +19,9 @@ const AsideBook = ({
         <p className="aside-section-title">CHAPTERS</p>
         <ul className="aside-chapters">
           {
-            chapters.map((title) => {
+            chapters.map((title, idx) => {
               return (
-                <li key={title}>
+                <li key={idx}>
                   <Link to={`${chaptersURI}${title}`}>{title}</Link>
                 </li>
               )

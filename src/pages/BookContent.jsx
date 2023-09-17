@@ -38,9 +38,7 @@ const BookContent = ({
    * 1 - perform local actions and dispatch to App
    */
   const handleBookCreateFormSubmitLocal = (e) => {
-    e.preventDefault();
-
-    handleBookCreateFormSubmit(e, bookFormData);
+    return handleBookCreateFormSubmit(e, bookFormData);
   };
 
   /*
