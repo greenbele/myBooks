@@ -15,6 +15,7 @@ const Aside = ({
    *
    * Returns array of book objects, each with a bookTitle, and chapters property.
    */
+  /*
   const getAsideContent = (books) => {
     return books.map((book) => {
       const chTitles = book.chapters.map((ch) => ch.chapterTitle); // array of chapter titles
@@ -22,9 +23,9 @@ const Aside = ({
       return bookObj;
     });
   };
+  */
 
-  const asideContent = books && getAsideContent(books);
-  // console.log(asideContent); // SCAFF
+  // const asideContent = books && getAsideContent(books);
 
   return (
     books
@@ -35,11 +36,11 @@ const Aside = ({
       <p className="aside-section-title flyout-content">BOOKS</p>
       <div className="aside-books flyout-content">
         {
-          asideContent.map((bookObj, idx) => {
+          books.map((book, idx) => {
             return (
               <AsideBook
                 key={idx}
-                {...bookObj}
+                {...book}
               />
             );
           })

@@ -202,6 +202,88 @@ class BooksManager {
   static getBookViewURI(book) {
     if (book.bookTitle) {
       return resolve(booksURI, book.bookTitle);
+    } else {
+      console.log('getBookViewURI: invalid arg(s)'); // SCAFF
+    }
+
+    return '';
+  }
+
+  /**
+   * Returns a new book object with the URI of self and children chapters set/updated.
+   *
+   * @param {Object} book - a book object.
+   * @returns {Object} - new URI-updated book object.
+   */
+  static setBookViewURI(book) {
+    if (book?.bookTitle) {
+      const bookClone = _.cloneDeep(book);
+
+      // update book URI
+      bookClone.bookURI = this.getBookViewURI(book);
+
+      // update children chapter URIs
+      const self = this;
+      const updatedChapters = bookClone.chapters.map(function (chapter) {
+        const chapterClone = _.cloneDeep(chapter);
+        chapterClone.chapterURI = self.getChapterViewURI(bookClone.bookURI, chapter);
+
+        return chapterClone;
+      });
+      bookClone.chapters = updatedChapters;
+
+      return bookClone;
+    } else {
+      console.log('setBookViewURI: invalid arg(s)'); // SCAFF
+    }
+
+    return book;
+  }
+
+  /**
+   * Returns a new chapter object with its chapterURI set/updated.
+   *
+   * @param {Object} book - a book object.
+   * @returns {Object} - new URI-updated book object.
+   */
+  static setChapterViewURI(bookURI, chapter) {
+    if (bookURI && chapter?.chapterTitle) {
+      const chapterClone = _.cloneDeep(chapter);
+
+      chapterClone.chapterTitle = this.getChapterViewURI(bookURI, chapter);
+
+      return chapterClone;
+    } else {
+      console.log('setChapterViewURI: invalid arg(s)'); // SCAFF
+    }
+
+    return chapter;
+  }
+
+  /**
+   * Returns the URI for viewing a specific chapter.
+   *
+   * @param {String} bookURI - parent book URI address.
+   * @param {Object} chapter - chapter object in question.
+   * @returns {String} - the URI of the chapter.
+   */
+  static getChapterViewURI(bookURI, chapter) {
+    if (bookURI && chapter?.chapterTitle) {
+      return resolve(bookURI, 'chapters', chapter.chapterTitle);
+    }
+
+    return '';
+  }
+
+  /**
+   * Returns the URI for editing a specific chapter.
+   *
+   * @param {Object} chapter - chapter object in question.
+   * @returns {String} - the edit URI of the chapter.
+   */
+  static getChapterEditURI(chapter) {
+    if (chapter?.chapterTitle) {
+      return resolve(chapter.chapterURI, 'edit');
     }
 
     return '';
@@ -214,15 +296,18 @@ class BooksManager {
    * @returns {undefined} - nothing.
    */
   static addBook(newBook) {
-    // TODO: do uniqueness validation here, perhaps?
     const err = [];
+    let newBookClone = _.cloneDeep(newBook);
 
+    // uniqueness validation
     if (_.find(this.books, ['bookTitle', newBook.bookTitle])) {
       // a book with that title already exists
       err.push(`${newBook.bookTitle}: book title already in use`);
     } else {
-      // validation done
-      this.books.push(newBook);
+      // validation done; update URI and push to manager's books
+      // TODO: use BookModel
+      newBookClone = this.setBookViewURI(newBook);
+      this.books.push(newBookClone);
     }
 
     return err;
@@ -241,7 +326,11 @@ class BooksManager {
 
     // console.log(updateData, oldBookTitle); // SCAFF
 
-    if (_.find(this.books, ['bookTitle', updateData.bookTitle])) {
+    if (
+      _.find(this.books, ['bookTitle', updateData.bookTitle])
+      &&
+      oldBookTitle !== updateData.bookTitle
+    ) {
       // a book with that title already exists
       // console.log('book title already exists!'); // SCAFF
       err.push(`${updateData.bookTitle}: book title already in use`);
@@ -249,6 +338,9 @@ class BooksManager {
       // valid update data; update BooksManager
       const bookObj = _.find(this.books, ['bookTitle', oldBookTitle]);
       Object.assign(bookObj, updateData);
+      // also update book and associated chapters URI
+      const linkUpdatedBookObj = this.setBookViewURI(bookObj);
+      Object.assign(bookObj, linkUpdatedBookObj);
     }
 
     return err;
@@ -263,6 +355,7 @@ class BooksManager {
 class BookModel {
   constructor() {
     this.bookTitle = '';
+    this.bookURI = '';
     this.searchTags = '';
     this.lastEdited = _.now();
 
@@ -273,6 +366,7 @@ class BookModel {
 class ChapterModel {
   constructor() {
     this.chapterTitle = '';
+    this.chapterURI = '';
     this.searchTags = '';
     this.lastEdited = _.now();
 
