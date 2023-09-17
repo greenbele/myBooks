@@ -215,7 +215,17 @@ class BooksManager {
    */
   static addBook(newBook) {
     // TODO: do uniqueness validation here, perhaps?
-    this.books.push(newBook);
+    const err = [];
+
+    if (_.find(this.books, ['bookTitle', newBook.bookTitle])) {
+      // a book with that title already exists
+      err.push(`${newBook.bookTitle}: book title already in use`);
+    } else {
+      // validation done
+      this.books.push(newBook);
+    }
+
+    return err;
   }
 
   /**

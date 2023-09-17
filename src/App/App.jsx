@@ -109,29 +109,31 @@ const App = () => {
     e.target[3].value = '';
 
     // 2
-    const data = {
-      bookTitle,
-      searchTags,
-    };
 
     // 3
     /* on success... */
-
     // update BooksManager
     const newBook = new BookModel();
     Object.seal(newBook);
-    const bookObj = {
+    const bookCreateObj = {
       bookTitle,
       searchTags,
     };
-    Object.assign(newBook, bookObj);
-    BooksManager.addBook(newBook);
+    Object.assign(newBook, bookCreateObj);
+    const err = BooksManager.addBook(newBook);
+    if (err.length) {
+      // book creation error; likely duplicate title
+      return err;
+    }
 
     // update state
     setBooks(_.cloneDeep(BooksManager.books));
     /* on failure... */
 
-    console.log(data); // SCAFF
+    console.log(bookCreateObj); // SCAFF
+
+    // no creation error (title duplicate)
+    return [];
   };
 
   /**
