@@ -35,6 +35,72 @@ function resolve(...paths) {
 }
 
 /**
+ * Handles creation, amd modification of page elements.
+ */
+class PageManager {
+  constructor() {
+    this.rawPageContents = null;
+  }
+
+  /**
+   * Takes a tag name and content, and returns an HTML element generated from them.
+   *
+   * @param {String} tagName - name of the HTML tag.
+   * @param {String} content - content for the generated element
+   * @param {Number} idx - unique index of the elemwnt in its collection.
+   * @returns {HTMLElement} - an HTML element.
+   */
+  getElement(tagName, content, idx) {
+    try {
+      switch (tagName.toLowerCase()) {
+        case 'p':
+          return <p key={idx}>{content}</p>
+        case 'h1':
+          return <h1 key={idx}>{content}</h1>
+        case 'h2':
+          return <h2 key={idx}>{content}</h2>
+        case 'h3':
+          return <h3 key={idx}>{content}</h3>
+        case 'h4':
+          return <h4 key={idx}>{content}</h4>
+        case 'h5':
+          return <h5 key={idx}>{content}</h5>
+        case 'h6':
+          return <h6 key={idx}>{content}</h6>
+        default:
+          throw new Error('tagName not supported');
+      }
+    } catch (err) {
+      console.log('ERROR - PageManager:', err.toString()); // SCAFF
+    }
+  }
+
+  /**
+   * Takes an array of page content objects and returns an array of HTML elements in order.
+   *
+   * @param {Array} rawPageContents - array of page content objects to convert to HTML.
+   * @returns {Array} - the page contents refined to HTML.
+   */
+  getHTMLPageContents(rawPageContents = this.rawPageContents) {
+    try {
+      let HTMLPageContents = [];
+
+      if (rawPageContents instanceof Array) {
+        const self = this;
+
+        HTMLPageContents = rawPageContents.map((pageObj, idx) => {
+          return self.getElement(pageObj.tag, pageObj.content, idx);
+        });
+      }
+
+      return HTMLPageContents;
+    } catch (err) {
+      console.log('ERROR - PageManager.getHTMLPageContents:', err.toString()); // SCAFF
+    }
+  }
+}
+
+/**
  * Handle major input onChange event handler logic.
  */
 class InputChangeManager {
@@ -578,6 +644,7 @@ const initBooks = [
   },
 ];
 
+/* eslint-disable react-refresh/only-export-components */
 export {
   dashboardURI,
   booksURI,
@@ -596,4 +663,5 @@ export {
   ChapterModel,
   PageModel,
   InputChangeManager,
+  PageManager,
 };

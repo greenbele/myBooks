@@ -15,6 +15,7 @@ import DashboardHomeContent from '../pages/DashboardHomeContent';
 import LandingContent from '../pages/LandingContent';
 import BookSummaryContent from '../pages/BookSummaryContent';
 import BookDetailContent from '../pages/BookDetailContent';
+import ChapterViewContent from '../pages/ChapterViewContent';
 
 import {
   signUpURI,
@@ -455,6 +456,17 @@ const App = () => {
                     handleChapterCreateFormSubmit={handleChapterCreateFormSubmit}
                     handleChapterEditFormSubmit={handleChapterEditFormSubmit}
                     handleChapterDeleteButtonClick={handleChapterDeleteButtonClick}
+                    BooksManager={BooksManager}
+                  />
+                }
+              />
+
+              <Route
+                path={`:bookTitle/chapters/:chapterTitle`}
+                element={
+                  <ChapterViewContent
+                    isLoading={isLoading}
+                    isLoggedIn={isLoggedIn}
                     BooksManager={BooksManager}
                   />
                 }
