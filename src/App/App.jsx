@@ -13,7 +13,8 @@ import SignUpContent from '../pages/SignUpContent';
 import LoginContent from '../pages/LoginContent';
 import DashboardHomeContent from '../pages/DashboardHomeContent';
 import LandingContent from '../pages/LandingContent';
-import BookContent from '../pages/BookContent';
+import BookSummaryContent from '../pages/BookSummaryContent';
+import BookDetailContent from '../pages/BookDetailContent';
 
 import {
   signUpURI,
@@ -22,6 +23,7 @@ import {
   BooksManager,
   booksURI,
   BookModel,
+  ChapterModel,
 } from '../constants';
 
 import BooksService from '../services/backend';
@@ -90,8 +92,7 @@ const App = () => {
    * 2 - send to backend service for validation and storage
    *
    * 3 -
-   *   a - on success status (201), update BooksManager and call App's onBookCreation.
-   *   Also update bookFormData in-memory to allow easy of update during a client session.
+   *   a - on success status (201), update BooksManager and App state
    *
    *   b - on failure, set error messages for [re-]rendering
    *
@@ -131,6 +132,67 @@ const App = () => {
     /* on failure... */
 
     // console.log(bookCreateObj); // SCAFF
+
+    // no creation error (title duplicate)
+    return [];
+  };
+
+  /**
+   * perform actions when user submits chapter creation form.
+   *
+   * Logic:
+   *
+   * 1 - collect chapterTitle (0) and searchTags (1) field values
+   *
+   * 2 - send to backend service for validation and storage
+   *
+   * 3 -
+   *   a - on success status (201), update BooksManager and App state
+   *
+   *   b - on failure, set error messages for [re-]rendering
+   *
+   * 4 - there might be need to reset form fields on success
+   */
+  const handleChapterCreateFormSubmit = ({
+    e,
+    bookTitle,
+  }) => {
+    e.preventDefault();
+
+    // 1
+    // TODO: notify user on success?
+    const chapterTitle = e.target[1].value;
+    const searchTags = e.target[3].value;
+    // clear input fields
+    e.target[1].value = '';
+    e.target[3].value = '';
+
+    // 2
+
+    // 3
+    /* on success... */
+    // update BooksManager
+    const newChapter = new ChapterModel();
+    Object.seal(newChapter);
+    const chapterCreateObj = {
+      chapterTitle,
+      searchTags,
+    };
+    Object.assign(newChapter, chapterCreateObj);
+    const options = {
+      bookTitle,
+    };
+    const err = BooksManager.addChapter(newChapter, options);
+    if (err.length) {
+      // book creation error; likely duplicate title
+      return err;
+    }
+
+    // update state
+    setBooks(_.cloneDeep(BooksManager.books));
+    /* on failure... */
+
+    // console.log(chapterCreateObj); // SCAFF
 
     // no creation error (title duplicate)
     return [];
@@ -191,6 +253,69 @@ const App = () => {
   };
 
   /**
+   * perform actions on form submission.
+   *
+   * Logic:
+   *
+   * 1 - collect chapterTitle and searchTags field values
+   *
+   * 2 - send data to backend for validation and update
+   *
+   * 3 -
+   *   a - on success response, update BooksManager, App state, and [probably] bookFormData
+   *   b - on failure, notify user
+   *
+   * 4 - remove mask (by calling App's handleMaskEvent)
+   *
+   * Note - it's ensured that at least one field is changed.
+   */
+  const handleChapterEditFormSubmit = ({
+    e,
+    bookTitle,
+    oldChapterTitle,
+    setDisable,
+  }) => {
+    e.preventDefault();
+
+    // 1
+    const newChapterTitle = e.target[1].value;
+    const newSearchTags = e.target[3].value;
+
+    // 2 - validate client side?
+    //  update BooksManager
+    const updateData = {
+      chapterTitle: newChapterTitle,
+      searchTags: newSearchTags,
+    };
+    const options = {
+      bookTitle,
+      oldChapterTitle,
+    };
+    const err = BooksManager.updateChapter(updateData, options);
+    if (err.length) {
+      // error messages present; likely duplicate book titles
+      return err;
+    }
+    // update state
+    setBooks(_.cloneDeep(BooksManager.books));
+    // disable submit button manually on book update
+    setDisable(true);
+
+    // 3
+    // update form data object
+    // bookFormData.inputOneValue = bookTitle;
+    // bookFormData.inputTwoValue = searchTags;
+
+    // 4
+    // handleMaskEvent();
+
+    // console.log(updateData); // SCAFF
+
+    // no title duplicate error
+    return [];
+  };
+
+  /**
    * perform actions on book delete button click.
    */
   const handleBookDeleteButtonClick = (bookTitle) => {
@@ -204,6 +329,29 @@ const App = () => {
       // TODO: send to backend for update
     } catch (err) {
       console.log('ERROR - handleBookDeleteButtonClick:', err.toString()); // SCAFF
+    }
+  };
+
+  /**
+   * perform actions on chapter delete button click.
+   */
+  const handleChapterDeleteButtonClick = ({
+    chapterTitle,
+    bookTitle,
+  }) => {
+    try {
+      // update manager
+      const options = {
+        bookTitle,
+      };
+      BooksManager.deleteChapter(chapterTitle, options);
+
+      // update state
+      setBooks(_.cloneDeep(BooksManager.books));
+
+      // TODO: send to backend for update
+    } catch (err) {
+      console.log('ERROR - handleChapterDeleteButtonClick:', err.toString()); // SCAFF
     }
   };
 
@@ -282,15 +430,31 @@ const App = () => {
             />
 
             <Route path={booksURI}>
+              {/* books home route */}
               <Route
                 index
                 element={
-                  <BookContent
+                  <BookSummaryContent
                     isLoading={isLoading}
                     isLoggedIn={isLoggedIn}
                     handleBookCreateFormSubmit={handleBookCreateFormSubmit}
                     handleBookEditFormSubmit={handleBookEditFormSubmit}
                     handleBookDeleteButtonClick={handleBookDeleteButtonClick}
+                    BooksManager={BooksManager}
+                  />
+                }
+              />
+
+              {/* individual book routes */}
+              <Route
+                path={`${booksURI}/:bookTitle`}
+                element={
+                  <BookDetailContent
+                    isLoading={isLoading}
+                    isLoggedIn={isLoggedIn}
+                    handleChapterCreateFormSubmit={handleChapterCreateFormSubmit}
+                    handleChapterEditFormSubmit={handleChapterEditFormSubmit}
+                    handleChapterDeleteButtonClick={handleChapterDeleteButtonClick}
                     BooksManager={BooksManager}
                   />
                 }

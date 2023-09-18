@@ -32,7 +32,7 @@ const BookList = ({
           }
         </ol>
         :
-        'No chapter in book. Create chapters with the form above.'
+        'No books. Create some with the form above.'
       }
     </div>
     :

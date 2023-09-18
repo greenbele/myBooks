@@ -9,7 +9,6 @@ import { BookFormData } from '../../../constants';
 
 const Book = ({
   book,
-  BooksManager,
   handleBookEditFormSubmit,
   handleBookDeleteButtonClick,
 }) => {
@@ -55,7 +54,7 @@ const Book = ({
 
       {/* book toolbar */}
       <div>
-        <Link to={BooksManager.getBookViewURI(book)}>Open</Link>
+        <Link to={book.bookURI}>Open</Link>
         <button>Edit</button>
         <button onClick={handleBookDeleteButtonClickLocal}>Delete</button>
       </div>

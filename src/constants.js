@@ -250,7 +250,7 @@ class BooksManager {
     if (bookURI && chapter?.chapterTitle) {
       const chapterClone = _.cloneDeep(chapter);
 
-      chapterClone.chapterTitle = this.getChapterViewURI(bookURI, chapter);
+      chapterClone.chapterURI = this.getChapterViewURI(bookURI, chapter);
 
       return chapterClone;
     } else {
@@ -293,7 +293,7 @@ class BooksManager {
    * Adds a new book to the books list.
    *
    * @param {Object} newBook - book to add to the list.
-   * @returns {undefined} - nothing.
+   * @returns {Array} - possible error messages.
    */
   static addBook(newBook) {
     const err = [];
@@ -311,6 +311,45 @@ class BooksManager {
     }
 
     return err;
+  }
+
+  /**
+   * Adds a new chapter to a specific book.
+   *
+   * @param {Object} newChpater - chapter to add.
+   * @param {String} bookTitle - title/id of book to add chapter to.
+   * @returns {Array} - possible error messages.
+   */
+  static addChapter(newChapter, {
+    bookTitle,
+  }) {
+    try {
+      // get parent book
+      const book = _.find(this.books, ['bookTitle', bookTitle]);
+      if (!book) {
+        return [bookTitle, '- No such parent book'];
+      }
+
+      // parent book found
+      const err = [];
+      let newChapterClone = _.cloneDeep(newChapter);
+
+      // uniqueness validation
+      if (_.find(book.chapters, ['chapterTitle', newChapter.chapterTitle])) {
+        // a book with that title already exists
+        err.push(`${newChapter.chapterTitle}: chapter title already in use`);
+      } else {
+        // validation done; update URI and push to manager's books
+        // TODO: use ChapterModel
+        newChapterClone = this.setChapterViewURI(book.bookURI, newChapter);
+        console.log('BooksManager.addChapter:', newChapterClone); // SCAFF
+        book.chapters.push(newChapterClone);
+      }
+
+      return err;
+    } catch (err) {
+      console.log('ERROR - addChapter:', err.toString()); // SCAFF
+    }
   }
 
   /**
@@ -348,6 +387,54 @@ class BooksManager {
   }
 
   /**
+   * Updates an existing chapter obj.
+   *
+   * @param {Object} updateData - the update data object.
+   * @param {String} bookTitle - title of parent book.
+   * @param {String} oldChapterTitle - title of the chapter to update.
+   * @returns {Array} - array containing possible error messages
+   */
+  static updateChapter(updateData, {
+    bookTitle,
+    oldChapterTitle,
+  }) {
+    try {
+      // get parent book
+      const book = _.find(this.books, ['bookTitle', bookTitle]);
+      if (!book) {
+        return ['No such parent book'];
+      }
+
+      // parent book found
+      const err = [];
+
+      // console.log(updateData, oldBookTitle); // SCAFF
+
+      if (
+        _.find(book.chapters, ['chapterTitle', updateData.chapterTitle])
+        &&
+        oldChapterTitle !== updateData.chapterTitle
+      ) {
+        // a chapter with that title already exists
+        // console.log('book title already exists!'); // SCAFF
+        err.push(`${updateData.chapterTitle}: chapter title already in use`);
+      } else {
+        // valid update data; update BooksManager
+        const chapterObj = _.find(book.chapters, ['chapterTitle', oldChapterTitle]);
+        Object.assign(chapterObj, updateData);
+        // also update chapter URI
+        const linkUpdatedChapterObj = this.setChapterViewURI(book.bookURI, chapterObj);
+        Object.assign(chapterObj, linkUpdatedChapterObj);
+      }
+
+      // return err.length || ['fake error message'];
+      return err;
+    } catch (err) {
+      console.log('ERROR - updateChapter:', err.toString()); // SCAFF
+    }
+  }
+
+  /**
    * Removes a book object from book manager.
    *
    * @param {String} bookTitle - the title of the book to remove
@@ -361,6 +448,33 @@ class BooksManager {
       this.books = updatedBooks;
     } catch (err) {
       console.log('ERROR - BooksManager.deleteBook:', err.toString()); // SCAFF
+    }
+  }
+
+  /**
+   * Removes a chapter object from a book.
+   *
+   * @param {String} chapterTitle - the title of the chapter to remove
+   * @param {String} bookTitle - the title of parent book.
+   * @returns {undefined} - nothing.
+   */
+  static deleteChapter(chapterTitle, {
+    bookTitle,
+  }) {
+    try {
+      // get parent book
+      const book = _.find(this.books, ['bookTitle', bookTitle]);
+      if (!book) {
+        return ['No such parent book'];
+      }
+
+      // parent book found
+      const updatedChapters = book.chapters.filter((chapter) => {
+        return chapter.chapterTitle !== chapterTitle;
+      });
+      book.chapters = updatedChapters;
+    } catch (err) {
+      console.log('ERROR - BooksManager.deleteChapter:', err.toString()); // SCAFF
     }
   }
 }
