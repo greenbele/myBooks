@@ -3,7 +3,7 @@
 // import * as _ from "lodash";
 
 // TODO:
-// - here:
+// - parent (EditableElement):
 //   - implement delete button event handler
 //   - implement edit button event handler
 
@@ -14,6 +14,7 @@ const EditingToolbar = ({
   isToolbarDisabled,
   orders,
   selectedOrder,
+  onEditToolbarButtonClick,
   onOrderSelectChange,
 }) => {
   // localStorage.setItem('EditingToolbar', _.now()); // SCAFF
@@ -34,6 +35,7 @@ const EditingToolbar = ({
       {/* edit button */}
       <button
         type="button"
+        onClick={onEditToolbarButtonClick}
         disabled={isToolbarDisabled}
       >
         Edit

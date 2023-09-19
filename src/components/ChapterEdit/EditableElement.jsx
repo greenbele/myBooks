@@ -26,6 +26,7 @@ const EditableElement = ({
   idx,
   onElementEditFormSubmit,
   onOrderSelectChange,
+  onEditActive,
 }) => {
   // localStorage.setItem('EditableElement', _.now()); // SCAFF
   // console.log('Rendering EditableElement...'); // SCAFF
@@ -48,6 +49,7 @@ const EditableElement = ({
     onCancelClick: null,
     onElementEditFormSubmit,
   };
+
   const contentArea = (
     isEditing
     ?
@@ -55,6 +57,14 @@ const EditableElement = ({
     :
     pageManager.getElement(contentObj.tag, contentObj.content, idx)
   );
+
+  /**
+   * handle click event on toolbar Edit button.
+   */
+  const handleEditToolbarButtonClick = () => {
+    setIsEditing(true);
+    onEditActive();
+  };
 
   return (
     <div>
@@ -64,6 +74,7 @@ const EditableElement = ({
         orders={orders}
         selectedOrder={selectedOrder}
         onOrderSelectChange={onOrderSelectChange}
+        onEditToolbarButtonClick={handleEditToolbarButtonClick}
       />
 
       {/* editable content area */}
