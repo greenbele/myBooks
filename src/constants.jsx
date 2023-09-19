@@ -80,15 +80,15 @@ class PageManager {
    *
    * @param {String} tagName - name of the HTML tag.
    * @param {String} content - content for the generated element
-   * @param {Function} onCancelClick - event handler for Cancel button click.
+   * @param {Function} onElementEditFormCancel - event handler for Cancel button click.
    * @param {Function} onElementEditFormSubmit - event handler for edit form submission.
    * @param {Boolean} isDisabled - input disabling flag.
    * @returns {HTMLElement} - an HTML input control element.
    */
   getEditableElement(tagName, {
     content,
-    onCancelClick,
     onElementEditFormSubmit,
+    onElementEditFormCancel,
   }) {
     try {
       const defaultEventHandler = (e) => {
@@ -110,7 +110,7 @@ class PageManager {
 
               <button
                 type="button"
-                onClick={onCancelClick || defaultEventHandler}
+                onClick={onElementEditFormCancel || defaultEventHandler}
               >
                 Cancel
               </button>
@@ -134,7 +134,7 @@ class PageManager {
 
               <button
                 type="button"
-                onClick={onCancelClick || defaultEventHandler}
+                onClick={onElementEditFormCancel || defaultEventHandler}
               >
                 Cancel
               </button>

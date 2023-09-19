@@ -14,7 +14,7 @@ const EditingToolbar = ({
   isToolbarDisabled,
   orders,
   selectedOrder,
-  onEditToolbarButtonClick,
+  onToolbarEditButtonClick,
   onOrderSelectChange,
 }) => {
   // localStorage.setItem('EditingToolbar', _.now()); // SCAFF
@@ -35,7 +35,7 @@ const EditingToolbar = ({
       {/* edit button */}
       <button
         type="button"
-        onClick={onEditToolbarButtonClick}
+        onClick={onToolbarEditButtonClick}
         disabled={isToolbarDisabled}
       >
         Edit

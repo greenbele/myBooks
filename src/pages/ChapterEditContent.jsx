@@ -58,13 +58,6 @@ const ChapterEditContent = ({
     return contentObj.order;
   });
 
-  /**
-   * disables toolbars on activation of editing mode.
-   */
-  const handleEditActive = () => {
-    setIsToolbarDisabled(true);
-  };
-
   /* EditableElement props:
   orders,
   selectedOrder,
@@ -89,7 +82,7 @@ const ChapterEditContent = ({
               orders={orders}
               selectedOrder={contentObj.order}
               isToolbarDisabled={isToolbarDisabled}
-              onEditActive={handleEditActive}
+              setIsToolbarDisabled={setIsToolbarDisabled}
               contentObj={contentObj}
               idx={idx}
               onElementEditFormSubmit={onElementEditFormSubmit}

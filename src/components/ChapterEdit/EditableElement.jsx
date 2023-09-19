@@ -26,7 +26,7 @@ const EditableElement = ({
   idx,
   onElementEditFormSubmit,
   onOrderSelectChange,
-  onEditActive,
+  setIsToolbarDisabled,
 }) => {
   // localStorage.setItem('EditableElement', _.now()); // SCAFF
   // console.log('Rendering EditableElement...'); // SCAFF
@@ -39,6 +39,22 @@ const EditableElement = ({
   };
   */
 
+  /**
+   * handle click event on toolbar Edit button.
+   */
+  const handleToolbarEditButtonClick = () => {
+    setIsEditing(true);
+    setIsToolbarDisabled(true);
+  };
+
+  /**
+   * handle click event on toolbar Cancel button.
+   */
+  const onElementEditFormCancel = () => {
+    setIsEditing(false);
+    setIsToolbarDisabled(false);
+  };
+
   const [isEditing, setIsEditing] = useState(false);
 
   const pageManager = new PageManager();
@@ -48,6 +64,7 @@ const EditableElement = ({
     content: contentObj.content,
     onCancelClick: null,
     onElementEditFormSubmit,
+    onElementEditFormCancel,
   };
 
   const contentArea = (
@@ -58,14 +75,6 @@ const EditableElement = ({
     pageManager.getElement(contentObj.tag, contentObj.content, idx)
   );
 
-  /**
-   * handle click event on toolbar Edit button.
-   */
-  const handleEditToolbarButtonClick = () => {
-    setIsEditing(true);
-    onEditActive();
-  };
-
   return (
     <div>
       {/* editing toolbar */}
@@ -74,7 +83,7 @@ const EditableElement = ({
         orders={orders}
         selectedOrder={selectedOrder}
         onOrderSelectChange={onOrderSelectChange}
-        onEditToolbarButtonClick={handleEditToolbarButtonClick}
+        onToolbarEditButtonClick={handleToolbarEditButtonClick}
       />
 
       {/* editable content area */}
