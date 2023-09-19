@@ -603,6 +603,48 @@ class BooksManager {
   }
 
   /**
+   * Updates the content of a chapter element.
+   *
+   * @param {String} content - the update content.
+   * @param {String} bookTitle - book ID
+   * @param {String} chapterTitle - chapter ID
+   * @param {Number} orderNum - order number of the page content
+   * @returns {undefined} - nothing.
+   */
+  static updatePageContent(content, {
+    bookTitle = '',
+    chapterTitle = '',
+    orderNum = -1,
+  }) {
+    // TODO: notify users of errors (Notification component)
+    try {
+      // get book first
+      const book = _.find(this.books, ['bookTitle', bookTitle]);
+      if (book) {
+        // book found; get chapter
+        const chapter = _.find(book.chapters, ['chapterTitle', chapterTitle]);
+        if (chapter) {
+          // chapter found; get page content object
+          const contentObj = _.find(chapter.page, ['order', orderNum]);
+          if (contentObj) {
+            // page content/element object found; update
+            contentObj.content = content;
+          } else {
+            // console.log(chapter); // SCAFF
+            throw new Error(`${orderNum} content not found`);
+          }
+        } else {
+          throw new Error(`${chapterTitle} chapter not found`);
+        }
+      } else {
+        throw new Error(`${bookTitle} book not found`);
+      }
+    } catch (err) {
+      console.log('ERROR - updatePageContent:', err.toString()); // SCAFF
+    }
+  }
+
+  /**
    * Removes a book object from book manager.
    *
    * @param {String} bookTitle - the title of the book to remove

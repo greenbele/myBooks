@@ -12,10 +12,7 @@ let renderTimes = 0;
 
 // TODO:
 // - from App:
-//   - onElementEditFormSubmit
 //   - onOrderSelectChange
-// - here:
-//   - toggle toolbar disability on Cancel or Save
 
 /**
  * Brings all chapter editing components into a page.
@@ -40,6 +37,26 @@ const ChapterEditContent = ({
     }
   });
 
+  /**
+   * perform local actions on element edit form submission.
+   */
+  const handleElementEditFormSubmitLocal = (e, {
+    orderNum,
+    setIsEditing,
+    setIsSubmitButtonDisabled,
+  }) => {
+    const options = {
+      bookTitle,
+      chapterTitle,
+      orderNum,
+      setIsToolbarDisabled,
+      setIsEditing,
+      setIsSubmitButtonDisabled,
+    };
+
+    return onElementEditFormSubmit(e, options);
+  };
+
   let chapter = null;
 
   // get dynamic book and chapter title parameters
@@ -58,16 +75,6 @@ const ChapterEditContent = ({
     return contentObj.order;
   });
 
-  /* EditableElement props:
-  orders,
-  selectedOrder,
-  isToolbarDisabled,
-  contentObj,
-  idx,
-  onSubmit,
-  onOrderSelectChange,
-  */
-
   return (
     isLoading
     ?
@@ -85,7 +92,7 @@ const ChapterEditContent = ({
               setIsToolbarDisabled={setIsToolbarDisabled}
               contentObj={contentObj}
               idx={idx}
-              onElementEditFormSubmit={onElementEditFormSubmit}
+              onElementEditFormSubmit={handleElementEditFormSubmitLocal}
               onOrderSelectChange={onOrderSelectChange}
             />
           );

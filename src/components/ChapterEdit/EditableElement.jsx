@@ -52,6 +52,18 @@ const EditableElement = ({
     setIsToolbarDisabled(false);
   };
 
+  /**
+   * perform local actions on element edit form submission.
+   */
+  const handleElementEditFormSubmitLocal = (e) => {
+    const options = {
+      orderNum: selectedOrder,
+      setIsEditing,
+      setIsSubmitButtonDisabled,
+    };
+    onElementEditFormSubmit(e, options);
+  };
+
   const inputChangeManager = new InputChangeManager();
   Object.seal(inputChangeManager);
   const initData = {
@@ -80,7 +92,7 @@ const EditableElement = ({
   const editOptions = {
     content: contentObj.content,
     isSubmitButtonDisabled,
-    onElementEditFormSubmit,
+    onElementEditFormSubmit: handleElementEditFormSubmitLocal,
     onElementEditFormCancel: handleElementEditFormCancel,
     onElementEditFormChange: handleElementEditFormChange,
   };

@@ -321,6 +321,34 @@ const App = () => {
   };
 
   /**
+   * handle submission of element edit form.
+   */
+  const handleElementEditFormSubmit = (e, {
+    setIsToolbarDisabled,
+    setIsEditing,
+    setIsSubmitButtonDisabled,
+    ...options
+  }) => {
+    e.preventDefault();
+
+    //console.log(options, e.target[0].value); // SCAFF
+
+    // get edited content
+    const content = e.target[0].value;
+
+    // update book manager
+    BooksManager.updatePageContent(content, options);
+
+    // update App state
+    setBooks(_.cloneDeep(BooksManager.books));
+
+    // manually update page edit-related states
+    setIsEditing(false);
+    setIsToolbarDisabled(false);
+    setIsSubmitButtonDisabled(true);
+  };
+
+  /**
    * perform actions on book delete button click.
    */
   const handleBookDeleteButtonClick = (bookTitle) => {
@@ -483,6 +511,7 @@ const App = () => {
                     isLoading={isLoading}
                     isLoggedIn={isLoggedIn}
                     BooksManager={BooksManager}
+                    onElementEditFormSubmit={handleElementEditFormSubmit}
                   />
                 }
               />
