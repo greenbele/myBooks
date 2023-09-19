@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { PageManager } from '../../constants';
 
 /* eslint-disable react/prop-types */
@@ -5,6 +7,7 @@ import { PageManager } from '../../constants';
 const ChapterView = ({
   chapter,
 }) => {
+  localStorage.setItem('ChapterView', _.now()); // SCAFF
   const pageManager = new PageManager();
   Object.seal(pageManager);
   const initObj = {

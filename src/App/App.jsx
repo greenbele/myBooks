@@ -16,6 +16,7 @@ import LandingContent from '../pages/LandingContent';
 import BookSummaryContent from '../pages/BookSummaryContent';
 import BookDetailContent from '../pages/BookDetailContent';
 import ChapterViewContent from '../pages/ChapterViewContent';
+import ChapterEditContent from '../pages/ChapterEditContent';
 
 import {
   signUpURI,
@@ -35,6 +36,9 @@ import BooksService from '../services/backend';
 /* eslint-disable react/prop-types */
 
 const App = () => {
+  localStorage.setItem('App', _.now()); // SCAFF
+  console.log('Rendering App...'); // SCAFF
+
   const [books, setBooks] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -465,6 +469,17 @@ const App = () => {
                 path={`:bookTitle/chapters/:chapterTitle`}
                 element={
                   <ChapterViewContent
+                    isLoading={isLoading}
+                    isLoggedIn={isLoggedIn}
+                    BooksManager={BooksManager}
+                  />
+                }
+              />
+
+              <Route
+                path={`:bookTitle/chapters/:chapterTitle/edit`}
+                element={
+                  <ChapterEditContent
                     isLoading={isLoading}
                     isLoggedIn={isLoggedIn}
                     BooksManager={BooksManager}

@@ -8,16 +8,22 @@ import ChapterView from '../components/ChapterView/ChapterView';
 
 /* eslint-disable react/prop-types */
 
+let renderTimes = 0;
+
 const ChapterViewContent = ({
   isLoading,
   isLoggedIn,
   BooksManager,
 }) => {
+  localStorage.setItem('ChapterViewContent', _.now()); // SCAFF
+  console.log(isLoading, isLoggedIn, BooksManager); // SCAFF
+
   const navigate = useNavigate();
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!isLoggedIn && renderTimes > 0) {
       navigate(loginURI);
     }
+    renderTimes += 1;
   });
 
   let chapter = null;

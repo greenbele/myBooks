@@ -47,7 +47,7 @@ class PageManager {
    *
    * @param {String} tagName - name of the HTML tag.
    * @param {String} content - content for the generated element
-   * @param {Number} idx - unique index of the elemwnt in its collection.
+   * @param {Number} idx - unique index of the element in its collection.
    * @returns {HTMLElement} - an HTML element.
    */
   getElement(tagName, content, idx) {
@@ -67,6 +67,80 @@ class PageManager {
           return <h5 key={idx}>{content}</h5>
         case 'h6':
           return <h6 key={idx}>{content}</h6>
+        default:
+          throw new Error('tagName not supported');
+      }
+    } catch (err) {
+      console.log('ERROR - PageManager:', err.toString()); // SCAFF
+    }
+  }
+
+  /**
+   * Takes a tag name and content, and returns an editable HTML element as input generated from them.
+   *
+   * @param {String} tagName - name of the HTML tag.
+   * @param {String} content - content for the generated element
+   * @param {Function} onCancelClick - event handler for Cancel button click.
+   * @param {Function} onElementEditFormSubmit - event handler for edit form submission.
+   * @param {Boolean} isDisabled - input disabling flag.
+   * @returns {HTMLElement} - an HTML input control element.
+   */
+  getEditableElement(tagName, {
+    content,
+    onCancelClick,
+    onElementEditFormSubmit,
+  }) {
+    try {
+      const defaultEventHandler = (e) => {
+        console.log('PageManager#getEditableElement - unhandled event:', e);
+      };
+
+      switch (tagName.toLowerCase()) {
+        case 'p':
+          // TODO: abstract in components?
+          return (
+            <form onSubmit={onElementEditFormSubmit || defaultEventHandler}>
+              <textarea
+                name="content"
+                cols="40"
+                rows="10"
+                defaultValue={content || ""}
+              >
+              </textarea>
+
+              <button
+                type="button"
+                onClick={onCancelClick || defaultEventHandler}
+              >
+                Cancel
+              </button>
+              <button type="submit">Save</button>
+            </form>
+          );
+        case 'h1':
+        case 'h2':
+        case 'h3':
+        case 'h4':
+        case 'h5':
+        case 'h6':
+          // TODO: abstract in components?
+          return (
+            <form onSubmit={onElementEditFormSubmit || defaultEventHandler}>
+              <input
+                type="text"
+                name="content"
+                defaultValue={content || ""}
+              />
+
+              <button
+                type="button"
+                onClick={onCancelClick || defaultEventHandler}
+              >
+                Cancel
+              </button>
+              <button type="submit">Save</button>
+            </form>
+          );
         default:
           throw new Error('tagName not supported');
       }

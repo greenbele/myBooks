@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 
 import ChapterForm from '../ChapterForm/ChapterForm';
-import { BookFormData } from '../../../constants';
+
+import { BookFormData, resolve } from '../../../constants';
 
 /* eslint-disable react/prop-types */
 
@@ -72,7 +73,10 @@ const Chapter = ({
         <button onClick={handleChapterDeleteButtonClickLocal}>Delete</button>
       </div>
 
-      {/* book edit form */}
+      {/* book edit page link */}
+      <Link to={resolve(chapter.chapterURI, 'edit')}>Edit chapter</Link>
+
+      {/* book metadata edit form */}
       <ChapterForm
         bookFormData={chapterFormData}
         onBookFormSubmit={handleChapterEditFormSubmitLocal}

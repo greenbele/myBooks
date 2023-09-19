@@ -23,9 +23,13 @@ class C1 {
   }
 }
 
+testObj = [{n: 45, x: 20}, {n: 370, x: 449}, {n: 0, x: 1999}];
+
 const c1 = new C1();
 
 module.exports = {
   C1,
   c1,
+  testObj,
+  l,
 };
