@@ -87,8 +87,10 @@ class PageManager {
    */
   getEditableElement(tagName, {
     content,
+    isSubmitButtonDisabled,
     onElementEditFormSubmit,
     onElementEditFormCancel,
+    onElementEditFormChange,
   }) {
     try {
       const defaultEventHandler = (e) => {
@@ -98,6 +100,7 @@ class PageManager {
       switch (tagName.toLowerCase()) {
         case 'p':
           // TODO: abstract in components?
+          // const isDisabled = ...;
           return (
             <form onSubmit={onElementEditFormSubmit || defaultEventHandler}>
               <textarea
@@ -105,6 +108,7 @@ class PageManager {
                 cols="40"
                 rows="10"
                 defaultValue={content || ""}
+                onChange={onElementEditFormChange}
               >
               </textarea>
 
@@ -114,7 +118,12 @@ class PageManager {
               >
                 Cancel
               </button>
-              <button type="submit">Save</button>
+              <button
+                type="submit"
+                disabled={isSubmitButtonDisabled}
+              >
+                Save
+              </button>
             </form>
           );
         case 'h1':
@@ -130,6 +139,7 @@ class PageManager {
                 type="text"
                 name="content"
                 defaultValue={content || ""}
+                onChange={onElementEditFormChange}
               />
 
               <button
@@ -138,7 +148,12 @@ class PageManager {
               >
                 Cancel
               </button>
-              <button type="submit">Save</button>
+              <button
+                type="submit"
+                disabled={isSubmitButtonDisabled}
+              >
+                Save
+              </button>
             </form>
           );
         default:
@@ -176,6 +191,11 @@ class PageManager {
 
 /**
  * Handle major input onChange event handler logic.
+ *
+ * Usage per edit case (use new instance per case, or re-init):
+ *  - first set the initial input values
+ *  - then to track changes, use one of the setIsInput* methods
+ *  - finally, to know if to disable button, call isDisabled
  */
 class InputChangeManager {
   constructor() {
@@ -184,6 +204,9 @@ class InputChangeManager {
 
     this.isInputOneChanged = false;
     this.isInputTwoChanged = false;
+
+    // extend for single-input form
+    this.onlyInputOne = false;
   }
 
   /**
@@ -212,7 +235,12 @@ class InputChangeManager {
    * @returns {Boolean} - true if disabled, false otherwise.
    */
   isDisabled() {
-    return !(this.isInputOneChanged || this.isInputTwoChanged);
+    switch (this.onlyInputOne) {
+      case true:
+        return !this.isInputOneChanged;
+      case false:
+        return !(this.isInputOneChanged || this.isInputTwoChanged);
+    }
   }
 }
 

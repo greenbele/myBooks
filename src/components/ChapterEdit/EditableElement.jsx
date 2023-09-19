@@ -4,16 +4,13 @@
 
 import EditingToolbar from './EditingToolbar';
 
-import { PageManager } from '../../constants';
+import { InputChangeManager, PageManager } from '../../constants';
 
 import { useState } from 'react';
 
 // TODO:
 // - onOrderSelectChange: handler from App
 // - onElementEditFormSubmit: handler from App
-// - onCancelClick: handler implemented here
-// - orders: from parent (ChapterEditContent)
-// - selectedOrder: from parent (ChapterEditContent)
 
 /**
  * Renders an element in a page-editing view.
@@ -50,23 +47,44 @@ const EditableElement = ({
   /**
    * handle click event on toolbar Cancel button.
    */
-  const onElementEditFormCancel = () => {
+  const handleElementEditFormCancel = () => {
     setIsEditing(false);
     setIsToolbarDisabled(false);
   };
 
+  const inputChangeManager = new InputChangeManager();
+  Object.seal(inputChangeManager);
+  const initData = {
+    inputOneValueInit: contentObj.content,
+    onlyInputOne: true,
+  };
+  Object.assign(inputChangeManager, initData);
+  /**
+   * handle change event on element edit inputs.
+   */
+  const handleElementEditFormChange = (e) => {
+    // console.log('#####->', e.target.value); // SCAFF
+    inputChangeManager.setIsInputOneChanged(e.target.value);
+    // console.log('inpC', inputChangeManager.isDisabled(), 'setIs', isSubmitButtonDisabled); // SCAFF
+    if (inputChangeManager.isDisabled() !== isSubmitButtonDisabled) {
+      setIsSubmitButtonDisabled(!isSubmitButtonDisabled);
+    }
+  };
+
   const [isEditing, setIsEditing] = useState(false);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
 
   const pageManager = new PageManager();
 
-  // get content to display
+  // get content area to display based on edit mode flag
   const editOptions = {
     content: contentObj.content,
-    onCancelClick: null,
+    isSubmitButtonDisabled,
     onElementEditFormSubmit,
-    onElementEditFormCancel,
+    onElementEditFormCancel: handleElementEditFormCancel,
+    onElementEditFormChange: handleElementEditFormChange,
   };
-
+  // console.log(editOptions); // SCAFF
   const contentArea = (
     isEditing
     ?
