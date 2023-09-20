@@ -687,6 +687,62 @@ class BooksManager {
       console.log('ERROR - BooksManager.deleteChapter:', err.toString()); // SCAFF
     }
   }
+
+  /**
+   * Swaps two page element's order.
+   *
+   * @param {Number} orderOne - the one order to swap.
+   * @param {Number} orderTwo - the other order to swap.
+   * @returns {undefined} - nothing.
+   */
+  static changeElementOrder(orderOne, orderTwo, {
+    bookTitle = '',
+    chapterTitle = '',
+  }) {
+    try {
+      // get book first
+      const book = _.find(this.books, ['bookTitle', bookTitle]);
+      if (book) {
+        // book found; get chapter
+        const chapter = _.find(book.chapters, ['chapterTitle', chapterTitle]);
+        if (chapter) {
+          // chapter found; get the two page content object
+          let contentObjOne;
+          let contentObjTwo;
+
+          // get the first
+          contentObjOne = _.find(chapter.page, ['order', orderOne]);
+          if (!contentObjOne) {
+            // console.log(chapter); // SCAFF
+            throw new Error(`${orderOne} content not found WHY?!?`);
+          }
+          // get the second content object
+          contentObjTwo = _.find(chapter.page, ['order', orderTwo]);
+
+          // console.log('o1:', orderOne, 'o2:', orderTwo, typeof orderOne, typeof orderTwo); // SCAFF
+          // console.log('book:', book, 'chap:', chapter, 'co:', contentObjTwo); // SCAFF
+
+          if (!contentObjTwo) {
+            // console.log(chapter); // SCAFF
+            throw new Error(`${orderTwo} content not found WHY?!?`);
+          }
+
+          // both content objects found; swap their order num
+          [contentObjOne.order, contentObjTwo.order] = [contentObjTwo.order, contentObjOne.order];
+
+          // TODO: re-order the chapter page list
+          const sortedPage = _.sortBy(chapter.page, 'order');
+          chapter.page = sortedPage;
+        } else {
+          throw new Error(`${chapterTitle} chapter not found`);
+        }
+      } else {
+        throw new Error(`${bookTitle} book not found`);
+      }
+    } catch (err) {
+      console.log('ERROR - BooksManager.changeElementOrder:', err.toString()); // SCAFF
+    }
+  }
 }
 
 // end Books manager

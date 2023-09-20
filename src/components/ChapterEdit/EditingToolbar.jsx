@@ -15,10 +15,10 @@ const EditingToolbar = ({
   orders,
   selectedOrder,
   onToolbarEditButtonClick,
-  onOrderSelectChange,
+  onElementOrderChange,
 }) => {
   // localStorage.setItem('EditingToolbar', _.now()); // SCAFF
-  // console.log('Rendering EditingToolbar...'); // SCAFF
+  console.log('Rendering EditingToolbar...'); // SCAFF
 
   /**
    * perform local actions on select element interaction.
@@ -29,6 +29,18 @@ const EditingToolbar = ({
     onSelectChange(e);
   };
   */
+
+  // const useRe
+
+  /**
+   * perform local actions on element order change.
+   */
+  const handleElementOrderChangeLocal = (e) => {
+    // retrieve the new order number
+    const orderTwo = parseInt(e.target.value);
+
+    onElementOrderChange(selectedOrder, orderTwo);
+  };
 
   return (
     <div>
@@ -46,8 +58,8 @@ const EditingToolbar = ({
       <select
         id="order"
         name="order"
-        defaultValue={selectedOrder}
-        onChange={onOrderSelectChange}
+        value={selectedOrder}
+        onChange={handleElementOrderChangeLocal}
         disabled={isToolbarDisabled}
       >
         {

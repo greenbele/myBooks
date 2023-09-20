@@ -9,7 +9,7 @@ import { InputChangeManager, PageManager } from '../../constants';
 import { useState } from 'react';
 
 // TODO:
-// - onOrderSelectChange: handler from App
+// - onElementOrderChange: handler from App
 // - onElementEditFormSubmit: handler from App
 
 /**
@@ -22,7 +22,7 @@ const EditableElement = ({
   contentObj,
   idx,
   onElementEditFormSubmit,
-  onOrderSelectChange,
+  onElementOrderChange,
   setIsToolbarDisabled,
 }) => {
   // localStorage.setItem('EditableElement', _.now()); // SCAFF
@@ -112,7 +112,7 @@ const EditableElement = ({
         isToolbarDisabled={isToolbarDisabled}
         orders={orders}
         selectedOrder={selectedOrder}
-        onOrderSelectChange={onOrderSelectChange}
+        onElementOrderChange={onElementOrderChange}
         onToolbarEditButtonClick={handleToolbarEditButtonClick}
       />
 

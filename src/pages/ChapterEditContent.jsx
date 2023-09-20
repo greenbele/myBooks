@@ -12,7 +12,7 @@ let renderTimes = 0;
 
 // TODO:
 // - from App:
-//   - onOrderSelectChange
+//   - onElementOrderChange
 
 /**
  * Brings all chapter editing components into a page.
@@ -21,7 +21,7 @@ const ChapterEditContent = ({
   isLoading,
   isLoggedIn,
   onElementEditFormSubmit,
-  onOrderSelectChange,
+  onElementOrderChange,
   BooksManager,
 }) => {
   // localStorage.setItem('ChapterEditContent', _.now()); // SCAFF
@@ -55,6 +55,18 @@ const ChapterEditContent = ({
     };
 
     return onElementEditFormSubmit(e, options);
+  };
+
+  /**
+   * perform local actions on element order change.
+   */
+  const handleElementOrderChangeLocal = (orderOne, orderTwo) => {
+    const options = {
+      bookTitle,
+      chapterTitle,
+    };
+
+    onElementOrderChange(orderOne, orderTwo, options);
   };
 
   let chapter = null;
@@ -93,7 +105,7 @@ const ChapterEditContent = ({
               contentObj={contentObj}
               idx={idx}
               onElementEditFormSubmit={handleElementEditFormSubmitLocal}
-              onOrderSelectChange={onOrderSelectChange}
+              onElementOrderChange={handleElementOrderChangeLocal}
             />
           );
         })

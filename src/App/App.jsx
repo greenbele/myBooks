@@ -349,6 +349,21 @@ const App = () => {
   };
 
   /**
+   * handle element order change.
+   */
+  const handleElementOrderChange = (orderOne, orderTwo, options) => {
+    try {
+      // update manager
+      BooksManager.changeElementOrder(orderOne, orderTwo, options);
+
+      // update App
+      setBooks(_.cloneDeep(BooksManager.books));
+    } catch (err) {
+      console.log('ERROR - App:handleElementOrderChange:', err.toString()); // SCAFF
+    }
+  };
+
+  /**
    * perform actions on book delete button click.
    */
   const handleBookDeleteButtonClick = (bookTitle) => {
@@ -512,6 +527,7 @@ const App = () => {
                     isLoggedIn={isLoggedIn}
                     BooksManager={BooksManager}
                     onElementEditFormSubmit={handleElementEditFormSubmit}
+                    onElementOrderChange={handleElementOrderChange}
                   />
                 }
               />
