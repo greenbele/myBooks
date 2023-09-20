@@ -24,6 +24,7 @@ const EditableElement = ({
   onElementEditFormSubmit,
   onElementOrderChange,
   setIsToolbarDisabled,
+  onToolbarDeleteButtonClick,
 }) => {
   // localStorage.setItem('EditableElement', _.now()); // SCAFF
   // console.log('Rendering EditableElement...'); // SCAFF
@@ -114,6 +115,7 @@ const EditableElement = ({
         selectedOrder={selectedOrder}
         onElementOrderChange={onElementOrderChange}
         onToolbarEditButtonClick={handleToolbarEditButtonClick}
+        onToolbarDeleteButtonClick={onToolbarDeleteButtonClick}
       />
 
       {/* editable content area */}

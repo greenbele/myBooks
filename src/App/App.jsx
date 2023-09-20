@@ -394,13 +394,24 @@ const App = () => {
       };
       BooksManager.deleteChapter(chapterTitle, options);
 
-      // update state
+      // update App state
       setBooks(_.cloneDeep(BooksManager.books));
 
       // TODO: send to backend for update
     } catch (err) {
       console.log('ERROR - handleChapterDeleteButtonClick:', err.toString()); // SCAFF
     }
+  };
+
+  /**
+   * perform actions on toolbar delete button click.
+   */
+  const handleToolbarDeleteButtonClick = (orderNum, options) => {
+    // update books manager
+    BooksManager.deletePageElement(orderNum, options);
+
+    // update App
+    setBooks(_.cloneDeep(BooksManager.books));
   };
 
   // test feature
@@ -528,6 +539,7 @@ const App = () => {
                     BooksManager={BooksManager}
                     onElementEditFormSubmit={handleElementEditFormSubmit}
                     onElementOrderChange={handleElementOrderChange}
+                    onToolbarDeleteButtonClick={handleToolbarDeleteButtonClick}
                   />
                 }
               />

@@ -16,9 +16,10 @@ const EditingToolbar = ({
   selectedOrder,
   onToolbarEditButtonClick,
   onElementOrderChange,
+  onToolbarDeleteButtonClick,
 }) => {
   // localStorage.setItem('EditingToolbar', _.now()); // SCAFF
-  console.log('Rendering EditingToolbar...'); // SCAFF
+  // console.log('Rendering EditingToolbar...'); // SCAFF
 
   /**
    * perform local actions on select element interaction.
@@ -40,6 +41,13 @@ const EditingToolbar = ({
     const orderTwo = parseInt(e.target.value);
 
     onElementOrderChange(selectedOrder, orderTwo);
+  };
+
+  /**
+   * perfor local actions on delete button click
+   */
+  const handleToolbarDeleteButtonClickLocal = () => {
+    onToolbarDeleteButtonClick(selectedOrder);
   };
 
   return (
@@ -78,6 +86,7 @@ const EditingToolbar = ({
       {/* delete button */}
       <button
         type="button"
+        onClick={handleToolbarDeleteButtonClickLocal}
         disabled={isToolbarDisabled}
       >
         Delete

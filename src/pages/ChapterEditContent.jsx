@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { loginURI } from '../constants';
 
 import EditableElement from '../components/ChapterEdit/EditableElement';
+import ElementCreateToolbar from '../components/ChapterEdit/ElementCreateToolbar';
 
 /* eslint-disable react/prop-types */
 
@@ -22,6 +23,7 @@ const ChapterEditContent = ({
   isLoggedIn,
   onElementEditFormSubmit,
   onElementOrderChange,
+  onToolbarDeleteButtonClick,
   BooksManager,
 }) => {
   // localStorage.setItem('ChapterEditContent', _.now()); // SCAFF
@@ -69,6 +71,18 @@ const ChapterEditContent = ({
     onElementOrderChange(orderOne, orderTwo, options);
   };
 
+  /**
+   * perform local actions on toolbar delete button click.
+   */
+  const handleToolbarDeleteButtonClickLocal = (orderNum) => {
+    const options = {
+      bookTitle,
+      chapterTitle,
+    };
+
+    onToolbarDeleteButtonClick(orderNum, options);
+  };
+
   let chapter = null;
 
   // get dynamic book and chapter title parameters
@@ -93,6 +107,10 @@ const ChapterEditContent = ({
     null
     :
     <>
+      <ElementCreateToolbar
+        isToolbarDisabled={isToolbarDisabled}
+      />
+
       {
         chapter.page.map((contentObj, idx) => {
           return (
@@ -106,6 +124,7 @@ const ChapterEditContent = ({
               idx={idx}
               onElementEditFormSubmit={handleElementEditFormSubmitLocal}
               onElementOrderChange={handleElementOrderChangeLocal}
+              onToolbarDeleteButtonClick={handleToolbarDeleteButtonClickLocal}
             />
           );
         })

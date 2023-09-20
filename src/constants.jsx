@@ -689,6 +689,51 @@ class BooksManager {
   }
 
   /**
+   * Deletes a chapter element.
+   *
+   * @param {String} bookTitle - book ID
+   * @param {String} chapterTitle - chapter ID
+   * @param {Number} orderNum - order number of the page content
+   * @returns {undefined} - nothing.
+   */
+  static deletePageElement(orderNum, {
+    bookTitle = '',
+    chapterTitle = '',
+  }) {
+    // TODO: notify users of errors (Notification component)
+    try {
+      // get book first
+      const book = _.find(this.books, ['bookTitle', bookTitle]);
+      if (book) {
+        // book found; get chapter
+        const chapter = _.find(book.chapters, ['chapterTitle', chapterTitle]);
+        if (chapter) {
+          // chapter found; remove the specified content object
+          const newPage = chapter.page.filter((contentObj) => {
+            return contentObj.order !== orderNum;
+          });
+          // update chapter with new page
+          chapter.page = newPage;
+          // re-sequence the chapter page list to close gaps
+          let n = 1;
+          chapter.page.forEach(contentObj => {
+            contentObj.order = n++;
+          });
+          // re-order the chapter page list
+          const sortedPage = _.sortBy(chapter.page, 'order');
+          chapter.page = sortedPage;
+        } else {
+          throw new Error(`${chapterTitle} chapter not found`);
+        }
+      } else {
+        throw new Error(`${bookTitle} book not found`);
+      }
+    } catch (err) {
+      console.log('ERROR - BooksManager.deletePageElement:', err.toString()); // SCAFF
+    }
+  }
+
+  /**
    * Swaps two page element's order.
    *
    * @param {Number} orderOne - the one order to swap.
