@@ -24,6 +24,7 @@ const ChapterEditContent = ({
   onElementEditFormSubmit,
   onElementOrderChange,
   onToolbarDeleteButtonClick,
+  onElementCreateToolbarButtonClick,
   BooksManager,
 }) => {
   // localStorage.setItem('ChapterEditContent', _.now()); // SCAFF
@@ -83,6 +84,19 @@ const ChapterEditContent = ({
     onToolbarDeleteButtonClick(orderNum, options);
   };
 
+  /**
+   * perform local actions on element creation event.
+   */
+  const handleElementCreateToolbarButtonClickLocal = (e) => {
+    const tagName = e.target.value;
+    const options = {
+      bookTitle,
+      chapterTitle,
+    };
+
+    onElementCreateToolbarButtonClick(tagName, options);
+  };
+
   let chapter = null;
 
   // get dynamic book and chapter title parameters
@@ -109,6 +123,7 @@ const ChapterEditContent = ({
     <>
       <ElementCreateToolbar
         isToolbarDisabled={isToolbarDisabled}
+        onElementCreateToolbarButtonClick={handleElementCreateToolbarButtonClickLocal}
       />
 
       {

@@ -349,6 +349,17 @@ const App = () => {
   };
 
   /**
+   * handle element creation event.
+   */
+  const handleElementCreateToolbarButtonClick = (tagName, options) => {
+    // update books manager
+    BooksManager.addPageContent(tagName, options);
+
+    // update App
+    setBooks(_.cloneDeep(BooksManager.books));
+  };
+
+  /**
    * handle element order change.
    */
   const handleElementOrderChange = (orderOne, orderTwo, options) => {
@@ -540,6 +551,7 @@ const App = () => {
                     onElementEditFormSubmit={handleElementEditFormSubmit}
                     onElementOrderChange={handleElementOrderChange}
                     onToolbarDeleteButtonClick={handleToolbarDeleteButtonClick}
+                    onElementCreateToolbarButtonClick={handleElementCreateToolbarButtonClick}
                   />
                 }
               />

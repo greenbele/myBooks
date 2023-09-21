@@ -16,7 +16,7 @@ const ElementCreateToolbar = ({
    */
   const handleElementCreateToolbarButtonClickLocal = (e) => {
     setIsOpen(false);
-    // onElementCreateToolbarButtonClick(e);
+    onElementCreateToolbarButtonClick(e);
   };
 
   /**
@@ -28,7 +28,7 @@ const ElementCreateToolbar = ({
     setIsOpen(!isOpen);
   };
 
-  console.log('Rendering ElementCreateToolbar...', 'isOpen:', isOpen); // SCAFF
+  // console.log('Rendering ElementCreateToolbar...', 'isOpen:', isOpen); // SCAFF
 
   return (
     <div>

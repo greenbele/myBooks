@@ -165,6 +165,28 @@ class PageManager {
   }
 
   /**
+   * Returns a default content for a newly created element.
+   *
+   * @param {String} tagName - name of the element.
+   * @returns {String} - default element content.
+   */
+  static getDefaultElementContent(tagName) {
+    switch (tagName) {
+      case 'p':
+        return 'New paragraph';
+      case 'h1':
+      case 'h2':
+      case 'h3':
+      case 'h4':
+      case 'h5':
+      case 'h6':
+        return 'New heading';
+      default:
+        return 'New section';
+    }
+  }
+
+  /**
    * Takes an array of page content objects and returns an array of HTML elements in order.
    *
    * @param {Array} rawPageContents - array of page content objects to convert to HTML.
@@ -521,6 +543,48 @@ class BooksManager {
   }
 
   /**
+   * Adds new content to a chapter page.
+   *
+   * @param {String} tagName - tag bame of the new element.
+   * @param {String} bookTitle - book ID.
+   * @param {String} chapterTitle - chapter ID.
+   * @returns {undefined} - nothing.
+   */
+  static addPageContent(tagName, {
+    bookTitle = '',
+    chapterTitle = '',
+  }) {
+    // TODO: notify users of errors (Notification component)
+    try {
+      // get book first
+      const book = _.find(this.books, ['bookTitle', bookTitle]);
+      if (book) {
+        // book found; get chapter
+        const chapter = _.find(book.chapters, ['chapterTitle', chapterTitle]);
+        if (chapter) {
+          // chapter found; add new element content object
+          const pageContent = new PageModel();
+          Object.seal(pageContent);
+          const contentData = {
+            order: chapter.page.length + 1,
+            tag: tagName,
+            content: PageManager.getDefaultElementContent(tagName),
+          };
+          Object.assign(pageContent, contentData);
+          // update chapter
+          chapter.page.push(pageContent);
+        } else {
+          throw new Error(`${chapterTitle} chapter not found`);
+        }
+      } else {
+        throw new Error(`${bookTitle} book not found`);
+      }
+    } catch (err) {
+      console.log('ERROR - addPageContent:', err.toString()); // SCAFF
+    }
+  }
+
+  /**
    * Updates an existing book obj.
    *
    * @param {Object} updateData - the update data object.
@@ -818,7 +882,7 @@ class ChapterModel {
 
 class PageModel {
   constructor() {
-    this.orderNum = 0;
+    this.order = 0;
     this.tag = '';
     this.content = '';
   }
