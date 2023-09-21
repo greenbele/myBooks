@@ -532,7 +532,17 @@ class BooksManager {
         // validation done; update URI and push to manager's books
         // TODO: use ChapterModel
         newChapterClone = this.setChapterViewURI(book.bookURI, newChapter);
-        console.log('BooksManager.addChapter:', newChapterClone); // SCAFF
+        // add topmost chapter heading
+        const contentOne = new PageModel();
+        Object.seal(contentOne);
+        const updateObj = {
+          order: 1,
+          tag: 'h1',
+          content: newChapterClone.chapterTitle,
+        };
+        Object.assign(contentOne, updateObj);
+        newChapterClone.page.push(contentOne);
+        // console.log('BooksManager.addChapter:', newChapterClone); // SCAFF
         book.chapters.push(newChapterClone);
       }
 
