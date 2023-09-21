@@ -48,6 +48,7 @@ const App = () => {
     async function fetchData() {
       // fetch potential user data
       try {
+        // get response object
         const res = await BooksService.getBooks(realDataFullURI);
         // successfull data fetch; status code in 2xx range
         BooksManager.initBooksManager(res.data.data);
@@ -57,7 +58,7 @@ const App = () => {
         if (err.status == 401) {
           setIsLoggedIn(false);
         } else {
-          console.log(`ERROR: ${err.toString()}`); // SCAFF
+          console.log(`ERROR - App:useEffect:fetchData: ${err.toString()}`); // SCAFF
         }
       }
     }

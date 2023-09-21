@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { booksURI } from '../../constants';
+import { booksURI, resolve } from '../../constants';
 
 /* eslint-disable react/prop-types */
 
@@ -20,7 +20,7 @@ const DashboardHome = ({
   const lastEditedChapterDisplay = (
     BooksManager.lastEditedChapter.uri
     ?
-    <Link to={BooksManager.lastEditedChapter.uri}>{`${BooksManager.lastEditedChapter.id} - continue editing...`}</Link>
+    <Link to={resolve(BooksManager.lastEditedChapter.uri, 'edit')}>{BooksManager.lastEditedChapter.id}</Link>
     :
     'No chapters yet'
   );
@@ -30,9 +30,10 @@ const DashboardHome = ({
   return (
     <>
       <h1>Welcome Home!</h1>
-      <p>Last edited book: {lastEditedBookDisplay}</p>
-      <p>Last edited chapter: {lastEditedChapterDisplay}</p>
-      <p>or</p>
+      <p>Open last edited book: {lastEditedBookDisplay}</p>
+      <p>or...</p>
+      <p>Continue editing last chapter: {lastEditedChapterDisplay}</p>
+      <p>Alternatively, you can...</p>
       <p>See your current books and create more {booksHome}</p>
     </>
   );

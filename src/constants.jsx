@@ -1,4 +1,4 @@
-import path from 'path';
+// import path from 'path';
 import _ from 'lodash';
 
 // utility classes and functions
@@ -318,7 +318,7 @@ class BooksManager {
         const lastEditedBook = sortedBooks[0];
         bookSummary.id = lastEditedBook.bookTitle;
         bookSummary.chapters = lastEditedBook.chapters;
-        bookSummary.uri = path.resolve(booksURI, lastEditedBook.bookTitle);
+        bookSummary.uri = resolve(booksURI, lastEditedBook.bookTitle);
         this.lastEditedBook = bookSummary;
       }
     }
@@ -345,7 +345,7 @@ class BooksManager {
         // a single lastEdited candidate; save in class
         const lastEditedChapter = sortedChapters[0];
         chapterSummary.id = lastEditedChapter.chapterTitle;
-        chapterSummary.uri = path.resolve(
+        chapterSummary.uri = resolve(
           this.lastEditedBook.uri,
           'chapters',
           lastEditedChapter.chapterTitle,

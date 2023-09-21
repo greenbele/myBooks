@@ -26,6 +26,8 @@ const LandingContent = ({
   const loginLink = <Link to={loginURI}>Continue</Link>;
   const signupLink = <Link to={signUpURI}>Start writing them down</Link>;
 
+  const p1 = 'Every idea is precious. Never forget any bit, but collect them all into something you can call "my book"';
+
   return (
     isLoading || isLoggedIn
     ?
@@ -35,7 +37,7 @@ const LandingContent = ({
       <h1>Welcome to myBooks!</h1>
 
       <p>
-        Every idea is precious. Never forget any bit, but collect them all into something you can call &quo;my book&quo;
+        {p1} 
       </p>
       <p>Dont push the ideas aside any more - {signupLink}</p>
       <p>Already started a book? {loginLink}</p>
