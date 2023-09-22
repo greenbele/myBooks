@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 
 import ChapterForm from '../ChapterForm/ChapterForm';
 
-import { BookFormData, resolve } from '../../../constants';
+import { BookFormData, BooksManager, resolve } from '../../../constants';
+import * as _ from "lodash";
 
 /* eslint-disable react/prop-types */
 
@@ -62,6 +63,23 @@ const Chapter = ({
     handleChapterDeleteButtonClick(options);
   };
 
+  /**
+   * update timestamps on clicking chapter Edit button.
+   */
+  const handleChapterEditButtonClick = () => {
+    const options = {
+      bookTitle,
+      chapterTitle: chapter.chapterTitle,
+    };
+
+    // console.log('Chapter:handleChapterEditButtonClick: updating manager and App...'); // SCAFF
+
+    // update manager
+    BooksManager.updateTimestamps(options);
+    // update App state
+    BooksManager.setAppBooks(_.cloneDeep(BooksManager.books));
+  };
+
   return (
     <li>
       <h3>{chapter.chapterTitle}</h3>
@@ -74,7 +92,7 @@ const Chapter = ({
       </div>
 
       {/* book edit page link */}
-      <Link to={resolve(chapter.chapterURI, 'edit')}>Edit chapter</Link>
+      <Link onClick={handleChapterEditButtonClick} to={resolve(chapter.chapterURI, 'edit')}>Edit chapter</Link>
 
       {/* book metadata edit form */}
       <ChapterForm

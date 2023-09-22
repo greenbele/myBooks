@@ -322,7 +322,7 @@ class BooksManager {
         this.lastEditedBook = bookSummary;
       }
     }
-    console.log('BooksManager.setLastEditedBook:', this.lastEditedBook); // SCAFF
+    // console.log('BooksManager.setLastEditedBook:', this.lastEditedBook); // SCAFF
   }
 
   /**
@@ -356,7 +356,7 @@ class BooksManager {
         this.lastEditedChapter = chapterSummary;
       }
     }
-    console.log('BooksManager.setLastEditedChapter:', this.lastEditedChapter); // SCAFF
+    // console.log('BooksManager.setLastEditedChapter:', this.lastEditedChapter); // SCAFF
   }
 
   /**
@@ -877,6 +877,45 @@ class BooksManager {
       }
     } catch (err) {
       console.log('ERROR - BooksManager.changeElementOrder:', err.toString()); // SCAFF
+    }
+  }
+
+  /**
+   * Update timestamps and last edited on chapter Edit button click.
+   *
+   * @param {String} bookTitle - bookd ID.
+   * @param {String} chapterTitle - chapter ID.
+   */
+  static updateTimestamps({
+    bookTitle = '',
+    chapterTitle = '',
+  }) {
+    // TODO: notify users of errors (Notification component)
+    try {
+      // get book first
+      const book = _.find(this.books, ['bookTitle', bookTitle]);
+      if (book) {
+        // book found
+        const now = _.now();
+
+        // get chapter
+        const chapter = _.find(book.chapters, ['chapterTitle', chapterTitle]);
+        if (chapter) {
+          // chapter found; update book and chapter timestamps
+          book.lastEdited = now;
+          chapter.lastEdited = now;
+          // set last edited
+          this.setLastEditedBook(this.books);
+          this.setLastEditedChapter(book.chapters);
+          // console.log('BooksManager.updateTimestamps:', 'books:', BooksManager.books, 'book:', book, 'ch:', chapter); // SCAFF
+        } else {
+          throw new Error(`${chapterTitle} chapter not found`);
+        }
+      } else {
+        throw new Error(`${bookTitle} book not found`);
+      }
+    } catch (err) {
+      console.log('ERROR - BooksManager.updateTimestamps:', err.toString()); // SCAFF
     }
   }
 }

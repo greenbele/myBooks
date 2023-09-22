@@ -52,6 +52,8 @@ const App = () => {
         const res = await BooksService.getBooks(realDataFullURI);
         // successfull data fetch; status code in 2xx range
         BooksManager.initBooksManager(res.data.data);
+        // save books updater function in manager
+        BooksManager.setAppBooks = setBooks;
         setBooks(res.data.data);
         setIsLoggedIn(true);
       } catch (err) {
