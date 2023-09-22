@@ -640,7 +640,7 @@ class BooksManager {
   }
 
   /**
-   * Updates an existing chapter obj.
+   * Updates an existing chapter object's title and/or search..
    *
    * @param {Object} updateData - the update data object.
    * @param {String} bookTitle - title of parent book.
@@ -674,10 +674,16 @@ class BooksManager {
       } else {
         // valid update data; update BooksManager
         const chapterObj = _.find(book.chapters, ['chapterTitle', oldChapterTitle]);
+        updateData.lastEdited = _.now(); // update timestamp
         Object.assign(chapterObj, updateData);
         // also update chapter URI
         const linkUpdatedChapterObj = this.setChapterViewURI(book.bookURI, chapterObj);
         Object.assign(chapterObj, linkUpdatedChapterObj);
+        // update parent book timestamp
+        book.lastEdited = updateData.lastEdited;
+
+        this.setLastEditedBook(this.books);
+        this.setLastEditedChapter(book.chapters);
       }
 
       // return err.length || ['fake error message'];
