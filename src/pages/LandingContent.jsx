@@ -29,7 +29,7 @@ const LandingContent = ({
   const p1 = 'Every idea is precious. Never forget any bit, but collect them all into something you can call "my book"';
 
   return (
-    isLoading || isLoggedIn
+    isLoading || !isLoggedIn
     ?
     null
     :

@@ -10,7 +10,7 @@ const DashboardHome = ({
   console.log(Object.entries(BooksManager)); // SCAFF
 
   const lastEditedBookDisplay = (
-    BooksManager.lastEditedBook.uri
+    BooksManager.lastEditedBook?.uri
     ?
     <Link to={BooksManager.lastEditedBook.uri}>{BooksManager.lastEditedBook.id}</Link>
     :
@@ -18,7 +18,7 @@ const DashboardHome = ({
   );
 
   const lastEditedChapterDisplay = (
-    BooksManager.lastEditedChapter.uri
+    BooksManager.lastEditedChapter?.uri
     ?
     <Link to={resolve(BooksManager.lastEditedChapter.uri, 'edit')}>{BooksManager.lastEditedChapter.id}</Link>
     :

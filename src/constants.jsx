@@ -322,8 +322,7 @@ class BooksManager {
         this.lastEditedBook = bookSummary;
       }
     }
-
-    this.lastEditedBook = bookSummary;
+    console.log('BooksManager.setLastEditedBook:', this.lastEditedBook); // SCAFF
   }
 
   /**
@@ -341,7 +340,11 @@ class BooksManager {
       // sort chapters array by lastEdited timestamp
       const sortedChapters = _.orderBy(chapters, 'lastEdited', 'desc');
       // handle [test] case where two timestamps are same
-      if (sortedChapters[0].lastEdited !== sortedChapters[1].lastEdited) {
+      if (
+        (chapters.length === 1)
+        ||
+        (sortedChapters[0].lastEdited !== sortedChapters[1].lastEdited)
+      ) {
         // a single lastEdited candidate; save in class
         const lastEditedChapter = sortedChapters[0];
         chapterSummary.id = lastEditedChapter.chapterTitle;
@@ -350,10 +353,10 @@ class BooksManager {
           'chapters',
           lastEditedChapter.chapterTitle,
         );
+        this.lastEditedChapter = chapterSummary;
       }
     }
-
-    this.lastEditedChapter = chapterSummary;
+    console.log('BooksManager.setLastEditedChapter:', this.lastEditedChapter); // SCAFF
   }
 
   /**
@@ -379,6 +382,7 @@ class BooksManager {
 
     // ...enabling us to easily get info on last edited chapter
     if (this.lastEditedBook) {
+      console.log('BooksManager.initBooksManager:', this.lastEditedBook); // SCAFF
       this.setLastEditedChapter(this.lastEditedBook.chapters);
     }
   }
@@ -498,6 +502,9 @@ class BooksManager {
       // TODO: use BookModel
       newBookClone = this.setBookViewURI(newBook);
       this.books.push(newBookClone);
+      // update timestamps
+      this.setLastEditedBook(this.books);
+      // this.lastEditedChapter = null;
     }
 
     return err;
@@ -544,6 +551,10 @@ class BooksManager {
         newChapterClone.page.push(contentOne);
         // console.log('BooksManager.addChapter:', newChapterClone); // SCAFF
         book.chapters.push(newChapterClone);
+        // update timestamps
+        book.lastEdited = newChapterClone.lastEdited;
+        this.setLastEditedBook(this.books);
+        this.setLastEditedChapter(book.chapters);
       }
 
       return err;
