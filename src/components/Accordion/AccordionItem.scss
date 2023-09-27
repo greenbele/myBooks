@@ -1,13 +1,9 @@
 .accordion-content {
-  height: 0px;
   overflow: hidden;
-  margin-left: 6px;
+  padding-left: 6px;
+  border-left: 1px dashed;
 
   transition: height .4s;
-
-  &.active {
-    height: 5em;
-  }
 }
 
 .accordion-chevron {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { HiChevronDown } from 'react-icons/hi';
 
 import './AccordionItem.scss';
@@ -14,10 +14,12 @@ import './AccordionItem.scss';
  */
 const AccordionItem = ({
   title,
-  Content,
-  classNames,
+  content,
+  Comp,
 }) => {
   const [isActive, setIsActive] = useState(false);
+
+  const contentElement = useRef();
 
   /**
    * handles click event on the accordion chevron.
@@ -27,9 +29,16 @@ const AccordionItem = ({
   };
 
   const active = isActive ? 'active' : '';
+  const style = {
+    height: isActive
+      ? `${contentElement.current.scrollHeight}px`
+      : '0px',
+    // border: '3px solid',
+  };
+  console.log('AccordionItem:', style); // SCAFF
 
   return (
-    <div className={`accordion-item ${classNames}`}>
+    <div className={`accordion-item`}>
       {/* title */}
       <div
         className="accordion-title"
@@ -42,7 +51,12 @@ const AccordionItem = ({
       </div>
 
       {/* content */}
-      <Content className={`${active} accordion-content`} />
+      <Comp
+        className={`${active} accordion-content`}
+        style={style}
+        contentRef={contentElement}
+        num={content}
+      />
     </div>
   );
 };

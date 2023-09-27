@@ -1,19 +1,10 @@
-import AccordionItem from '../Accordion/AccordionItem';
+import Accordion from '../Accordion/Accordion';
 
 const EditMenu = () => {
-  const testContent = ({ className }) => (
-    <div className={className}>
-      <p>Title</p>
-      <p>Page</p>
-    </div>
-  );
-
   // const testContent2 = <p>Coming soon...</p>;
 
   return (
-    <AccordionItem
-      title="Edit..."
-      Content={testContent}
+    <Accordion
     />
   );
 };
