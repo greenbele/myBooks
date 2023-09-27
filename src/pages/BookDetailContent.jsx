@@ -5,6 +5,8 @@ import { BookFormData, loginURI } from '../constants';
 
 import ChapterForm from '../components/BookDetail/ChapterForm/ChapterForm';
 import ChapterList from '../components/BookDetail/ChapterList/ChapterList';
+import EditMenu from '../components/ChapterEdit/EditMenu';
+
 import * as _ from "lodash";
 
 /* eslint-disable react/prop-types */
@@ -89,6 +91,9 @@ const BookDetailContent = ({
           bookFormData={bookFormData}
         />
       </div>
+
+      {/* SCAFF */}
+      <EditMenu />
 
       <ChapterList
         book={book}

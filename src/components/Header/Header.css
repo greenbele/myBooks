@@ -1,7 +1,9 @@
 header ul {
+  border-radius: 5px;
   display: flex;
   align-items: center;
-  background-color: #00af8f;
+  /* background-color: #00af8f; */
+  background-color: #AE7D0A;
   list-style: none; /* removes bullets */
   padding: .5em;
   margin: 0;

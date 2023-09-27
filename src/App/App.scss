@@ -37,7 +37,18 @@
 */
 
 /* MY STYLES */
+body {
+  font-family: "Sans Serif";
+  background-color: hsl(0, 0%, 90%);
+  padding: 10px
+}
+
 .App {
+  background-color: #FFF;
+  padding: 5px;
+  box-shadow: 0 5px 15px hsla(0, 0%, 0%, .2);
+  border-radius: 10px;
+
   min-height: 100vh;
   display: grid;
   grid-template-rows: min-content 1fr min-content;

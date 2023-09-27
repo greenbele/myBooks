@@ -1,6 +1,7 @@
 // import React from 'react';
 import { Link } from 'react-router-dom';
-import hamburger from '../../assets/hamburger.png';
+// import hamburger from '../../assets/hamburger.svg';
+import { HiMenu } from "react-icons/hi";
 import './Header.css';
 
 /* eslint-disable react/prop-types */
@@ -13,7 +14,8 @@ const Header = ({
   const loggedInHeader = (
     <ul>
       <li className="hamburger">
-        <img onClick={onAsideClick} src={hamburger} alt="" />
+      {/* <img onClick={onAsideClick} src={hamburger} alt="" /> */}
+      <HiMenu style={{ fontSize: '1.3em' }} onClick={onAsideClick} />
       </li>
       <li className="logo">
         <Link to="/">

@@ -382,7 +382,7 @@ class BooksManager {
 
     // ...enabling us to easily get info on last edited chapter
     if (this.lastEditedBook) {
-      console.log('BooksManager.initBooksManager:', this.lastEditedBook); // SCAFF
+      // console.log('BooksManager.initBooksManager:', this.lastEditedBook); // SCAFF
       this.setLastEditedChapter(this.lastEditedBook.chapters);
     }
   }

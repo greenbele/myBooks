@@ -1,0 +1,18 @@
+.accordion-content {
+  height: 0px;
+  overflow: hidden;
+  margin-left: 6px;
+
+  transition: height .4s;
+
+  &.active {
+    height: 5em;
+  }
+}
+
+.accordion-chevron {
+  transition: transform .4s;
+}
+.accordion-chevron.active {
+  transform: rotate(180deg);
+}
