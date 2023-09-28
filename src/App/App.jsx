@@ -588,7 +588,11 @@ const App = () => {
         }
       </main>
 
-      <Aside books={books} onAsideClick={handleAsideClick} asideVisibility={asideVisibility} />
+      {
+        isLoggedIn
+        ? <Aside books={books} onAsideClick={handleAsideClick} asideVisibility={asideVisibility} />
+        : null
+      }
 
       <Footer />
     </div>

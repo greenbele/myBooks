@@ -9,13 +9,14 @@ import './AccordionItem.scss';
  * Renders an accordion item.
  *
  * @param {String} title - the accordion item headline.
- * @param {JSX} content - a component to render as content.
+ * @param {JSX} Comp - a component to render as content.
+ * @param {Object} contentProps - outside properties for @Comp, usually to define content.
  * @returns {JSX} - the output JSX to render.
  */
 const AccordionItem = ({
   title,
-  content,
   Comp,
+  contentProps = {},
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -33,9 +34,8 @@ const AccordionItem = ({
     height: isActive
       ? `${contentElement.current.scrollHeight}px`
       : '0px',
-    // border: '3px solid',
   };
-  console.log('AccordionItem:', style); // SCAFF
+  // console.log('AccordionItem:', style); // SCAFF
 
   return (
     <div className={`accordion-item`}>
@@ -55,7 +55,7 @@ const AccordionItem = ({
         className={`${active} accordion-content`}
         style={style}
         contentRef={contentElement}
-        num={content}
+        {...contentProps}
       />
     </div>
   );

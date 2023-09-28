@@ -1,5 +1,7 @@
 // import React from 'react';
-import AsideBook from './AsideBook';
+// import AsideBook from './AsideBook';
+import MenuChapters from './MenuChapters';
+import Accordion from '../Accordion/Accordion';
 import './Aside.css';
 
 /* eslint-disable react/prop-types */
@@ -10,22 +12,18 @@ const Aside = ({
   onAsideClick,
   asideVisibility,
 }) => {
-  /**
-   * get all book and chapter titles for display in aside.
-   *
-   * Returns array of book objects, each with a bookTitle, and chapters property.
-   */
-  /*
-  const getAsideContent = (books) => {
-    return books.map((book) => {
-      const chTitles = book.chapters.map((ch) => ch.chapterTitle); // array of chapter titles
-      const bookObj = {bookTitle: book.bookTitle, chapters: chTitles};
-      return bookObj;
-    });
-  };
-  */
+  // console.log('Aside:', books); // SCAFF
 
-  // const asideContent = books && getAsideContent(books);
+  const accordionData = [];
+  // prepare and add item data
+  books.forEach((book) => {
+    const accordionItemData = {};
+    accordionItemData.title = book.bookTitle;
+    accordionItemData.contentProps = { chapters: book.chapters };
+    accordionData.push(accordionItemData);
+  });
+
+  const accordionClassNames = "aside-books flyout-content";
 
   return (
     books
@@ -34,18 +32,12 @@ const Aside = ({
       {/*<div className="flyout-background"></div>*/}
       <button onClick={onAsideClick} className="button-close flyout-content">×</button>
       <p className="aside-section-title flyout-content">BOOKS</p>
-      <div className="aside-books flyout-content">
-        {
-          books.map((book, idx) => {
-            return (
-              <AsideBook
-                key={idx}
-                {...book}
-              />
-            );
-          })
-        }
-      </div>
+
+      <Accordion
+        data={accordionData}
+        Comp={MenuChapters}
+        accordionClassNames={accordionClassNames}
+      />
     </aside>
   );
 };

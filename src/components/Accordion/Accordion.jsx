@@ -5,14 +5,17 @@ import AccordionItem from './AccordionItem';
 /**
  * Renders an accordion using AccordionItem components.
  *
- * @param {Array} data - array of accordion item data objects, each containing item title and content as a JSX component.
+ * @param {Array} data - array of accordion item data objects, each containing item title and content data.
+ * @param {JSX} Comp - component to render the content with. If not provided here, should be on data.
  * @param {String} accordionClassNames - class(es) for applying custom styles to the accordion.
  * @returns {JSX} - a JSX component.
  */
 const Accordion = ({
   data,
   accordionClassNames,
+  Comp = null,
 }) => {
+  /*
   const TestContent = ({ className, contentRef, style, num }) => (
     <div ref={contentRef} className={className} style={style}>
       <p>{`Content${num}`}</p>
@@ -22,24 +25,25 @@ const Accordion = ({
   const testData = [
     {
       title: 'React-eco',
-      content: 1,
+      contentProps: { num: 1 },
     },
     {
       title: 'Redux-eco',
-      content: 2,
+      contentProps: { num: 2 },
     },
   ];
+  */
 
   return (
     <div className={`${accordionClassNames} accordion-list`}>
       {
-        testData.map((itemData, idx) => {
+        data.map((itemData, idx) => {
           return (
             <AccordionItem
               key={idx}
               title={itemData.title}
-              content={itemData.content}
-              Comp={TestContent}
+              contentProps={itemData.contentProps}
+              Comp={Comp || itemData.Comp}
             />
           );
         })
