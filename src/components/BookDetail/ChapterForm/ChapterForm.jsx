@@ -16,6 +16,8 @@ const BookForm = ({
   onBookFormSubmit,
   bookFormData,
   isEditing,
+  classNm,
+  onMaskEvent,
 }) => {
   const [disabled, setDisabled] = useState(isEditing || false);
   const [err, setErr] = useState([]);

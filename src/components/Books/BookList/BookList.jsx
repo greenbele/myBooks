@@ -6,6 +6,7 @@ const BookList = ({
   BooksManager,
   handleBookEditFormSubmit,
   handleBookDeleteButtonClick,
+  maskMethods,
 }) => {
   return (
     BooksManager.books
@@ -26,6 +27,7 @@ const BookList = ({
                   BooksManager={BooksManager}
                   handleBookEditFormSubmit={handleBookEditFormSubmit}
                   handleBookDeleteButtonClick={handleBookDeleteButtonClick}
+                  maskMethods={maskMethods}
                 />
               );
             })

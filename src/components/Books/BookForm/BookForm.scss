@@ -41,4 +41,5 @@ $viewport-width-65: (13 / 20) * $viewport-width;
   top: 45%;
   left: min(10%, 350px);
   right: min(10%, 350px);
+  z-index: 999;
 }

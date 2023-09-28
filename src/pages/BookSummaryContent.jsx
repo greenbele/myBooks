@@ -21,6 +21,7 @@ const BookContent = ({
   handleBookCreateFormSubmit,
   handleBookEditFormSubmit,
   handleBookDeleteButtonClick,
+  maskMethods,
 }) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -77,6 +78,7 @@ const BookContent = ({
         BooksManager={BooksManager}
         handleBookEditFormSubmit={handleBookEditFormSubmit}
         handleBookDeleteButtonClick={handleBookDeleteButtonClick}
+        maskMethods={maskMethods}
       />
     </>
   );

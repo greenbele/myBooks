@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
+import * as _ from "lodash";
 
 import ChapterForm from '../ChapterForm/ChapterForm';
+import EditMenu from '../EditMenu';
 
 import { BookFormData, BooksManager, resolve } from '../../../constants';
-import * as _ from "lodash";
 
 /* eslint-disable react/prop-types */
 
@@ -87,12 +88,18 @@ const Chapter = ({
       {/* book toolbar */}
       <div>
         <Link to={chapter.chapterURI}>Open</Link>
-        <button>Edit</button>
+
+        {/*<button>Edit</button>*/}
+        <EditMenu
+          chapterEditURI={resolve(chapter.chapterURI, 'edit')}
+          onChapterEditButtonClick={handleChapterEditButtonClick}
+        />
+
         <button onClick={handleChapterDeleteButtonClickLocal}>Delete</button>
       </div>
 
       {/* book edit page link */}
-      <Link onClick={handleChapterEditButtonClick} to={resolve(chapter.chapterURI, 'edit')}>Edit chapter</Link>
+      {/*<Link onClick={handleChapterEditButtonClick} to={resolve(chapter.chapterURI, 'edit')}>Edit chapter</Link>*/}
 
       {/* book metadata edit form */}
       <ChapterForm

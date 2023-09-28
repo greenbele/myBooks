@@ -12,7 +12,11 @@ const Book = ({
   book,
   handleBookEditFormSubmit,
   handleBookDeleteButtonClick,
-  onBookEditButtonClick,
+  maskMethods: {
+    setIsMaskDisplay,
+    setActiveEvent,
+    onMaskEvent,
+  },
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -56,7 +60,14 @@ const Book = ({
    * perform local actions on book Edit button click.
    */
   const handleBookEditButtonClickLocal = () => {
-    setIsActive(!isActive);
+    if (isActive) {
+      onMaskEvent(); // mask and activeness states changed/off
+    } else {
+      // activating for element display; manually register active event handler and set active states
+      setIsActive(true);
+      setIsMaskDisplay(true);
+      setActiveEvent([setIsActive, false]); // register for use when element is de-activated
+    }
   };
 
   const classNm = isActive ? 'book-edit-active' : 'book-edit-inactive';
@@ -78,6 +89,7 @@ const Book = ({
         onBookFormSubmit={handleBookEditFormSubmitLocal}
         isEditing={true}
         classNm={classNm}
+        onMaskEvent={onMaskEvent}
       />
     </li>
   );

@@ -1,0 +1,23 @@
+.edit-menu-wrapper {
+  display: flex;
+}
+
+.edit-menu-wrapper .edit-default {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 5px;
+
+  border: 1px solid hsl(0, 0%, 50%);
+  border-right: .5px solid hsl(0, 0%, 50%);
+}
+
+.edit-menu-wrapper .edit-options {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 5px;
+
+  border: 1px solid hsl(0, 0%, 50%);
+  border-left: .5px solid hsl(0, 0%, 50%);
+}

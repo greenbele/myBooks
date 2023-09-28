@@ -262,7 +262,7 @@ const App = () => {
     // bookFormData.inputTwoValue = searchTags;
 
     // 4
-    // handleMaskEvent();
+    handleMaskEvent();
 
     // console.log(updateData); // SCAFF
 
@@ -479,6 +479,13 @@ const App = () => {
 
   // end test feature
 
+  // methods for dealing with background mask-related events
+  const maskMethods = {
+    setIsMaskDisplay,
+    setActiveEvent,
+    onMaskEvent: handleMaskEvent,
+  };
+
   return (
     <div className="App">
       {/* background mask */}
@@ -533,6 +540,7 @@ const App = () => {
                     handleBookEditFormSubmit={handleBookEditFormSubmit}
                     handleBookDeleteButtonClick={handleBookDeleteButtonClick}
                     BooksManager={BooksManager}
+                    maskMethods={maskMethods}
                   />
                 }
               />
@@ -548,6 +556,7 @@ const App = () => {
                     handleChapterEditFormSubmit={handleChapterEditFormSubmit}
                     handleChapterDeleteButtonClick={handleChapterDeleteButtonClick}
                     BooksManager={BooksManager}
+                    maskMethods={maskMethods}
                   />
                 }
               />

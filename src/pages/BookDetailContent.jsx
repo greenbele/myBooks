@@ -21,6 +21,7 @@ const BookDetailContent = ({
   handleChapterCreateFormSubmit,
   handleChapterEditFormSubmit,
   handleChapterDeleteButtonClick,
+  maskMethods,
 }) => {
   const bookFormData = new BookFormData();
   Object.seal(bookFormData);
@@ -99,6 +100,7 @@ const BookDetailContent = ({
         book={book}
         handleChapterEditFormSubmit={handleChapterEditFormSubmit}
         handleChapterDeleteButtonClick={handleChapterDeleteButtonClick}
+        maskMethods={maskMethods}
       />
     </>
   );

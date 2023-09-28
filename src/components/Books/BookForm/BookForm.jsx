@@ -18,6 +18,7 @@ const BookForm = ({
   bookFormData,
   isEditing,
   classNm,
+  onMaskEvent,
 }) => {
   const [disabled, setDisabled] = useState(isEditing || false);
   const [err, setErr] = useState([]);
@@ -118,6 +119,7 @@ const BookForm = ({
         isEditing
         &&
         <input
+          onClick={onMaskEvent}
           type="button"
           value="Cancel"
         />
