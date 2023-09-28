@@ -89,32 +89,24 @@ const BookForm = ({
     }
 
     <form onSubmit={handleBookFormSubmitLocal}>
-      <fieldset>
-        <legend>
-          <label htmlFor={bookFormData.inputOneID}>{bookFormData.inputOneLabel}</label>
-        </legend>
-        <input
-          type={bookFormData.inputOneType}
-          id={bookFormData.inputOneID}
-          name={bookFormData.inputOneName}
-          defaultValue={bookFormData.inputOneValue}
-          onChange={handleInputOneEditChange}
-          required
-        />
-      </fieldset>
+      <label htmlFor={bookFormData.inputOneID}>{bookFormData.inputOneLabel}</label>
+      <input
+        type={bookFormData.inputOneType}
+        id={bookFormData.inputOneID}
+        name={bookFormData.inputOneName}
+        defaultValue={bookFormData.inputOneValue}
+        onChange={handleInputOneEditChange}
+        required
+      />
 
-      <fieldset>
-        <legend>
-          <label htmlFor={bookFormData.inputTwoID}>{bookFormData.inputTwoLabel}</label>
-        </legend>
-        <input
-          type={bookFormData.inputTwoType}
-          id={bookFormData.inputTwoID}
-          name={bookFormData.inputTwoName}
-          defaultValue={bookFormData.inputTwoValue}
-          onChange={handleInputTwoEditChange}
-        />
-      </fieldset>
+      <label htmlFor={bookFormData.inputTwoID}>{bookFormData.inputTwoLabel}</label>
+      <input
+        type={bookFormData.inputTwoType}
+        id={bookFormData.inputTwoID}
+        name={bookFormData.inputTwoName}
+        defaultValue={bookFormData.inputTwoValue}
+        onChange={handleInputTwoEditChange}
+      />
 
       {/* TODO: add cancel event handler onClick */}
       {

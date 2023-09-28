@@ -45,6 +45,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [asideVisibility, setAsideVisibility] = React.useState('hide');
+  const [activeEvent, setActiveEvent] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -76,13 +77,19 @@ const App = () => {
    * event handler for clicking on hamburger
    */
   const handleAsideClick = () => {
-    // console.log('App:handleAsideClick: #####->', asideCount++); // SCAFF
     if (asideVisibility === 'hide') {
+      // register the hide event handler, and the arg(s) to call it with
+      const handler = [setAsideVisibility, 'hide'];
+      setActiveEvent(handler);
+      // show sidebar
       setAsideVisibility('show');
-      handleMaskEvent();
+      // turn background mask on
+      setIsMaskDisplay(true);
+
+      // console.log('App:handleAsideClick: #####->', asideVisibility); // SCAFF
     } else {
-      setAsideVisibility('hide');
-      handleMaskEvent();
+      // setAsideVisibility('hide');
+      handleMaskEvent(); // will hide both mask and element
     }
   };
 
@@ -114,11 +121,11 @@ const App = () => {
 
     // 1
     // TODO: notify user on success?
-    const bookTitle = e.target[1].value;
-    const searchTags = e.target[3].value;
+    const bookTitle = e.target[0].value;
+    const searchTags = e.target[1].value;
     // clear input fields
+    e.target[0].value = '';
     e.target[1].value = '';
-    e.target[3].value = '';
 
     // 2
 
@@ -172,11 +179,11 @@ const App = () => {
 
     // 1
     // TODO: notify user on success?
-    const chapterTitle = e.target[1].value;
-    const searchTags = e.target[3].value;
+    const chapterTitle = e.target[0].value;
+    const searchTags = e.target[1].value;
     // clear input fields
+    e.target[0].value = '';
     e.target[1].value = '';
-    e.target[3].value = '';
 
     // 2
 
@@ -230,8 +237,8 @@ const App = () => {
     e.preventDefault();
 
     // 1
-    const newBookTitle = e.target[1].value;
-    const newSearchTags = e.target[3].value;
+    const newBookTitle = e.target[0].value;
+    const newSearchTags = e.target[1].value;
 
     // 2 - validate client side?
     //  update BooksManager
@@ -289,8 +296,8 @@ const App = () => {
     e.preventDefault();
 
     // 1
-    const newChapterTitle = e.target[1].value;
-    const newSearchTags = e.target[3].value;
+    const newChapterTitle = e.target[0].value;
+    const newSearchTags = e.target[1].value;
 
     // 2 - validate client side?
     //  update BooksManager
@@ -460,7 +467,14 @@ const App = () => {
   const maskStyle = isMaskDisplay ? display : noDisplay;
 
   const handleMaskEvent = () => {
+    // console.log('App:handleMaskEvent: #####->', asideVisibility, activeEvent); // SCAFF
+
+    // hide mask
     setIsMaskDisplay(!isMaskDisplay);
+    // hide active element;
+    activeEvent[0](activeEvent[1]); // 0 - function; 1 - arg
+    // reset active state
+    setActiveEvent(null);
   };
 
   // end test feature
@@ -470,7 +484,7 @@ const App = () => {
       {/* background mask */}
       <div
         style={maskStyle}
-        onClick={handleAsideClick}
+        onClick={handleMaskEvent}
       >
       </div>
 
