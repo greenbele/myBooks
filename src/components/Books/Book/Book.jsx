@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import BookForm from '../BookForm/BookForm';
 import { BookFormData } from '../../../constants';
+import { useState } from "react";
 
 /* eslint-disable react/prop-types */
 
@@ -11,7 +12,10 @@ const Book = ({
   book,
   handleBookEditFormSubmit,
   handleBookDeleteButtonClick,
+  onBookEditButtonClick,
 }) => {
+  const [isActive, setIsActive] = useState(false);
+
   const bookFormData = new BookFormData();
   Object.seal(bookFormData);
 
@@ -42,11 +46,20 @@ const Book = ({
   };
 
   /**
-   * perform local actions on book delete button click.
+   * perform local actions on book Delete button click.
    */
   const handleBookDeleteButtonClickLocal = () => {
     handleBookDeleteButtonClick(book.bookTitle);
   };
+
+  /**
+   * perform local actions on book Edit button click.
+   */
+  const handleBookEditButtonClickLocal = () => {
+    setIsActive(!isActive);
+  };
+
+  const classNm = isActive ? 'book-edit-active' : 'book-edit-inactive';
 
   return (
     <li>
@@ -55,7 +68,7 @@ const Book = ({
       {/* book toolbar */}
       <div>
         <Link to={book.bookURI}>Open</Link>
-        <button>Edit</button>
+        <button onClick={handleBookEditButtonClickLocal}>Edit</button>
         <button onClick={handleBookDeleteButtonClickLocal}>Delete</button>
       </div>
 
@@ -64,6 +77,7 @@ const Book = ({
         bookFormData={bookFormData}
         onBookFormSubmit={handleBookEditFormSubmitLocal}
         isEditing={true}
+        classNm={classNm}
       />
     </li>
   );

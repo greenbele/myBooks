@@ -8,6 +8,7 @@ import { useState } from "react";
 import { InputChangeManager } from '../../../constants';
 
 import Notification from '../../Notification/Notification';
+import './BookForm.scss';
 
 /**
  * Renders the form for creating and updating books and chapters.
@@ -16,6 +17,7 @@ const BookForm = ({
   onBookFormSubmit,
   bookFormData,
   isEditing,
+  classNm,
 }) => {
   const [disabled, setDisabled] = useState(isEditing || false);
   const [err, setErr] = useState([]);
@@ -88,7 +90,10 @@ const BookForm = ({
       null
     }
 
-    <form onSubmit={handleBookFormSubmitLocal}>
+    <form
+      onSubmit={handleBookFormSubmitLocal}
+      className={`book-form ${classNm}`}
+    >
       <label htmlFor={bookFormData.inputOneID}>{bookFormData.inputOneLabel}</label>
       <input
         type={bookFormData.inputOneType}
