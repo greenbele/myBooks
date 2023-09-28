@@ -35,6 +35,8 @@ import BooksService from '../services/backend';
 
 /* eslint-disable react/prop-types */
 
+// let asideCount = 0;
+
 const App = () => {
   localStorage.setItem('App', _.now()); // SCAFF
   console.log('Rendering App...'); // SCAFF
@@ -74,6 +76,7 @@ const App = () => {
    * event handler for clicking on hamburger
    */
   const handleAsideClick = () => {
+    // console.log('App:handleAsideClick: #####->', asideCount++); // SCAFF
     if (asideVisibility === 'hide') {
       setAsideVisibility('show');
       handleMaskEvent();
@@ -464,11 +467,13 @@ const App = () => {
 
   return (
     <div className="App">
-      {
-      /*<button style={buttonDisplay} onClick={testFunction}>××××</button>*/
-      }
-      <div style={maskStyle}>
+      {/* background mask */}
+      <div
+        style={maskStyle}
+        onClick={handleAsideClick}
+      >
       </div>
+
       <Header
         isLoggedIn={isLoggedIn}
         onAsideClick={handleAsideClick}

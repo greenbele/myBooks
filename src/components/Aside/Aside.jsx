@@ -6,6 +6,9 @@ import './Aside.css';
 
 /* eslint-disable react/prop-types */
 
+// TODO:
+// - remove AsideBook component
+
 /* renders the aside element */
 const Aside = ({
   books,
@@ -14,6 +17,7 @@ const Aside = ({
 }) => {
   // console.log('Aside:', books); // SCAFF
 
+  // prepare accordion data
   const accordionData = [];
   // prepare and add item data
   books.forEach((book) => {

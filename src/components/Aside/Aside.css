@@ -25,8 +25,7 @@ aside {
   position: fixed;
   top: 0;
   left: 0;
-  transition: transform .3s
-  cubic-bezier(0, .52, 0, 1);
+  transition: transform .3s cubic-bezier(0, .52, 0, 1);
   overflow: scroll;
   z-index: 999;
   box-shadow: 5px 0 5px rgba(0,0,0,0.3);
@@ -50,7 +49,9 @@ aside {
   border: red 2px solid; /* SCAFF */
 }
 
+/*
 .flyout-content {
   position: relative;
   z-index: 1000;
 }
+*/
