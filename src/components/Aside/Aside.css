@@ -38,6 +38,7 @@ aside {
   overflow: hidden;
 }
 
+/*
 .flyout-background {
   width: 100vw;
   height: 100vh;
@@ -46,8 +47,9 @@ aside {
   top: 0;
   left: 0;
   background: rgba(0,0,0,.3);
-  border: red 2px solid; /* SCAFF */
+  border: red 2px solid;
 }
+*/
 
 /*
 .flyout-content {

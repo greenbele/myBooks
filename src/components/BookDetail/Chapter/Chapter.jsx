@@ -24,6 +24,7 @@ const Chapter = ({
   },
 }) => {
   const [isActive, setIsActive] = useState(false);
+  const [isFormActive, setIsFormActive] = useState(false);
 
   const chapterFormData = new BookFormData();
   Object.seal(chapterFormData);
@@ -104,6 +105,22 @@ const Chapter = ({
     }
   };
 
+  /**
+   * perform local actions on book Edit button click.
+   */
+  const handleChapterEditFormActive = () => {
+    if (isFormActive) {
+      onMaskEvent(); // mask and activeness states changed/off
+    } else {
+      // activating for element display; manually register active event handler and set active states
+      setIsFormActive(true);
+      setIsMaskDisplay(true);
+      setActiveEvent([setIsFormActive, false]); // register for use when element is de-activated
+    }
+  };
+
+  const formClassNm = isFormActive ? 'chapter-edit-active' : 'chapter-edit-inactive';
+
   const classNm = isActive ? 'active' : '';
 
   return (
@@ -122,8 +139,11 @@ const Chapter = ({
         />
 
         <EditMenuExpanded
+          chapterEditURI={resolve(chapter.chapterURI, 'edit')}
           className={classNm}
           onMaskEvent={onMaskEvent}
+          onChapterEditButtonClick={handleChapterEditButtonClick}
+          onChapterEditFormActive={handleChapterEditFormActive}
         />
 
         <button onClick={handleChapterDeleteButtonClickLocal}>Delete</button>
@@ -137,6 +157,8 @@ const Chapter = ({
         bookFormData={chapterFormData}
         onBookFormSubmit={handleChapterEditFormSubmitLocal}
         isEditing={true}
+        classNm={formClassNm}
+        onMaskEvent={onMaskEvent}
       />
     </li>
   );

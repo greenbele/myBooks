@@ -1,4 +1,29 @@
 .edit-menu-expanded {
+  background-color: #FFF;
+  position: fixed;
+  top: 100vh;
+  transition: transform .5s;
+
+  width: 95vw;
+  padding: 10px;
+  left: 0;
+  right: 0;
+  border-radius: 15px 15px 0 0;
+
+  &.active {
+    background-color: #FFF;
+    z-index: 999;
+    transform: translate(0px, -100%);
+  }
+}
+
+.edit-menu-dragger {
+  text-align: center;
+  color: hsl(0, 0%, 50%);
+}
+
+/*
+.edit-menu-expanded {
   display: none;
 
   &.active {
@@ -6,7 +31,7 @@
     padding: 10px;
     background-color: #FFF;
     border-radius: 15px 15px 0px 0px;
-    width: 100vw;
+    width: 95vw;
 
     position: fixed;
     left: 0px;
@@ -15,3 +40,4 @@
     z-index: 999;
   }
 }
+*/

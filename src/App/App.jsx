@@ -325,7 +325,7 @@ const App = () => {
     // bookFormData.inputTwoValue = searchTags;
 
     // 4
-    // handleMaskEvent();
+    handleMaskEvent();
 
     // console.log(updateData); // SCAFF
 

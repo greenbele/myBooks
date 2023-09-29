@@ -9,10 +9,12 @@ import { InputChangeManager } from '../../../constants';
 
 import Notification from '../../Notification/Notification';
 
+import './ChapterForm.scss';
+
 /**
  * Renders the form for creating and updating books and chapters.
  */
-const BookForm = ({
+const ChapterForm = ({
   onBookFormSubmit,
   bookFormData,
   isEditing,
@@ -90,7 +92,10 @@ const BookForm = ({
         null
       }
 
-      <form onSubmit={handleBookFormSubmitLocal}>
+      <form
+        onSubmit={handleBookFormSubmitLocal}
+        className={`chapter-form ${classNm}`}
+      >
         <label htmlFor={bookFormData.inputOneID}>{bookFormData.inputOneLabel}</label>
         <input
           type={bookFormData.inputOneType}
@@ -115,6 +120,7 @@ const BookForm = ({
           isEditing
           &&
           <input
+            onClick={onMaskEvent}
             type="button"
             value="Cancel"
           />
@@ -130,4 +136,4 @@ const BookForm = ({
   );
 };
 
-export default BookForm;
+export default ChapterForm;
