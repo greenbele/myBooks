@@ -9,6 +9,7 @@ const ChapterList = ({
   book,
   handleChapterEditFormSubmit,
   handleChapterDeleteButtonClick,
+  maskMethods,
 }) => {
   return (
     book.chapters
@@ -29,6 +30,7 @@ const ChapterList = ({
                   bookTitle={book.bookTitle}
                   handleChapterEditFormSubmit={handleChapterEditFormSubmit}
                   handleChapterDeleteButtonClick={handleChapterDeleteButtonClick}
+                  maskMethods={maskMethods}
                 />
               );
             })

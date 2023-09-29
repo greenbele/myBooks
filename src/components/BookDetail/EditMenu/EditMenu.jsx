@@ -1,13 +1,14 @@
 import { HiChevronDown } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 
 import './EditMenu.scss';
-import { useNavigate } from 'react-router-dom';
 
 /* eslint-disable react/prop-types */
 
 const EditMenu = ({
   chapterEditURI,
   onChapterEditButtonClick,
+  onChevronClick,
 }) => {
   const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ const EditMenu = ({
   };
 
   return (
-    <span className="edit-menu-wrapper">
+    <div className="edit-menu-wrapper">
       <button
         className="edit-default"
         onClick={handleChapterEditButtonClickLocal}
@@ -29,10 +30,13 @@ const EditMenu = ({
         Edit
       </button>
 
-      <button className="edit-options">
+      <button
+        className="edit-options"
+        onClick={onChevronClick}
+      >
         <HiChevronDown />
       </button>
-    </span>
+    </div>
   );
 };
 

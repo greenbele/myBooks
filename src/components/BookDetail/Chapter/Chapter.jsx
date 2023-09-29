@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import { useState } from 'react';
 import * as _ from "lodash";
 
 import ChapterForm from '../ChapterForm/ChapterForm';
-import EditMenu from '../EditMenu';
+import EditMenu from '../EditMenu/EditMenu';
+import EditMenuExpanded from '../EditMenu/EditMenuExpanded';
 
 import { BookFormData, BooksManager, resolve } from '../../../constants';
 
@@ -15,7 +17,14 @@ const Chapter = ({
   bookTitle,
   handleChapterEditFormSubmit,
   handleChapterDeleteButtonClick,
+  maskMethods: {
+    setIsMaskDisplay,
+    setActiveEvent,
+    onMaskEvent,
+  },
 }) => {
+  const [isActive, setIsActive] = useState(false);
+
   const chapterFormData = new BookFormData();
   Object.seal(chapterFormData);
 
@@ -81,6 +90,22 @@ const Chapter = ({
     BooksManager.setAppBooks(_.cloneDeep(BooksManager.books));
   };
 
+  /**
+   * handle chevron down button click
+   */
+  const handleChevronClick = () => {
+    if (isActive) {
+      onMaskEvent(); // mask and activeness states changed/off
+    } else {
+      // activating for element display; manually register active event handler and set active states
+      setIsActive(true);
+      setIsMaskDisplay(true);
+      setActiveEvent([setIsActive, false]); // register for use when element is de-activated
+    }
+  };
+
+  const classNm = isActive ? 'active' : '';
+
   return (
     <li>
       <h3>{chapter.chapterTitle}</h3>
@@ -93,6 +118,12 @@ const Chapter = ({
         <EditMenu
           chapterEditURI={resolve(chapter.chapterURI, 'edit')}
           onChapterEditButtonClick={handleChapterEditButtonClick}
+          onChevronClick={handleChevronClick}
+        />
+
+        <EditMenuExpanded
+          className={classNm}
+          onMaskEvent={onMaskEvent}
         />
 
         <button onClick={handleChapterDeleteButtonClickLocal}>Delete</button>

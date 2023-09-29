@@ -1,0 +1,17 @@
+.edit-menu-expanded {
+  display: none;
+
+  &.active {
+    display: block;
+    padding: 10px;
+    background-color: #FFF;
+    border-radius: 15px 15px 0px 0px;
+    width: 100vw;
+
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 999;
+  }
+}
