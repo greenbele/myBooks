@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 // import hamburger from '../../assets/hamburger.svg';
 import { HiMenu } from "react-icons/hi";
-import './Header.css';
+// import './Header.css';
 
 /* eslint-disable react/prop-types */
 

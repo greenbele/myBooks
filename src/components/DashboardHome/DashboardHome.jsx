@@ -16,12 +16,14 @@ const DashboardHome = ({
   if (BooksManager.lastEditedBook?.uri) {
     // at least one book exists
     const dashboardBookCard = (
-      <div key={wrapperChildren.length}>
-        <h2>Last edited book</h2>
-        <p>Your last edited book is {BooksManager.lastEditedBook.id}</p>
+      <div
+        key={wrapperChildren.length}
+      >
+        <h2 className='card-headline'>Last edited book</h2>
+        <p className='card-tagline'>Your last edited book is {BooksManager.lastEditedBook.id}</p>
 
         {/* call to action */}
-        <div>
+        <div className='card-action'>
           <Link to={BooksManager.lastEditedBook.uri}>Open</Link>
           <HiChevronRight />
         </div>
@@ -35,12 +37,14 @@ const DashboardHome = ({
     if (BooksManager.lastEditedChapter?.uri) {
       // at least one chapter exists
       const dashboardChapterCard = (
-        <div key={wrapperChildren.length}>
-          <h2>Last edited book</h2>
-          <p>{BooksManager.lastEditedChapter.id} is your last edited chapter</p>
+        <div
+          key={wrapperChildren.length}
+        >
+          <h2 className='card-headline'>Last edited chapter</h2>
+          <p className='card-tagline'>{BooksManager.lastEditedChapter.id} is your last edited chapter</p>
 
           {/* call to action */}
-          <div>
+          <div className='card-action'>
             <Link to={resolve(BooksManager.lastEditedChapter.uri, 'edit')}>Continue editing</Link>
             <HiChevronRight />
           </div>
@@ -55,12 +59,14 @@ const DashboardHome = ({
     // all books display
     const numBooks = BooksManager.books.length;
     const dashboardAllBooksCard = (
-      <div key={wrapperChildren.length}>
-        <h2>See all books</h2>
-        <p>You have a total of {numBooks} books in your library</p>
+      <div
+        key={wrapperChildren.length}
+      >
+        <h2 className='card-headline'>See all books</h2>
+        <p className='card-tagline'>You have a total of {numBooks} books in your library</p>
 
         {/* call to action */}
-        <div>
+        <div className='card-action'>
           <Link to={booksURI}>See all books</Link>
           <HiChevronRight />
         </div>
@@ -72,12 +78,14 @@ const DashboardHome = ({
     // no books yet; call to action to start writing
     const noBookP = "Don't let that idea slip you by. Unleash your creative genius and create your first book.";
     const dashboardNoBookCard = (
-      <div key={wrapperChildren.length}>
+      <div
+        key={wrapperChildren.length}
+      >
         <h2>Write your first book</h2>
         <p>{noBookP}</p>
 
         {/* call to action */}
-        <div>
+        <div className='card-action'>
           <Link to={booksURI}>Start writing</Link>
           <HiChevronRight />
         </div>

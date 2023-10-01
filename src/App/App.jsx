@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import _ from 'lodash';
 // import { initBooks } from '../constants';
 
-import './App.scss';
+import '../assets/styles/sass/App.scss';
 
 import Header from '../components/Header/Header.jsx';
 import Footer from '../components/Footer/Footer.jsx';

@@ -1,7 +1,7 @@
 import { HiChevronDown } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 
-import './EditMenu.scss';
+// import './EditMenu.scss';
 
 /* eslint-disable react/prop-types */
 

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import { HiMinus } from 'react-icons/hi';
 
-import './EditMenuExpanded.scss';
+// import './EditMenuExpanded.scss';
 
 /* eslint-disable react/prop-types */
 
