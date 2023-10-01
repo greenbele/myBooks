@@ -78,7 +78,7 @@ const DashboardHome = ({
 
         {/* call to action */}
         <div>
-          <Link to={BooksManager.lastEditedBook.uri}>Start writing</Link>
+          <Link to={booksURI}>Start writing</Link>
           <HiChevronRight />
         </div>
       </div>

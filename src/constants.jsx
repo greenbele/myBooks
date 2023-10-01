@@ -314,7 +314,11 @@ class BooksManager {
       const sortedBooks = _.orderBy(books, 'lastEdited', 'desc');
 
       // handle [test] case where two timestamps are same
-      if (sortedBooks[0].lastEdited !== sortedBooks[1].lastEdited) {
+      if (
+        sortedBooks.length === 1
+        ||
+        sortedBooks[0].lastEdited !== sortedBooks[1].lastEdited
+      ) {
         // a single lastEdited candidate; save in class
         const lastEditedBook = sortedBooks[0];
         bookSummary.id = lastEditedBook.bookTitle;
@@ -322,6 +326,12 @@ class BooksManager {
         bookSummary.uri = resolve(booksURI, lastEditedBook.bookTitle);
         this.lastEditedBook = bookSummary;
       }
+    } else if (books) {
+      // empty books [array]
+      this.lastEditedBook = null;
+    } else {
+      // books nullish
+      console.log(`BooksManager.setLastEditedBook: ${books} not a valid books array`); // SCAFF
     }
     // console.log('BooksManager.setLastEditedBook:', this.lastEditedBook); // SCAFF
   }
@@ -392,7 +402,6 @@ class BooksManager {
               'chapters',
               lastEditedChapter.chapterTitle,
             );
-      // console.log('BooksManager.setLastEditedChapter: ###HERE###'); // SCAFF
             this.lastEditedChapter = chapterSummary;
           }
         } else {
@@ -794,6 +803,11 @@ class BooksManager {
         return book.bookTitle !== bookTitle;
       });
       this.books = updatedBooks;
+      // update last edited book
+      this.setLastEditedBook(this.books);
+      // update last edited chapter
+      this.setLastEditedChapter(this.lastEditedBook.chapters);
+      // console.log('BooksManager.deleteBook: ###HERE###'); // SCAFF
     } catch (err) {
       console.log('ERROR - BooksManager.deleteBook:', err.toString()); // SCAFF
     }
