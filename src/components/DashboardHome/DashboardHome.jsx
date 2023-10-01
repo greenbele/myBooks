@@ -48,26 +48,26 @@ const DashboardHome = ({
       );
 
       wrapperChildren.push(dashboardChapterCard);
-
-      // all books display
-      const numBooks = BooksManager.books.length;
-      const dashboardAllBooksCard = (
-        <div key={wrapperChildren.length}>
-          <h2>See all books</h2>
-          <p>You have a total of {numBooks} books in your library</p>
-
-          {/* call to action */}
-          <div>
-            <Link to={booksURI}>See all books</Link>
-            <HiChevronRight />
-          </div>
-        </div>
-      );
-
-      wrapperChildren.push(dashboardAllBooksCard);
     } else {
       // no chapters yet; push nothing for now
     }
+
+    // all books display
+    const numBooks = BooksManager.books.length;
+    const dashboardAllBooksCard = (
+      <div key={wrapperChildren.length}>
+        <h2>See all books</h2>
+        <p>You have a total of {numBooks} books in your library</p>
+
+        {/* call to action */}
+        <div>
+          <Link to={booksURI}>See all books</Link>
+          <HiChevronRight />
+        </div>
+      </div>
+    );
+
+    wrapperChildren.push(dashboardAllBooksCard);
   } else {
     // no books yet; call to action to start writing
     const noBookP = "Don't let that idea slip you by. Unleash your creative genius and create your first book.";

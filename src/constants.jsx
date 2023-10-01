@@ -11,6 +11,7 @@ import _ from 'lodash';
  */
 function resolve(...paths) {
   let resolvedPath = '';
+  // console.log('resolve:', paths); // SCAFF
 
   if (paths && paths instanceof Array) {
     for (let pth of paths) {
@@ -355,8 +356,54 @@ class BooksManager {
         );
         this.lastEditedChapter = chapterSummary;
       }
+    } else {
+      // chapters list probably emptied; check other books
+      if (this.books.length > 1) {
+        // check other books for latest edited chapters
+        const sortedBooks = _.orderBy(this.books, 'lastEdited', 'desc');
+
+        let lastEditedBook;
+        for (const book of sortedBooks) {
+          if (book.chapters.length) {
+            // use as last edited book, and thus chapters
+            lastEditedBook = book;
+            break;
+          }
+        }
+
+        if (lastEditedBook) {
+          // book with chapters found;
+
+          // sort chapters array by lastEdited timestamp
+          const chapters = lastEditedBook.chapters;
+          const sortedChapters = _.orderBy(chapters, 'lastEdited', 'desc');
+          // handle [test] case where two timestamps are same
+          if (
+            (chapters.length === 1)
+            ||
+            (sortedChapters[0].lastEdited !== sortedChapters[1].lastEdited)
+          ) {
+            // a single lastEdited candidate; save in class
+            const lastEditedChapter = sortedChapters[0];
+            chapterSummary.id = lastEditedChapter.chapterTitle;
+            // console.log('BooksManager.setLastEditedChapter:', lastEditedBook, lastEditedChapter); // SCAFF
+            chapterSummary.uri = resolve(
+              lastEditedBook.bookURI,
+              'chapters',
+              lastEditedChapter.chapterTitle,
+            );
+      // console.log('BooksManager.setLastEditedChapter: ###HERE###'); // SCAFF
+            this.lastEditedChapter = chapterSummary;
+          }
+        } else {
+          // no other book with chapters
+          this.lastEditedChapter = null;
+        }
+      } else {
+        // only one book, and with no chapters
+        this.lastEditedChapter = null;
+      }
     }
-    // console.log('BooksManager.setLastEditedChapter:', this.lastEditedChapter); // SCAFF
   }
 
   /**
@@ -760,7 +807,7 @@ class BooksManager {
    * @returns {undefined} - nothing.
    */
   static deleteChapter(chapterTitle, {
-    bookTitle,
+    bookTitle = '',
   }) {
     try {
       // get parent book
@@ -769,11 +816,15 @@ class BooksManager {
         return ['No such parent book'];
       }
 
-      // parent book found
+      // parent book found; update chapters
       const updatedChapters = book.chapters.filter((chapter) => {
         return chapter.chapterTitle !== chapterTitle;
       });
       book.chapters = updatedChapters;
+      // update time stamps
+      this.updateTimestamps({ bookTitle });
+      // update last edited chapter
+      this.setLastEditedChapter(book.chapters);
     } catch (err) {
       console.log('ERROR - BooksManager.deleteChapter:', err.toString()); // SCAFF
     }
@@ -897,6 +948,12 @@ class BooksManager {
       if (book) {
         // book found
         const now = _.now();
+
+        if (chapterTitle === '') {
+          // chapter likely deleted; update only book timestamp
+          book.lastEdited = now;
+          return;
+        }
 
         // get chapter
         const chapter = _.find(book.chapters, ['chapterTitle', chapterTitle]);

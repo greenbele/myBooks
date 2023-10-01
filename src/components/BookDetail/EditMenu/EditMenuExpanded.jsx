@@ -50,7 +50,7 @@ const EditMenuExpanded = ({
       className={`edit-menu-expanded ${className}`}
     >
       <div className='edit-menu-dragger'>
-        <HiMinus lassName="dragger" />
+        <HiMinus className="dragger" />
       </div>
 
       <h4>Edit whole page or just title and search tags</h4>
