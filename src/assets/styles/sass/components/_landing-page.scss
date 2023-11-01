@@ -1,0 +1,43 @@
+.landing-page-wrapper {
+  text-align: center;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landing-page-wrapper .card {
+  // padding: 10px;
+  padding-bottom: 0;
+  @include card-defaults;
+
+  &-headline-tagline {
+    padding: 10px;
+  }
+
+  &-headline {
+    margin-top: 0px;
+    color: map-get($colors, 'gray-1');
+  }
+
+  &-tagline {
+    color: map-get($colors, 'gray-5');
+  }
+
+  &-action {
+    background-color: map-get($colors, 'primary-3');
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 2.5em;
+    margin-top: 20px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+
+    text-decoration: none;
+    color: #FFF;
+
+    & svg {
+      color: #FFF;
+    }
+  }
+}

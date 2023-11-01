@@ -1,13 +1,14 @@
 header {
   grid-area: header;
+  background-color: map-get($colors, 'primary-3');
+  // border-radius: 5px;
+  margin: 0px;
 }
 
 header ul {
-  border-radius: 5px;
   display: flex;
   align-items: center;
   /* background-color: #00af8f; */
-  background-color: #AE7D0A;
   list-style: none; /* removes bullets */
   padding: .5em;
   margin: 0;
@@ -21,6 +22,16 @@ header ul li.logo {
   margin-right: auto;
 }
 
+header ul li a {
+  text-decoration: none;
+  color: #FFF;
+
+  &:focus {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+}
+
 /*
 .hamburger {
   margin-top: 10px;
@@ -32,7 +43,9 @@ header ul li.hamburger {
   margin: 0;
 }
 
+/*
 header ul li.hamburger img {
   width: 23px;
   height: 23px;
 }
+*/

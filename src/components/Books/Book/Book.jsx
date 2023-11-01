@@ -31,7 +31,7 @@ const Book = ({
     inputOneName: 'bookTitle',
     inputOneValue: book.bookTitle,
     inputTwoID: 'searchTags',
-    inputTwoLabel: 'Search Tags',
+    inputTwoLabel: 'Search tags',
     inputTwoName: 'searchTags',
     inputTwoValue: book.searchTags,
     buttonValue: 'Update',

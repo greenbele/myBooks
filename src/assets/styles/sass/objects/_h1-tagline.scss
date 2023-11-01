@@ -1,0 +1,9 @@
+.h1-tagline {
+  margin-bottom: 70px;
+  font-weight: normal;
+  color: map-get($colors, 'gray-1');
+
+  & p {
+    color: map-get($colors, 'gray-3');
+  }
+}

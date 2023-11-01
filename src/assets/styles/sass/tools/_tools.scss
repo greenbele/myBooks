@@ -1,0 +1,6 @@
+@mixin card-defaults {
+  background-color: #FFF;
+  margin-bottom: 40px;
+  border-radius: 7px;
+  box-shadow: map-get($box-shadows, 'shadow-2');
+}

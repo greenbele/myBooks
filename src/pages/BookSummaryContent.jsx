@@ -62,10 +62,12 @@ const BookContent = ({
     null
     :
     <>
-      <h1>My Books Home</h1>
-      <p>{introPara}</p>
+      <div className="h1-tagline">
+        <h1>My Books Home</h1>
+        <p>{introPara}</p>
+      </div>
 
-      <div>
+      <div className="card">
         <h2>Create new book</h2>
 
         <BookForm

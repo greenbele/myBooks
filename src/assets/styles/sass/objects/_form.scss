@@ -1,0 +1,31 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  @include card-defaults;
+
+  padding: 10px;
+
+  & .input-one {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .input-two {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-actions-wrapper {
+    display: flex;
+    justify-content: flex-end;
+
+    & .button-action-secondary {
+      margin-right: 5px;
+    }
+  }
+}

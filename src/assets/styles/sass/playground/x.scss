@@ -1,0 +1,35 @@
+$l: ('Hello', 'World');
+$n1: 10 !default;
+
+h1 {
+  $n1: 20 !global;
+  padding: $n1;
+}
+
+@function add-5000($n: 0) {
+  @return 5000 + $n;
+}
+
+$authors: (
+ (
+ 'name': 'hugo',
+ 'filename': 'hugo_giraudel.jpg',
+ 'color': deeppink
+ ),
+ (
+ 'name': 'miriam',
+ 'filename': 'suzanne-miriam.png',
+ 'color': hotpink
+ )
+);
+
+@each $author in $authors {
+ $_author: map-get($author, 'name');
+ $filename: map-get($author, 'filename');
+ $color: map-get($author, 'color');
+
+ @debug ($_author, $filename, $color);
+}
+
+@debug map-get(nth($authors, 1), 'name');
+@warn 4 != 5;

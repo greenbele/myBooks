@@ -1,0 +1,40 @@
+$box-shadows: (
+  'shadow-1': (0 4px 10px hsla(0, 90%, 0%, .3), 0 1px 3px hsla(0, 90%, 0%, .6)),
+  'shadow-2': 0 5px 11px hsla(0, 90%, 0%, .3),
+);
+
+$colors: (
+  'primary-1': hsl(43, 100%, 12%),
+  'primary-2': hsl(43, 80%, 20%),
+  'primary-3': hsl(43, 70%, 30%),
+  'primary-4': hsl(43, 60%, 40%),
+  'primary-5': hsl(43, 50%, 53%),
+  'primary-6': hsl(43, 69%, 69%),
+  'primary-7': hsl(43, 79%, 79%),
+  'primary-8': hsl(43, 89%, 89%),
+  'primary-9': hsl(43, 100%, 97%),
+
+  'gray-1': hsl(240, 0%, 24%),
+  'gray-2': hsl(240, 0%, 33%),
+  'gray-3': hsl(240, 0%, 41%),
+  'gray-4': hsl(240, 0%, 50%),
+  'gray-5': hsl(240, 0%, 58%),
+  'gray-6': hsl(240, 0%, 67%),
+  'gray-7': hsl(240, 0%, 75%),
+  'gray-8': hsl(240, 0%, 84%),
+  'gray-9': hsl(240, 0%, 92%),
+);
+
+$fonts: (
+  'size-1': 12px,
+  'size-2': 14px,
+  'size-3': 16px,
+  'size-4': 18px,
+  'size-5': 20px,
+  'size-6': 24px,
+  'size-7': 30px,
+  'size-8': 36px,
+  'size-9': 48px,
+  'size-10': 60px,
+  'size-11': 72px,
+);

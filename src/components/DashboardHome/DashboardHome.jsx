@@ -18,14 +18,16 @@ const DashboardHome = ({
     const dashboardBookCard = (
       <div
         key={wrapperChildren.length}
+        className="card"
       >
-        <h2 className='card-headline'>Last edited book</h2>
-        <p className='card-tagline'>Your last edited book is {BooksManager.lastEditedBook.id}</p>
+        <div className="card-headline-tagline">
+          <h2 className='card-headline'>Last edited book</h2>
+          <p className='card-tagline'>Your last edited book is <span className="bold">{BooksManager.lastEditedBook.id}</span></p>
+        </div>
 
         {/* call to action */}
-        <div className='card-action'>
-          <Link to={BooksManager.lastEditedBook.uri}>Open</Link>
-          <HiChevronRight />
+        <div>
+          <Link to={BooksManager.lastEditedBook.uri} className='card-action'>Open <HiChevronRight /></Link>
         </div>
       </div>
     );
@@ -39,14 +41,16 @@ const DashboardHome = ({
       const dashboardChapterCard = (
         <div
           key={wrapperChildren.length}
+          className="card"
         >
-          <h2 className='card-headline'>Last edited chapter</h2>
-          <p className='card-tagline'>{BooksManager.lastEditedChapter.id} is your last edited chapter</p>
+          <div className="card-headline-tagline">
+            <h2 className='card-headline'>Last edited chapter</h2>
+            <p className='card-tagline'><span className="bold">{BooksManager.lastEditedChapter.id}</span> is your last edited chapter</p>
+          </div>
 
           {/* call to action */}
-          <div className='card-action'>
-            <Link to={resolve(BooksManager.lastEditedChapter.uri, 'edit')}>Continue editing</Link>
-            <HiChevronRight />
+          <div>
+            <Link to={resolve(BooksManager.lastEditedChapter.uri, 'edit')} className='card-action'>Continue editing <HiChevronRight /></Link>
           </div>
         </div>
       );
@@ -61,14 +65,16 @@ const DashboardHome = ({
     const dashboardAllBooksCard = (
       <div
         key={wrapperChildren.length}
+        className="card"
       >
-        <h2 className='card-headline'>See all books</h2>
-        <p className='card-tagline'>You have a total of {numBooks} books in your library</p>
+        <div className="card-headline-tagline">
+          <h2 className='card-headline'>Library size</h2>
+          <p className='card-tagline'>You have a total of <span className="bold">{numBooks}</span> books in your library</p>
+        </div>
 
         {/* call to action */}
-        <div className='card-action'>
-          <Link to={booksURI}>See all books</Link>
-          <HiChevronRight />
+        <div>
+          <Link to={booksURI} className='card-action'>See all books <HiChevronRight /></Link>
         </div>
       </div>
     );
@@ -81,13 +87,14 @@ const DashboardHome = ({
       <div
         key={wrapperChildren.length}
       >
-        <h2>Write your first book</h2>
-        <p>{noBookP}</p>
+        <div className="card-headline-tagline">
+          <h2>Write your first book</h2>
+          <p>{noBookP}</p>
+        </div>
 
         {/* call to action */}
-        <div className='card-action'>
-          <Link to={booksURI}>Start writing</Link>
-          <HiChevronRight />
+        <div>
+          <Link to={booksURI} className='card-action'>Start writing <HiChevronRight /></Link>
         </div>
       </div>
     );
@@ -97,7 +104,9 @@ const DashboardHome = ({
 
   return (
     <div className={`landing-page-wrapper ${wrapperExtraClasses}`}>
-      <h1>Welcome Home!</h1>
+      <div className="h1-tagline">
+        <h1>Welcome Home!</h1>
+      </div>
 
       {wrapperChildren}
     </div>
