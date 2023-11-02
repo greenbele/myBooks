@@ -26,7 +26,7 @@ const DashboardHome = ({
         </div>
 
         {/* call to action */}
-        <div>
+        <div className="card-action-div">
           <Link to={BooksManager.lastEditedBook.uri} className='card-action'>Open <HiChevronRight /></Link>
         </div>
       </div>
@@ -49,7 +49,7 @@ const DashboardHome = ({
           </div>
 
           {/* call to action */}
-          <div>
+          <div className="card-action-div">
             <Link to={resolve(BooksManager.lastEditedChapter.uri, 'edit')} className='card-action'>Continue editing <HiChevronRight /></Link>
           </div>
         </div>
@@ -73,7 +73,7 @@ const DashboardHome = ({
         </div>
 
         {/* call to action */}
-        <div>
+        <div className="card-action-div">
           <Link to={booksURI} className='card-action'>See all books <HiChevronRight /></Link>
         </div>
       </div>

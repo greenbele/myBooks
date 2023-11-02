@@ -82,63 +82,63 @@ const BookForm = ({
 
   return (
     <>
-    {/* err notifications */}
-    {
-      err?.length
-      ?
-      <Notification messages={err} />
-      :
-      null
-    }
+      {/* err notifications */}
+      {
+        err?.length
+        ?
+        <Notification messages={err} />
+        :
+        null
+      }
 
-    <form
-      onSubmit={handleBookFormSubmitLocal}
-      className={`form book-form ${classNm}`}
-    >
-      <div className="input-one">
-        <label htmlFor={bookFormData.inputOneID}>{bookFormData.inputOneLabel}</label>
-        <input
-          type={bookFormData.inputOneType}
-          id={bookFormData.inputOneID}
-          name={bookFormData.inputOneName}
-          defaultValue={bookFormData.inputOneValue}
-          onChange={handleInputOneEditChange}
-          required
-        />
-      </div>
-
-      <div className="input-two">
-        <label htmlFor={bookFormData.inputTwoID}>{bookFormData.inputTwoLabel}</label>
-        <input
-          type={bookFormData.inputTwoType}
-          id={bookFormData.inputTwoID}
-          name={bookFormData.inputTwoName}
-          defaultValue={bookFormData.inputTwoValue}
-          onChange={handleInputTwoEditChange}
-        />
-      </div>
-
-      {/* action buttons */}
-      <div className="form-actions-wrapper">
-        {
-          isEditing
-          &&
+      <form
+        onSubmit={handleBookFormSubmitLocal}
+        className={`form book-form ${classNm}`}
+      >
+        <div className="input-one">
+          <label htmlFor={bookFormData.inputOneID}>{bookFormData.inputOneLabel}</label>
           <input
-            className="button-action-secondary"
-            onClick={onMaskEvent}
-            type="button"
-            value="Cancel"
+            type={bookFormData.inputOneType}
+            id={bookFormData.inputOneID}
+            name={bookFormData.inputOneName}
+            defaultValue={bookFormData.inputOneValue}
+            onChange={handleInputOneEditChange}
+            required
           />
-        }
+        </div>
 
-        <input
-          className="button-action-primary"
-          type="submit"
-          value={bookFormData.buttonValue}
-          disabled={disabled}
-        />
-      </div>
-    </form>
+        <div className="input-two">
+          <label htmlFor={bookFormData.inputTwoID}>{bookFormData.inputTwoLabel}</label>
+          <input
+            type={bookFormData.inputTwoType}
+            id={bookFormData.inputTwoID}
+            name={bookFormData.inputTwoName}
+            defaultValue={bookFormData.inputTwoValue}
+            onChange={handleInputTwoEditChange}
+          />
+        </div>
+
+        {/* action buttons */}
+        <div className="form-actions-wrapper">
+          {
+            isEditing
+            &&
+            <input
+              className="button-action-secondary"
+              onClick={onMaskEvent}
+              type="button"
+              value="Cancel"
+            />
+          }
+
+          <input
+            className="button-action-primary"
+            type="submit"
+            value={bookFormData.buttonValue}
+            disabled={disabled}
+          />
+        </div>
+      </form>
     </>
   );
 };

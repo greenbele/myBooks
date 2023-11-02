@@ -1,0 +1,11 @@
+.button-action-primary {
+  @include button-defaults;
+  background-color: map-get($colors, 'primary-3');
+  color: #FFF;
+}
+
+.button-action-secondary {
+  @include button-defaults;
+  background-color: map-get($colors, 'primary-8');
+  color: map-get($colors, 'primary-1');
+}

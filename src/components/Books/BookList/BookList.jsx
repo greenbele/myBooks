@@ -11,9 +11,10 @@ const BookList = ({
   return (
     BooksManager.books
     ?
-    <div>
+    <div className="BookList section">
       <h2>All Books</h2>
 
+      <div>
       {
         BooksManager.books.length
         ?
@@ -36,6 +37,7 @@ const BookList = ({
         :
         'No books. Create some with the form above.'
       }
+      </div>
     </div>
     :
     <p>No books yet</p>

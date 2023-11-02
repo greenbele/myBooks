@@ -10,6 +10,12 @@
   padding-bottom: 0;
   @include card-defaults;
 
+  & .card-action-div {
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: -20px;
+  }
+
   &-headline-tagline {
     padding: 10px;
   }

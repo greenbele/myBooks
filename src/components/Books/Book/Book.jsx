@@ -73,7 +73,7 @@ const Book = ({
   const classNm = isActive ? 'book-edit-active' : 'book-edit-inactive';
 
   return (
-    <li>
+    <li className="card">
       <h3>{book.bookTitle}</h3>
 
       {/* book toolbar */}

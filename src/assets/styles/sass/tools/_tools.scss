@@ -1,6 +1,22 @@
 @mixin card-defaults {
   background-color: #FFF;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   border-radius: 7px;
+  padding: 20px;
   box-shadow: map-get($box-shadows, 'shadow-2');
+}
+
+@mixin button-defaults {
+  display: inline-block;
+  height: 3em;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+@mixin input-defaults {
+  height: 2.5em;
+  background-color: map-get($colors, 'gray-9');
+  border: none;
 }
