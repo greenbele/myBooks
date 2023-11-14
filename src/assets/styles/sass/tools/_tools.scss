@@ -4,6 +4,7 @@
   border-radius: 7px;
   padding: 20px;
   box-shadow: map-get($box-shadows, 'shadow-2');
+  background-color: map-get($colors, 'primary-9');
 }
 
 @mixin button-defaults {
@@ -28,6 +29,6 @@
   align-items: center;
 
   border: none;
-  height: 3em;
+  height: map-get($actions, 'item-height');
   border-radius: 5px;
 }

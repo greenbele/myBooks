@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import BookForm from '../BookForm/BookForm';
 import { BookFormData } from '../../../constants';
 import { useState } from "react";
+import { HiChevronRight, HiPencil, HiTrash } from 'react-icons/hi';
 
 /* eslint-disable react/prop-types */
 
@@ -78,9 +79,18 @@ const Book = ({
 
       {/* book toolbar */}
       <div className="Book-actions">
-        <Link className="Book__a_open" to={book.bookURI}>Open</Link>
-        <button className="Book__button_edit" onClick={handleBookEditButtonClickLocal}>Edit</button>
-        <button className="Book__button_delete" onClick={handleBookDeleteButtonClickLocal}>Delete</button>
+        <Link className="Book__a_open" to={book.bookURI}>
+          Open
+          <HiChevronRight />
+        </Link>
+        <button className="Book__button_edit" onClick={handleBookEditButtonClickLocal}>
+          <HiPencil />
+          Edit
+        </button>
+        <button className="Book__button_delete" onClick={handleBookDeleteButtonClickLocal}>
+          <HiTrash />
+          Delete
+        </button>
       </div>
 
       {/* book edit form */}
