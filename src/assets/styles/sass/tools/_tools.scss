@@ -9,7 +9,7 @@
 @mixin button-defaults {
   display: inline-block;
   height: 3em;
-  padding: 5px 15px;
+  padding: 5px 20px;
   border: none;
   border-radius: 10px;
   font-weight: bold;
@@ -19,4 +19,5 @@
   height: 2.5em;
   background-color: map-get($colors, 'gray-9');
   border: none;
+  border-radius: 5px;
 }

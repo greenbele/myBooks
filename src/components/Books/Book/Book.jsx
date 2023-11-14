@@ -73,14 +73,14 @@ const Book = ({
   const classNm = isActive ? 'book-edit-active' : 'book-edit-inactive';
 
   return (
-    <li className="card">
-      <h3>{book.bookTitle}</h3>
+    <li className="Book__li">
+      <h3 className="Book__h3">{book.bookTitle}</h3>
 
       {/* book toolbar */}
-      <div>
-        <Link to={book.bookURI}>Open</Link>
-        <button onClick={handleBookEditButtonClickLocal}>Edit</button>
-        <button onClick={handleBookDeleteButtonClickLocal}>Delete</button>
+      <div className="Book-actions">
+        <Link className="Book__a_open" to={book.bookURI}>Open</Link>
+        <button className="Book__button_edit" onClick={handleBookEditButtonClickLocal}>Edit</button>
+        <button className="Book__button_delete" onClick={handleBookDeleteButtonClickLocal}>Delete</button>
       </div>
 
       {/* book edit form */}

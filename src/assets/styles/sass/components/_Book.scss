@@ -1,0 +1,13 @@
+.Book {
+  &__li {
+    @include card-defaults;
+    padding: 0;
+  }
+
+  &__h3 {
+    margin: 0;
+    height: 3em;
+    text-align: center;
+    border-bottom: 1px solid gray;
+  }
+}
