@@ -42,3 +42,14 @@ $fonts: (
 $sections: (
   'bottom-margin': 60px,
 );
+
+$actions: (
+  'primary-background-color': map-get($colors, 'primary-3'),
+  'primary-text-color': #FFF,
+
+  'secondary-background-color': map-get($colors, 'primary-8'),
+  'secondary-text-color': map-get($colors, 'primary-2'),
+
+  'danger-background-color': rgba(240, 0, 0, .4),
+  'danger-text-color': #FFF,
+);

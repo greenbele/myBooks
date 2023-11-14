@@ -6,8 +6,38 @@
 
   &__h3 {
     margin: 0;
-    height: 3em;
+    height: 5em;
     text-align: center;
-    border-bottom: 1px solid gray;
+    // border-bottom: 1px solid gray;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &-actions {
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+      @include action-defaults;
+    }
+
+    & .Book__a_open {
+      text-decoration: none;
+      background-color: map-get($actions, 'primary-background-color');
+      color: map-get($actions, 'primary-text-color');
+    }
+
+    & .Book__button_edit {
+      background-color: map-get($actions, 'secondary-background-color');
+      color: map-get($actions, 'secondary-text-color');
+    }
+
+    & .Book__button_delete {
+      background-color: #FFF;
+      border: 1px solid red;
+      color: red;
+    }
   }
 }

@@ -21,3 +21,13 @@
   border: none;
   border-radius: 5px;
 }
+
+@mixin action-defaults {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  height: 3em;
+  border-radius: 5px;
+}
