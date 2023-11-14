@@ -10,7 +10,7 @@
     height: 5em;
     text-align: center;
     color: map-get($colors, 'primary-1');
-    background-color: map-get($colors, 'primary-9');
+    // background-color: map-get($colors, 'primary-9');
 
     display: flex;
     justify-content: center;
@@ -21,7 +21,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: map-get($colors, 'primary-9');
+    // background-color: map-get($colors, 'primary-9');
 
     & > * {
       @include action-defaults;
