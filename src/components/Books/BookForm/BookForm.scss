@@ -25,25 +25,29 @@ $viewport-width-65: (13 / 20) * $viewport-width;
   background-color: #FFF;
   border-radius: 5px;
   position: fixed;
-  top: 45%;
+  top: 100%;
   left: min(10%, 350px);
   right: min(10%, 350px);
 }
 
 .book-edit-active {
+  box-sizing: border-box;
+
   animation-name: show;
   animation-duration: .6s;
   animation-fill-mode: forwards;
 
   width: 80vw;
-  background-color: #FFF;
+  // background-color: #FFF;
   border-radius: 5px;
   position: fixed;
-  top: 45%;
-  // left: min(10%, 350px);
-  // left: 50%;
-  margin-left: auto;
+  top: 50%;
+  margin-top: -6rem;
+  left: 50%;
+  margin-left: -(calc(80vw / 2));
   margin-right: auto;
-  // right: min(10%, 350px);
+
+  padding: 30px;
+
   z-index: 999;
 }
