@@ -94,43 +94,51 @@ const ChapterForm = ({
 
       <form
         onSubmit={handleBookFormSubmitLocal}
-        className={`chapter-form ${classNm}`}
+        className={`form book-form ${classNm}`}
       >
-        <label htmlFor={bookFormData.inputOneID}>{bookFormData.inputOneLabel}</label>
-        <input
-          type={bookFormData.inputOneType}
-          id={bookFormData.inputOneID}
-          name={bookFormData.inputOneName}
-          defaultValue={bookFormData.inputOneValue}
-          onChange={handleInputOneEditChange}
-          required
-        />
+        <div className="input-one">
+          <label htmlFor={bookFormData.inputOneID}>{bookFormData.inputOneLabel}</label>
+          <input
+            type={bookFormData.inputOneType}
+            id={bookFormData.inputOneID}
+            name={bookFormData.inputOneName}
+            defaultValue={bookFormData.inputOneValue}
+            onChange={handleInputOneEditChange}
+            required
+          />
+        </div>
 
-        <label htmlFor={bookFormData.inputTwoID}>{bookFormData.inputTwoLabel}</label>
-        <input
-          type={bookFormData.inputTwoType}
-          id={bookFormData.inputTwoID}
-          name={bookFormData.inputTwoName}
-          defaultValue={bookFormData.inputTwoValue}
-          onChange={handleInputTwoEditChange}
-        />
+        <div className="input-two">
+          <label htmlFor={bookFormData.inputTwoID}>{bookFormData.inputTwoLabel}</label>
+          <input
+            type={bookFormData.inputTwoType}
+            id={bookFormData.inputTwoID}
+            name={bookFormData.inputTwoName}
+            defaultValue={bookFormData.inputTwoValue}
+            onChange={handleInputTwoEditChange}
+          />
+        </div>
 
         {/* TODO: add cancel event handler on click */}
-        {
-          isEditing
-          &&
-          <input
-            onClick={onMaskEvent}
-            type="button"
-            value="Cancel"
-          />
-        }
+        <div className="form-actions-wrapper">
+          {
+            isEditing
+            &&
+            <input
+              className="button-action-secondary"
+              onClick={onMaskEvent}
+              type="button"
+              value="Cancel"
+            />
+          }
 
-        <input
-          type="submit"
-          value={bookFormData.buttonValue}
-          disabled={disabled}
-        />
+          <input
+            className="button-action-primary"
+            type="submit"
+            value={bookFormData.buttonValue}
+            disabled={disabled}
+          />
+        </div>
       </form>
     </>
   );

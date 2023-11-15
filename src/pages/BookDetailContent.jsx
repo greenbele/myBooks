@@ -81,16 +81,20 @@ const BookDetailContent = ({
     null
     :
     <>
-      <h1>{bookTitle} Contents</h1>
-      <p>{introPara}</p>
+      <div className="h1-tagline">
+        <h1>{bookTitle} Contents</h1>
+        <p>{introPara}</p>
+      </div>
 
-      <div>
+      <div className="section">
         <h2>Create new chapter</h2>
 
-        <ChapterForm
-          onBookFormSubmit={handleChapterCreateFormSubmitLocal}
-          bookFormData={bookFormData}
-        />
+        <div className="card">
+          <ChapterForm
+            onBookFormSubmit={handleChapterCreateFormSubmitLocal}
+            bookFormData={bookFormData}
+          />
+        </div>
       </div>
 
       {/* SCAFF */}

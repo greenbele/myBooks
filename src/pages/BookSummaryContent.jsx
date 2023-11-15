@@ -70,7 +70,6 @@ const BookContent = ({
       <div className="section">
         <h2>Create new book</h2>
         <div className="card">
-
           <BookForm
             onBookFormSubmit={handleBookCreateFormSubmitLocal}
             bookFormData={bookFormData}
