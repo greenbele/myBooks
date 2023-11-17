@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { HiChevronRight, HiTrash } from 'react-icons/hi';
 import { useState } from 'react';
 import * as _ from "lodash";
 
@@ -129,7 +130,10 @@ const Chapter = ({
 
       {/* book toolbar */}
       <div className="Book-actions">
-        <Link className="Book__a_open" to={chapter.chapterURI}>Open</Link>
+        <Link className="Book__a_open" to={chapter.chapterURI}>
+          Open
+          <HiChevronRight />
+        </Link>
 
         {/*<button>Edit</button>*/}
         <EditMenu
@@ -146,7 +150,10 @@ const Chapter = ({
           onChapterEditFormActive={handleChapterEditFormActive}
         />
 
-        <button className="Book__button_delete" onClick={handleChapterDeleteButtonClickLocal}>Delete</button>
+        <button className="Book__button_delete" onClick={handleChapterDeleteButtonClickLocal}>
+          <HiTrash />
+          Delete
+        </button>
       </div>
 
       {/* book edit page link */}

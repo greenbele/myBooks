@@ -3,7 +3,9 @@
   height: 100%;
   width: 80%;
 
-  border-radius: map-get($actions, 'item-height') / 2;
+  border: 1px solid map-get($colors, 'primary-2');
+  border-top-left-radius: map-get($actions, 'item-height') / 2;
+  border-bottom-left-radius: map-get($actions, 'item-height') / 2;
 
   background-color: map-get($actions, 'secondary-background-color');
   color: map-get($actions, 'secondary-text-color');
@@ -14,9 +16,9 @@ button.edit-options {
   height: 100%;
   width: 20%;
 
-  border-radius: map-get($actions, 'item-height') / 2;
-  border: 3px solid;
-  border-radius-right: 50%;
+  border: 1px solid map-get($colors, 'primary-2');
+  border-top-right-radius: map-get($actions, 'item-height') / 2;
+  border-bottom-right-radius: map-get($actions, 'item-height') / 2;
 
   background-color: map-get($actions, 'secondary-background-color');
   color: map-get($actions, 'secondary-text-color');
