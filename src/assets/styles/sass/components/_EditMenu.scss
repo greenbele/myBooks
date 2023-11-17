@@ -1,0 +1,23 @@
+.edit-default {
+  display: block;
+  height: 100%;
+  width: 80%;
+
+  border-radius: map-get($actions, 'item-height') / 2;
+
+  background-color: map-get($actions, 'secondary-background-color');
+  color: map-get($actions, 'secondary-text-color');
+}
+
+button.edit-options {
+  display: block;
+  height: 100%;
+  width: 20%;
+
+  border-radius: map-get($actions, 'item-height') / 2;
+  border: 3px solid;
+  border-radius-right: 50%;
+
+  background-color: map-get($actions, 'secondary-background-color');
+  color: map-get($actions, 'secondary-text-color');
+}

@@ -124,12 +124,12 @@ const Chapter = ({
   const classNm = isActive ? 'active' : '';
 
   return (
-    <li>
-      <h3>{chapter.chapterTitle}</h3>
+    <li className="Book__li">
+      <h3 className="Book__h3">{chapter.chapterTitle}</h3>
 
       {/* book toolbar */}
-      <div>
-        <Link to={chapter.chapterURI}>Open</Link>
+      <div className="Book-actions">
+        <Link className="Book__a_open" to={chapter.chapterURI}>Open</Link>
 
         {/*<button>Edit</button>*/}
         <EditMenu
@@ -146,7 +146,7 @@ const Chapter = ({
           onChapterEditFormActive={handleChapterEditFormActive}
         />
 
-        <button onClick={handleChapterDeleteButtonClickLocal}>Delete</button>
+        <button className="Book__button_delete" onClick={handleChapterDeleteButtonClickLocal}>Delete</button>
       </div>
 
       {/* book edit page link */}

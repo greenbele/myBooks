@@ -22,7 +22,7 @@ const EditMenu = ({
   };
 
   return (
-    <div className="edit-menu-wrapper">
+    <div className="Book__button_edit edit-menu-wrapper">
       <button
         className="edit-default"
         onClick={handleChapterEditButtonClickLocal}
